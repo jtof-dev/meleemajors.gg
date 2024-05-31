@@ -1,5 +1,5 @@
 body {
-  background-image: url("../assets/backgrounds/bts-zain-mango.jpg");
+  background-image: url("/assets/backgrounds/bts-zain-mango.jpg");
   background-repeat: no-repeat;
   background-color: black;
   background-size: cover;
@@ -22,7 +22,7 @@ body {
 }
 
 .tournament-image {
-  background-image: url("../assets/tipped off 15.png");
+  background-image: url("/assets/tipped off 15.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 200px;
