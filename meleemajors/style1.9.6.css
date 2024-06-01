@@ -1,0 +1,416 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+.location-online {
+  font-size: 12px;
+  color: #44a963;
+  display: inline;
+  border-right: 1px solid #44a963;
+  padding-right: 10px;
+  padding-left: 5px;
+}
+
+.attendees {
+  margin-left: 10px;
+  display: inline;
+}
+
+.location-place {
+  font-size: 12px;
+  color: #1874cd;
+  display: inline;
+  border-right: 1px solid #1874cd;
+  /* #0c8cf4; */
+  padding-right: 10px;
+  padding-left: 5px;
+}
+
+.bgImg {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1100ms ease-in-out 0s;
+}
+
+.bgImgShow {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 1100ms ease-in-out 0s;
+}
+
+body {
+  background-color: black;
+}
+
+h5 {
+  margin: 0px 10px 0 10px;
+  text-align: center;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 55vh;
+}
+
+header > h1 {
+  filter: drop-shadow(30px 10px 4px #000000);
+}
+
+header > h2 {
+  filter: drop-shadow(30px 10px 4px #000000);
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  width: 320px;
+  margin: 10px;
+  border-radius: 15px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card-image {
+  height: 170px;
+  margin-bottom: 0px;
+  background-size: cover;
+  border-radius: 15px 15px 0 0;
+  background-position: center;
+}
+
+.card-mainstage {
+  background-image: url(/meleemajors/mainstage.png);
+}
+
+.card-swt {
+  background-image: url(/web/20221202045416im_/https://www.meleemajors.com/swt.jpg);
+}
+
+.card-panda {
+  background-image: url(/web/20221202045416im_/https://www.meleemajors.com/panda.webp);
+}
+
+.card-g {
+  background-image: url(/meleemajors/genesis.png);
+}
+
+.card-dd {
+  background-image: url(/web/20221202045416im_/https://www.meleemajors.com/doubledown.png);
+}
+
+.card-collision {
+  background-image: url(/meleemajors/collision.png);
+}
+
+.card-ltc {
+  background-image: url(/meleemajors/lowtidecity.jpg);
+}
+
+.card-fete {
+  background-image: url(/meleemajors/fete.png);
+}
+
+.card h2 {
+  color: black;
+  padding: 10px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card h4 {
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card > p {
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  text-decoration: underline;
+}
+.fix {
+  line-height: 1.5;
+  font-size: 14px;
+  text-align: center;
+}
+
+.button-box {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0px;
+}
+
+.card a {
+  background-color: lightgray;
+  color: black;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 1px 1px 1px darkgray;
+}
+
+.card .button1 {
+  border-radius: 15px 15px 15px 15px;
+  border-right: 1px solid darkgray;
+}
+
+.card .button2 {
+  border-radius: 15px 15px 15px 15px;
+  border-left: 1px solid darkgray;
+}
+
+.button1:hover {
+  background-image: linear-gradient(to right, rgb(203, 51, 59, 0.5), rgb(191,148,255,.9));
+  color: white;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.4s ease;
+}
+
+.button2:hover {
+  background-image: linear-gradient(to right, rgb(203, 51, 59, 0.5), rgb(191,148,255,.9));
+  color: white;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.4s ease;
+}
+
+footer p {
+  margin: 225px 0 0 0;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  background-image: linear-gradient(to right, rgb(203, 51, 59,.75), rgb(191,148,255,.75));
+  color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.fa-reddit {
+  background: #ff5700;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+
+.fa {
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+p a {
+  text-decoration: none;
+  color: white;
+}
+
+p a:link {
+  text-decoration: none;
+  color: white;
+}
+
+p a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card2 {
+  background: rgba(255, 255, 255, 0.3);
+  width: 320px;
+  margin: 10px;
+  border-radius: 15px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card2 a {
+  background-color: lightgray;
+  color: black;
+  padding: 15px 30px;
+  margin: 2px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 1px 1px 1px darkgray;
+  font-size: 19px;
+}
+
+.card2 .button1 {
+  border-radius: 15px 15px 15px 15px;
+  border-right: 1px solid darkgray;
+}
+
+.card2 .button2 {
+  border-radius: 15px 15px 15px 15px;
+  border-left: 1px solid darkgray;
+}
+
+.card2 h2 {
+  color: black;
+  padding: 10px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card2 h4 {
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  animation: fadeIn 1.5s;
+  -webkit-animation: fadeIn 1.5s;
+  -moz-animation: fadeIn 1.5s;
+  -o-animation: fadeIn 1.5s;
+  -ms-animation: fadeIn 1.5s;
+}
+
+.card2 > p {
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  text-decoration: underline;
+}
+/*
+     FILE ARCHIVED ON 04:54:16 Dec 02, 2022 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:42:08 Jun 01, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.539
+  exclusion.robots: 0.072
+  exclusion.robots.policy: 0.064
+  esindex: 0.007
+  cdx.remote: 17.481
+  LoadShardBlock: 97.812 (3)
+  PetaboxLoader3.datanode: 71.721 (4)
+  PetaboxLoader3.resolve: 90.04 (2)
+  load_resource: 85.375
+*/
