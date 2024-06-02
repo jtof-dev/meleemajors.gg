@@ -7,25 +7,33 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 0px;
+  margin: 0 0 0 0;
+}
+
+p, h1, h2, h3, h4, li {
+  margin: 0 0 0 0;
+  padding: 0px;
 }
 
 .tournament-card {
   background-color: white;
-  width: 400px;
-  height: 700px;
+  width: 320px;
+  height: 540px;
   padding: 0px;
   text-align: center;
-  text-wrap: stable;
+  text-wrap: pretty;
   opacity: 95%;
   border-radius: 25px;
   overflow: hidden;
+  margin: 20px;
 }
 
 .tournament-image {
   background-image: url("assets/tipped off 15.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 200px;
+  height: 170px;
 }
 
 footer {
@@ -36,13 +44,16 @@ footer {
   position: absolute;
   bottom: 0px;
   font-size: 20px;
+  margin: 0 0 0 0;
+  padding: 0px;
 }
 
 .footer {
   background-image: linear-gradient(to right, #FE5296, #F77063);
   width: 100vw;
-  height: 200px;
+  height: 50px;
   border-radius: 60px 60px 0px 0px;
+  margin: none;
 }
 
 .footer p {
@@ -54,4 +65,22 @@ footer {
   color: #00FFEF;
   font-size: inherit;
   text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.two-column-list {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  list-style-type: none;
+  padding: 0;
+}
+
+.two-column-list li {
+  margin: 0 0 0px 0;
 }
