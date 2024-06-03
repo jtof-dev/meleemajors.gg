@@ -8,46 +8,51 @@
   --link-color: #088F9C;
 }
 
+html {
+  scroll-snap-type: y proximity;
+}
+
 body {
-  background-image: url("assets/backgrounds/bts-zain-mango.jpg");
+  background-image: url("assets/backgrounds/hbox\ stare.png");
   background-repeat: no-repeat;
   background-color: black;
   background-size: cover;
-  display: flex;
+  background-attachment: fixed;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
+  text-align: center;
   height: 100vh;
   padding: 0px;
+  padding-top: 50px;
   margin: 0 0 0 0;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  scroll-snap-align: start;
 }
 
 h1 {
   color: white;
-  position: absolute;
-  top: 75px;
-  left: center;
   font-size: 45px;
+  text-shadow: 0px 5px 25px black;
 }
 
 .top {
   color: white;
-  position: absolute;
-  top: 135px;
-  left: center;
   font-size: 35px;
+  text-shadow: 10px 10px 10px black;
+  font-weight: normal;
 }
 
 .background-gradient {
   background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 75%));
+  position: fixed;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
 }
 
 p,
@@ -59,6 +64,15 @@ li,
 ul {
   margin: 0 0 0 0;
   padding: 5px;
+}
+
+.card-container {
+  min-height: calc(100vh - 225px);
+  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
@@ -73,6 +87,8 @@ ul {
   margin: 20px;
   font-size: 16px;
   transition: all 200ms, border 500ms;
+  scroll-margin: 20px;
+  scroll-snap-align: start;
 }
 
 .card:hover {
@@ -187,24 +203,26 @@ footer {
   align-items: center;
   text-align: center;
   display: flex;
-  position: absolute;
-  bottom: 0px;
   font-size: 20px;
   margin: 0 0 0 0;
-  padding: 0px;
+  z-index: 1;
+  position: relative;
 }
 
 .footer {
   background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
-  width: 100vw;
+  width: max-content;
   height: max-content;
-  border-radius: 60px 60px 0px 0px;
+  border-radius: 25px 25px 0px 0px;
+  padding: 20px 60px;
   margin: none;
 }
 
 .footer p {
   color: white;
   font-size: inherit;
+  text-wrap: balance;
+  line-height: 1.5;
 }
 
 .footer a {
@@ -213,15 +231,14 @@ footer {
   font-weight: 500;
 }
 
-.footer hr {
-  width: 95vw;
-  box-shadow: none;
-}
-
 a {
   /* background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
   background-clip: text;
   color: transparent; */
   color: var(--link-color);
   font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
