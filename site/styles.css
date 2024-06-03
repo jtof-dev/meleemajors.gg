@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --left-gradient: #FE5296;
+  --right-gradient: #F77063;
+  --button-color: #e2e2e2;
+  --button-color-border: #bbbbbb;
+  --link-color: #088F9C;
+}
+
 body {
   background-image: url("assets/backgrounds/bts-zain-mango.jpg");
   background-repeat: no-repeat;
@@ -9,31 +19,167 @@ body {
   height: 100vh;
   padding: 0px;
   margin: 0 0 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-p, h1, h2, h3, h4, li {
+h1 {
+  color: white;
+  position: absolute;
+  top: 75px;
+  left: center;
+  font-size: 45px;
+}
+
+.top {
+  color: white;
+  position: absolute;
+  top: 135px;
+  left: center;
+  font-size: 35px;
+}
+
+.background-gradient {
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 75%));
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+li,
+ul {
   margin: 0 0 0 0;
-  padding: 0px;
+  padding: 5px;
 }
 
-.tournament-card {
-  background-color: white;
-  width: 320px;
-  height: 540px;
-  padding: 0px;
+.card {
+  --card-border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  height: 520px;
   text-align: center;
   text-wrap: pretty;
   opacity: 95%;
-  border-radius: 25px;
-  overflow: hidden;
   margin: 20px;
+  font-size: 16px;
+  transition: all 200ms, border 500ms;
 }
 
-.tournament-image {
-  background-image: url("assets/tipped off 15.png");
+.card:hover {
+  scale: 105%;
+  /* border-radius: 25px;
+  border-color: red;
+  border-style: solid; */
+}
+
+.card-content {
+  background-color: white;
+  border-bottom-right-radius: var(--card-border-radius);
+  border-bottom-left-radius: var(--card-border-radius);
+  flex-grow: 1;
+  margin-top: -2px;
+}
+
+.card p {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.card b {
+  font-weight: 600;
+}
+
+.card u {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  /* color: rgba(0, 0, 0, 50%); */
+  font-size: 16px;
+  font-weight: 550;
+}
+
+.card li {
+  padding: 5px;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.card h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.card hr {
+  margin: 5px 20px;
+}
+
+.image {
   background-size: cover;
   background-repeat: no-repeat;
   height: 170px;
+  border-top-left-radius: var(--card-border-radius);
+  border-top-right-radius: var(--card-border-radius);
+}
+
+.featured-players {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featured-players-columns {
+  columns: 2;
+  list-style-type: none;
+  padding: 0;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.card-button {
+  font-weight: 500;
+  display: inline-block;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+  /* margin-bottom: 5px; */
+  border: 2px solid var(--button-color-border);
+  text-decoration: none;
+  background-color: var(--button-color);
+  color: black;
+  width: 90px;
+  line-height: 45px;
+  height: 45px;
+  border-radius: 17px;
+  transition: all 200ms, color 400ms;
+}
+
+.card-button:hover {
+  background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  scale: 110%;
+  border-color: white;
+  color: white;
+}
+
+.card-button:active {
+  transition: all 30ms;
+  scale: 95%;
 }
 
 footer {
@@ -49,9 +195,9 @@ footer {
 }
 
 .footer {
-  background-image: linear-gradient(to right, #FE5296, #F77063);
+  background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
   width: 100vw;
-  height: 50px;
+  height: max-content;
   border-radius: 60px 60px 0px 0px;
   margin: none;
 }
@@ -62,25 +208,20 @@ footer {
 }
 
 .footer a {
-  color: #00FFEF;
-  font-size: inherit;
   text-decoration: none;
+  color: black;
+  font-weight: 500;
 }
 
-.container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+.footer hr {
+  width: 95vw;
+  box-shadow: none;
 }
 
-.two-column-list {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
-  list-style-type: none;
-  padding: 0;
-}
-
-.two-column-list li {
-  margin: 0 0 0px 0;
+a {
+  /* background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  background-clip: text;
+  color: transparent; */
+  color: var(--link-color);
+  font-weight: 500;
 }
