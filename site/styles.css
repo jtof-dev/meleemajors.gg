@@ -98,11 +98,11 @@ body.dark-mode {
 }
 
 /* change mobile background to make it less blurry and load faster */
-/* @media screen and (max-width: 739px) {
+@media screen and (max-width: 1000px) {
   body {
-  background-image: url("assets/backgrounds/mobile3.webp");
+  background-image: url("assets/backgrounds/mobile.webp");
   }
-} */
+}
 
 .title {
   color: white;
@@ -344,6 +344,11 @@ footer {
 .footer a {
   color: black;
   font-weight: 500;
+}
+
+.footer hr {
+  border-color: white;
+  color: white;
 }
 
 .footer button {
