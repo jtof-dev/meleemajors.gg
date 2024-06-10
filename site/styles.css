@@ -3,8 +3,6 @@
 :root {
   --left-gradient: #FE5296;
   --right-gradient: #F77063;
-  --button-color: #e2e2e2;
-  --button-color-border: #bbbbbb;
   --link-color: #088F9C;
 }
 
@@ -27,13 +25,29 @@ body {
   font-style: normal;
 }
 
-h1 {
+body.light-mode {
+  --card-text-color: #000000;
+  --button-color: #e2e2e2;
+  --button-color-border: #bbbbbb;
+  --card-background: #ffffff;
+  --card-button-border-hover: #ffffff;
+}
+
+body.dark-mode {
+  --card-text-color: #ffffff;
+  --card-background: #181a1b;
+  --button-color: #2a2b2b;
+  --button-color-border: #505050;
+  --card-button-border-hover: #181a1b;
+}
+
+.title {
   color: white;
   font-size: 45px;
   text-shadow: 0px 5px 25px black;
 }
 
-.top {
+.subtitle {
   color: white;
   font-size: 35px;
   text-shadow: 10px 10px 10px black;
@@ -70,18 +84,61 @@ ul {
   align-items: center;
 }
 
+@keyframes fade-in-light {
+  0% {
+    opacity: 0;
+    translate: 0 -20px;
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.95;
+    translate: 0;
+  }
+}
+
+@keyframes fade-in-dark {
+  0% {
+    opacity: 0;
+    translate: 0 -20px;
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: .95;
+    translate: 0;
+  }
+}
+
+.dark-mode .card {
+  animation: fade-in-dark .6s ease-in-out;
+}
+
+.light-mode .card {
+  animation: fade-in-light .6s ease-in-out;
+}
+
 .card {
   --card-border-radius: 25px;
+  --card-animation-delay: 0.2s;
+  color: var(--card-text-color);
   display: flex;
   flex-direction: column;
   width: 330px;
-  height: 520px;
+  height: fit-content;
   text-align: center;
   text-wrap: pretty;
   opacity: 95%;
   margin: 20px;
   font-size: 16px;
   transition: all 200ms, border 500ms;
+  animation-fill-mode: both;
 }
 
 .card:hover {
@@ -92,11 +149,13 @@ ul {
 }
 
 .card-content {
-  background-color: white;
+  background-color: var(--card-background);
   border-bottom-right-radius: var(--card-border-radius);
   border-bottom-left-radius: var(--card-border-radius);
+  padding-bottom: 15px;
   flex-grow: 1;
   margin-top: -2px;
+  box-shadow: 0px 5px 25px black;
 }
 
 .card p {
@@ -167,11 +226,12 @@ ul {
   display: inline-block;
   margin-left: 2.5px;
   margin-right: 2.5px;
+  margin-top: 6px;
   /* margin-bottom: 5px; */
   border: 2px solid var(--button-color-border);
   text-decoration: none;
   background-color: var(--button-color);
-  color: black;
+  color: var(--card-text-color);
   width: 90px;
   line-height: 45px;
   height: 45px;
@@ -182,7 +242,7 @@ ul {
 .card-button:hover {
   background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
   scale: 110%;
-  border-color: white;
+  border-color: var(--card-button-border-hover);
   color: white;
 }
 
@@ -221,6 +281,23 @@ footer {
 .footer a {
   color: black;
   font-weight: 500;
+}
+
+.footer button {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px 15px;
+  margin: 0 10px;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+}
+
+.footer button:hover {
+  color: black;
+  border-color: black;
+  transition: all .35s;
 }
 
 a {

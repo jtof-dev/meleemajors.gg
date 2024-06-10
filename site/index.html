@@ -12,9 +12,9 @@
         data-website-id="2e6188c4-56e6-49cc-bd9e-511523dc3fb7"></script>
 </head>
 
-<body>
-    <h1>Melee Majors</h1>
-    <h2 class="top">The Largest Upcoming Melee Events</h2>
+<body class="dark-mode">
+    <h1 class="title">Melee Majors</h1>
+    <h2 class="subtitle">The Largest Upcoming Melee Events</h2>
     <div class="background-gradient"></div>
     <div class="card-container">
         <div class="card">
@@ -197,6 +197,9 @@
     </div>
     <footer>
         <div class="footer">
+            <!-- <button>calendar</button> -->
+            <button onclick="switchcolors(event)" data-umami-event="theme-toggle-clicked">switch to light mode</button>
+            <hr>
             <p>see something wrong? open an issue or pull request on our <a
                     href="https://github.com/jtof-dev/meleemajors.gg" data-umami-event="github-link-clicked">github
                     repo</a></p>
