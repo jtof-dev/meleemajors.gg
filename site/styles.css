@@ -1,4 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* taken from https://gwfh.mranftl.com/fonts */
+/* montserrat-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/montserrat-v26-latin-regular.woff2') format('woff2');
+}
+/* montserrat-italic - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('assets/fonts/montserrat-v26-latin-italic.woff2') format('woff2');
+}
+/* montserrat-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  src: url('assets/fonts/montserrat-v26-latin-500.woff2') format('woff2');
+}
+/* montserrat-600 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url('assets/fonts/montserrat-v26-latin-600.woff2') format('woff2');
+}
+/* montserrat-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('assets/fonts/montserrat-v26-latin-700.woff2') format('woff2');
+}
+/* montserrat-800 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  src: url('assets/fonts/montserrat-v26-latin-800.woff2') format('woff2');
+}
+/* montserrat-900 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  src: url('assets/fonts/montserrat-v26-latin-900.woff2') format('woff2');
+}
 
 :root {
   --left-gradient: #FE5296;
@@ -7,7 +63,7 @@
 }
 
 body {
-  background-image: url("assets/backgrounds/2.jpg");
+  background-image: url("assets/backgrounds/2.webp");
   background-repeat: no-repeat;
   background-color: black;
   background-size: cover;
@@ -40,6 +96,13 @@ body.dark-mode {
   --button-color-border: #505050;
   --card-button-border-hover: #181a1b;
 }
+
+/* change mobile background to make it less blurry and load faster */
+/* @media screen and (max-width: 739px) {
+  body {
+  background-image: url("assets/backgrounds/mobile3.webp");
+  }
+} */
 
 .title {
   color: white;
