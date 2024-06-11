@@ -58,6 +58,7 @@
 
 :root {
   --left-gradient: #FE5296;
+  --middle-gradient: #FA617B;
   --right-gradient: #F77063;
   --link-color: #088F9C;
 }
@@ -90,6 +91,11 @@ body {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+::selection {
+  background-color: var(--middle-gradient);
+  color: white;
 }
 
 .fixed-position {
