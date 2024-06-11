@@ -1,1 +1,3 @@
 .DS_Store
+ssg/target
+ssg/src/run.sh
