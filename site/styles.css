@@ -62,25 +62,6 @@
   --link-color: #088F9C;
 }
 
-body {
-  background-image: url("assets/backgrounds/2.webp");
-  background-repeat: no-repeat;
-  background-color: black;
-  background-size: cover;
-  background-attachment: fixed;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  text-align: center;
-  height: 100vh;
-  padding: 0px;
-  padding-top: 50px;
-  margin: 0 0 0 0;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
 body.light-mode {
   --card-text-color: #000000;
   --button-color: #e2e2e2;
@@ -97,10 +78,37 @@ body.dark-mode {
   --card-button-border-hover: #181a1b;
 }
 
+body {
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  padding: 0px;
+  padding-top: 50px;
+  margin: 0 0 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.fixed-position {
+  background-image: url("assets/backgrounds/2.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
+  z-index: -1;
+}
+
 /* change mobile background to make it less blurry and load faster */
 @media screen and (max-width: 1000px) {
-  body {
-  background-image: url("assets/backgrounds/mobile.webp");
+  .fixed-position {
+    background-image: url("assets/backgrounds/mobile.webp");
+    /* background-size: 100% auto; */
   }
 }
 
@@ -206,9 +214,6 @@ ul {
 
 .card:hover {
   scale: 105%;
-  /* border-radius: 25px;
-  border-color: red;
-  border-style: solid; */
 }
 
 .card-content {
@@ -369,9 +374,6 @@ footer {
 }
 
 a {
-  /* background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
-  background-clip: text;
-  color: transparent; */
   color: var(--link-color);
   font-weight: 500;
   text-decoration: none;
