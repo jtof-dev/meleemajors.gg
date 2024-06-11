@@ -2,6 +2,10 @@
 
 the successor to meleemajors.com
 
+## backend
+
+- on the backend, we are working on a static site generator written in rust - it reads a [tournaments.json](ssg/src/tournaments.json), and generates a tournament from each entry in that array
+
 ## hosting
 
 - we use [github pages](https://pages.github.com) to do all the work for us, as long as our website stays static
