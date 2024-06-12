@@ -1,70 +1,57 @@
 use std::env;
+use std::fs::File;
+use serde_json::Value;
 
 #[tokio::main]
 async fn main() {
-  // Parse the string of data into serde_json::Value.
-
-  // todo: get `data` from the file
-  //   let data = r#"
-  //     [
-  //       {
-  //         "start.gg": "https://www.start.gg/tournament/tipped-off-15-connected-1/details",
-  //         "schedule": "",
-  //         "featured-players": [
-  //           "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD"
-  //         ],
-  //         "stream": ""
-  //       },
-  //       {
-  //         "start.gg": "https://www.start.gg/tournament/ceo-2024-6/details",
-  //         "schedule": "",
-  //         "featured-players": [
-  //           "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD"
-  //         ],
-  //         "stream": ""
-  //       }
-  //     ]"#;
-
-  //   let v: Value = serde_json::from_str(data).unwrap();
-  //   println!("{}", v);
-
-  //   match v {
-  //     Value::Array(vec) => {
-  //       for tournament in vec {
-  //         println!("startgg: {}", tournament["start.gg"]);
-  //       }
-  //     },
-  //     _ => panic!("root must be an array")
-  //   }
-
-  // Needs an async executor, not included here for brevity.
-  // Explore libraries like `tokio` for async execution.
-  let slug = "tipped-off-15-connected-1";
-
+  let mut tournament_data: Vec<String> = Vec::new();
   let token = env::var("STARTGGAPI").unwrap();
-  println!("API key: {}", token);
 
-  let tournament_info = ggapi::get_tournament_info(slug, &token).await;
-  match tournament_info {
-    ggapi::GGResponse::Data(data) => {
-      println!("asdfasdf: {}", data.tournament().name());
+  // iterate through tournaments in json array
+  let tournaments = read_file("tournaments.json");
+
+  let v: Value = serde_json::from_str(&tournaments).unwrap();
+
+  match v {
+    Value::Array(vec) => {
+      for tournament in vec {
+        let tournament_slug = tournament["start.gg-tournament-name"].as_str().unwrap();
+        scrape_data(tournament_slug, &token).await;
+      }
     },
-    _ => {
-      println!("No tournament found.");
-    }
+    _ => panic!("root must be an array")
   }
 }
 
-// current_user: Option<Box<GGUser>>
-// entrant: Option<Box<GGEntrant>>
-// event: Option<Box<GGEvent>>
-// participant: Option<Box<GGParticipant>>
-// phase: Option<Box<GGPhase>>
-// phase_group: Option<Box<GGPhaseGroup>>
-// player: Option<Box<GGPlayer>>
-// set: Option<Box<GGSet>>
-// tournament: Option<Box<GGTournament>>
-// tournaments: Option<Box<GGTournamentConnection>>
-// user: Option<Box<GGUser>>
-// videogame: Option<Box<GGVideogame>>
-// videogames: Option<Box<GGVideogameConnection>>
+/** Returns string contents of file with given path or panics otherwise */
+fn read_file(path: &str) -> String {
+  let file = File::open(path).unwrap();
+  let file_contents = std::io::read_to_string(file).unwrap();
+  return file_contents;
+}
+
+async fn scrape_data(tournament_slug: &str, token: &str) {
+  // let tournament_info = ggapi::get_tournament_info(tournament_slug, token).await;
+
+  let query = read_file("graphql/getTournamentName.gql");
+
+  let vars = ggapi::Vars { id: ggapi::GGID::Int(0), slug: tournament_slug.to_string(), page: 1, per_page: 100 };
+
+  let tournament_data = ggapi::execute_query(token, &query, vars).await;
+  match tournament_data {
+    ggapi::GGResponse::Data(data) => {
+      println!("name: {}", data.tournament().name());
+    },
+    ggapi::GGResponse::Error(e) => panic!("error: {}", e),
+  }
+  // println!("name: {}", tournament_data);
+
+}
+
+fn generate_card() {
+
+}
+
+fn make_site() {
+
+}

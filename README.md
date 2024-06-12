@@ -48,8 +48,5 @@ the successor to meleemajors.com
 - [x] add dark mode / switch to dark mode
 - [x] credit the artist for the mobile picture (I can't find the original artist)
 - [x] make footer fit better relative to the text on-screen
-- [ ] add mobile view with scroll snapping between cards
 - [ ] add a currently live title for live tournaments
-- [ ] add a way to view schedule images natively (have the card flip, expand,
-  move to the side etc)
 - [ ] and, of course, write the backend

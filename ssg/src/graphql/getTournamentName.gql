@@ -1,0 +1,20 @@
+query TournamentQuery($slug: String, $slug_event: String) {
+  tournament(slug: $slug) {
+    name
+    startAt
+    endAt
+    city
+    addrState
+    venueAddress
+    images {
+      url
+      width
+    }
+    streams {
+      streamName
+    }
+  }
+  event(slug: $slug_event) {
+    id
+  }
+}
