@@ -10,9 +10,6 @@ query TournamentQuery($slug: String, $slug_event: String) {
       url
       width
     }
-    streams {
-      streamName
-    }
   }
   event(slug: $slug_event) {
     id

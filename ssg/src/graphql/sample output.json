@@ -1,0 +1,74 @@
+[
+{
+    "event": {
+        "id": 1024594
+    },
+    "tournament": {
+        "addrState": "GA",
+        "city": "Marietta",
+        "endAt": 1718596620,
+        "images": [
+            {
+                "url": "https://images.start.gg/images/tournament/610992/image-7e78651a6c55a84f90a6f996bfb9a5ed.png?ehk=aED%2FAw0XKq%2FzGgYYs1yeGsqW%2BsC6UDYYgTYsF%2BJHg%2FU%3D&ehkOptimized=iP6AOk9y2VzxYJQtud99mEHnzIPwf%2FnxgjDi%2BUkENvQ%3D",
+                "width": 749
+            },
+            {
+                "url": "https://images.start.gg/images/tournament/610992/image-58e23415dc3b5862f2d570728af0867a.png?ehk=2V96%2Fc025wwN7pj7v3T%2BUMECM4GH42yLwuxy%2F%2FJN4aw%3D&ehkOptimized=pkODnUH%2BWleSC0WmK48fCfIXWrn7YXx%2Fn14fG0y0KsI%3D",
+                "width": 1600
+            }
+        ],
+        "name": "Tipped Off 15: Connected",
+        "startAt": 1718460000,
+        "streams": [
+            {
+                "streamName": "mang0"
+            },
+            {
+                "streamName": "codyschwab"
+            },
+            {
+                "streamName": "nimbusroshi"
+            }
+        ],
+        "venueAddress": "N Hornet Dr, Marietta, GA 30060, USA"
+    }
+},
+{
+    "slug": "ceo-2024-6",
+    "slug_event": "tournament/ceo-2024-6/event/super-smash-bros-melee-1v1"
+},
+{
+    "event": {
+        "id": 1036869
+    },
+    "tournament": {
+        "addrState": "FL",
+        "city": "Daytona Beach",
+        "endAt": 1719799200,
+        "images": [
+            {
+                "url": "https://images.start.gg/images/tournament/617506/image-f3ebd0f2d1506f40d314ca74a5063378.png?ehk=%2BoHs11yk9Q%2BOJZJ%2F%2Fm2QEWZgV7QojSLrU1K4WVuba34%3D&ehkOptimized=UocMmEomtk%2BDKA1O%2FkErKaoLQ3n6miMM84zaN%2Fndl%2F4%3D",
+                "width": 500
+            },
+            {
+                "url": "https://images.start.gg/images/tournament/617506/image-8d24ee0594590acf297e41f66e6646ef.png?ehk=hgrSliJAEnrilrnXAZmSnnRFa9AfQyzFC5kVAXpeY3I%3D&ehkOptimized=qYCDW9cT7Oo2WB0dXoRATdMpuvw5LqCWkBBVaLejpeE%3D",
+                "width": 2560
+            }
+        ],
+        "name": "CEO 2024",
+        "startAt": 1719583200,
+        "streams": null,
+        "venueAddress": "101 N Atlantic Ave, Daytona Beach, FL 32118, USA"
+    }
+},
+{
+    "event": {
+        "numEntrants": 513
+    }
+},
+{
+    "event": {
+        "numEntrants": 132
+    }
+}
+]

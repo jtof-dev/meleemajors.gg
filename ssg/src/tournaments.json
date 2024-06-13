@@ -1,6 +1,7 @@
 [
   {
     "start.gg-tournament-name": "tipped-off-15-connected-1",
+    "start.gg-melee-singles": "tournament/tipped-off-15-connected-1/event/melee-singles",
     "schedule": "",
     "featured-players": [
       "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD"
@@ -9,11 +10,12 @@
   },
   {
     "start.gg-tournament-name": "ceo-2024-6",
+    "start.gg-melee-singles": "tournament/ceo-2024-6/event/super-smash-bros-melee-1v1",
     "schedule": "",
     "featured-players": [
       "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD", "TBD"
     ],
-    "stream": ""
+    "stream": "NA"
   }
 ]
 

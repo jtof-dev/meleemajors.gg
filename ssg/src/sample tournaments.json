@@ -1,0 +1,34 @@
+[
+    {
+        "start.gg-tournament-name": "<url tournament name>",
+        "start.gg-melee-singles": "tournament/<url tournament name>/event/<melee singles event name>",
+        "schedule": "<url or path to image>",
+        "featured-players": [
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD"
+        ],
+        "stream": "<either NA or url to stream>"
+    },
+    {
+        "start.gg-tournament-name": "<url tournament name>",
+        "start.gg-melee-singles": "tournament/<url tournament name>/event/<melee singles event name>",
+        "schedule": "<url or path to image>",
+        "featured-players": [
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "TBD"
+        ],
+        "stream": "<either NA or url to stream>"
+    }
+]
