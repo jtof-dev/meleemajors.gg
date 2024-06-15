@@ -1,0 +1,51 @@
+<div class="card">
+    <img src="{{start.gg-tournament-name}}.webp" class="image">
+    <div class="card-content">
+        <h2>{{name}}</h2>
+        <h4>{{date}}</h4>
+        <div class="featured-players">
+            <u>Featured Players</u>
+            <ul class="featured-players-columns">
+                <li>{{player1}}</li>
+                <li>{{player2}}</li>
+                <li>{{player3}}</li>
+                <li>{{player4}}</li>
+                <li>{{player5}}</li>
+                <li>{{player6}}</li>
+                <li>{{player7}}</li>
+                <li>{{player8}}</li>
+            </ul>
+        </div>
+        <hr>
+        <p>
+          <a class="card-location"
+            href="{{maps-link}}"
+            target="_blank"
+            data-umami-event="map-link-clicked"
+            data-umami-event-location="{{city-and-state}}">
+            {{city-and-state}}
+          </a> | <b>Attendees:</b> {{entrants}}
+        </p>
+        <hr>
+        <div class="buttons">
+            <a href="{{start.gg-url}}"
+              target="_blank"
+              class="card-button {{start-gg-link-class}}"
+              data-umami-event="start-gg-clicked"
+              data-umami-event-name="{{name}}"
+            >Start.gg</a>
+            <a href="{{schedule-url}}"
+              target="_blank"
+              class="card-button {{schedule-link-class}}"
+              data-umami-event="schedule-clicked"
+              data-umami-event-name="{{name}}"
+            >Schedule</a>
+            <a href="https://twitch.tv/Mang0"
+              target="_blank"
+              class="card-button {{stream-link-class}}"
+              data-umami-event="stream-clicked"
+              data-umami-event-name="{{name}}"
+            >Stream</a>
+        </div>
+    </div>
+</div>

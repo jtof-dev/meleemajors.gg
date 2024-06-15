@@ -1,4 +1,4 @@
-use chrono::{DateTime, NaiveDateTime, Utc};
+use chrono::DateTime;
 use gql_client::{Client, ClientConfig};
 use serde_json::{json, Value};
 use std::collections::HashMap;
@@ -11,6 +11,7 @@ async fn main() {
     let token = env::var("STARTGGAPI").unwrap();
     let query_event = read_file("graphql/getTournamentEvent.gql");
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
+    let mut temp_html = String::from(read_file("html/header.html"));
 
     // iterate through tournaments in json array
     let tournaments = read_file("tournaments.json");
@@ -26,12 +27,14 @@ async fn main() {
                   "slug": tournament_slug,
                   "slug_event": event_slug
                 });
-                let data = scrape_data(&token, &query_event, &query_entrants, vars_event).await;
-                println!("{}", data);
+                let tournament_data = scrape_data(&token, &query_event, &query_entrants, vars_event).await;
+                temp_html.push_str(&format!("\n{}", generate_card(tournament_data)));
             }
         }
         _ => panic!("root must be an array"),
     }
+    temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
+    println!("{}", temp_html);
 }
 
 /** Returns string contents of file with given path or panics otherwise */
@@ -59,7 +62,7 @@ async fn scrape_data(
 
     let client = Client::new_with_config(config);
     let data_event = client
-        .query_with_vars_unwrap::<Value, Value>(query_event, vars_event)
+        .query_with_vars_unwrap::<Value, Value>(query_event, vars_event.clone())
         .await
         .unwrap();
 
@@ -107,16 +110,22 @@ async fn scrape_data(
         .unwrap();
     let largest_image_url = largest_image["url"].as_str().unwrap(); // ---> result
 
+    // get start.gg url
+    let startgg_url = format!("https://www.start.gg/tournament/{}", vars_event["slug"].as_str().unwrap());
+
     return json!({
       "name": name,
       "entrants": entrant_count,
       "date": start_end_date,
       "city-and-state": city_state,
       "maps-link": google_maps_link,
-      "image-url": largest_image_url
+      "image-url": largest_image_url,
+      "start.gg-url": startgg_url
     });
 }
 
-fn generate_card() {}
+fn generate_card(tournament_data: Value) -> String {
+    return "<div>card</div>".into();
+}
 
 fn make_site() {}
