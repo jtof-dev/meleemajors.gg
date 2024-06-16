@@ -2,6 +2,15 @@
 
 the successor to meleemajors.com
 
+<table>
+    <tr>
+        <td><img src="assets/darkModeDesktopView.webp"></td>
+        <td><img src="assets/lightModeDesktopView.webp"></td>
+        <td><img src="assets/darkModeMobileView.webp"></td>
+        <td><img src="assets/lightModeMobileView.webp"></td>
+    </tr>
+</table>
+
 ## backend
 
 - on the backend, we are working on a static site generator written in rust - it reads a [tournaments.json](ssg/src/tournaments.json), and generates a tournament from each entry in that array
