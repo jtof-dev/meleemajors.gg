@@ -5,7 +5,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-  paths:
+    paths:
       - 'site/index.html'
       - 'site/styles.css'
       - 'site/script.js'
