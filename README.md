@@ -11,6 +11,11 @@ the successor to meleemajors.com
     </tr>
 </table>
 
+## contributing
+
+- are we missing a tournament, or have incorrect information? you can either open an [issue](https://github.com/jtof-dev/meleemajors.gg/issues) with what we are missing, or make a [pull request](https://github.com/jtof-dev/meleemajors.gg/pulls) with an updated [tournaments.json](ssg/src/tournaments.json)
+  - want more information? check out our [contributing docs](CONTRIBUTING.md)
+
 ## backend
 
 - on the backend, we are working on a static site generator written in rust - it reads a [tournaments.json](ssg/src/tournaments.json), and generates a tournament from each entry in that array
