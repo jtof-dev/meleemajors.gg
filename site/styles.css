@@ -237,6 +237,13 @@ a {
   scale: 105%;
 }
 
+.currently-live {
+  border-style: solid;
+  border-color: #ff0000;
+  border-radius: 28px;
+  border-width: 3px;
+}
+
 .card h2 {
   font-size: 20px;
   margin-top: 10px;
