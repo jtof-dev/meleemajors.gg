@@ -8,9 +8,12 @@ use urlencoding::encode;
 
 #[tokio::main]
 async fn main() {
+    // get start.gg api token from an environmental variable named "STARTGGAPI"
     let token = env::var("STARTGGAPI").unwrap();
+    // get graphgl queries
     let query_event = read_file("graphql/getTournamentEvent.gql");
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
+    // create variable that holds the website being made, starting with the header.html
     let mut temp_html = String::from(read_file("html/header.html"));
 
     // iterate through tournaments in json array
@@ -21,23 +24,26 @@ async fn main() {
     match v {
         Value::Array(vec) => {
             for tournament in vec {
+                // scrape tournament info for a specific tournament entry
                 let tournament_slug = tournament["start.gg-tournament-name"].as_str().unwrap();
                 let event_slug = tournament["start.gg-melee-singles"].as_str().unwrap();
                 let vars_event = json!({
                   "slug": tournament_slug,
                   "slug_event": event_slug
                 });
-                let tournament_data = scrape_data(&token, &query_event, &query_entrants, vars_event).await;
+                let tournament_data =
+                    scrape_data(&token, &query_event, &query_entrants, vars_event).await;
+                // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!("\n{}", generate_card(tournament_data)));
             }
         }
         _ => panic!("root must be an array"),
     }
+    // after all cards have been appended to temp_html, add the footer.html
     temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
-    println!("{}", temp_html);
 }
 
-/** Returns string contents of file with given path or panics otherwise */
+// returns string contents of file with given path or panics otherwise
 fn read_file(path: &str) -> String {
     let file = File::open(path).unwrap();
     let file_contents = std::io::read_to_string(file).unwrap();
@@ -50,9 +56,11 @@ async fn scrape_data(
     query_entrants: &str,
     vars_event: Value,
 ) -> Value {
+    // format header with api token
     let mut headers = HashMap::new();
     headers.insert("authorization".to_string(), format!("Bearer {}", token));
 
+    // query start.gg with getTournamentEvent.gql
     let config = ClientConfig {
         endpoint: "https://api.start.gg/gql/alpha".to_string(),
         timeout: Some(60),
@@ -70,6 +78,7 @@ async fn scrape_data(
       "eventId": data_event["event"].get("id").unwrap().to_string(),
     });
 
+    // query start.gg with getTournamentEntrants.gql
     let data_entrants = client
         .query_with_vars_unwrap::<Value, Value>(query_entrants, vars_entrants)
         .await
@@ -111,7 +120,10 @@ async fn scrape_data(
     let largest_image_url = largest_image["url"].as_str().unwrap(); // ---> result
 
     // get start.gg url
-    let startgg_url = format!("https://www.start.gg/tournament/{}", vars_event["slug"].as_str().unwrap());
+    let startgg_url = format!(
+        "https://www.start.gg/tournament/{}",
+        vars_event["slug"].as_str().unwrap()
+    ); // ---> result
 
     return json!({
       "name": name,

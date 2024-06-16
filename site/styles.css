@@ -7,6 +7,7 @@
   font-weight: 400;
   src: url('assets/fonts/montserrat-v26-latin-regular.woff2') format('woff2');
 }
+
 /* montserrat-italic - latin */
 @font-face {
   font-display: swap;
@@ -15,6 +16,7 @@
   font-weight: 400;
   src: url('assets/fonts/montserrat-v26-latin-italic.woff2') format('woff2');
 }
+
 /* montserrat-500 - latin */
 @font-face {
   font-display: swap;
@@ -23,6 +25,7 @@
   font-weight: 500;
   src: url('assets/fonts/montserrat-v26-latin-500.woff2') format('woff2');
 }
+
 /* montserrat-600 - latin */
 @font-face {
   font-display: swap;
@@ -31,6 +34,7 @@
   font-weight: 600;
   src: url('assets/fonts/montserrat-v26-latin-600.woff2') format('woff2');
 }
+
 /* montserrat-700 - latin */
 @font-face {
   font-display: swap;
@@ -39,6 +43,7 @@
   font-weight: 700;
   src: url('assets/fonts/montserrat-v26-latin-700.woff2') format('woff2');
 }
+
 /* montserrat-800 - latin */
 @font-face {
   font-display: swap;
@@ -47,6 +52,7 @@
   font-weight: 800;
   src: url('assets/fonts/montserrat-v26-latin-800.woff2') format('woff2');
 }
+
 /* montserrat-900 - latin */
 @font-face {
   font-display: swap;
@@ -56,111 +62,7 @@
   src: url('assets/fonts/montserrat-v26-latin-900.woff2') format('woff2');
 }
 
-:root {
-  --left-gradient: #FE5296;
-  --middle-gradient: #FA617B;
-  --right-gradient: #F77063;
-  --link-color: #088F9C;
-}
-
-body.light-mode {
-  --card-text-color: #000000;
-  --button-color: #e2e2e2;
-  --button-color-border: #bbbbbb;
-  --card-background: #ffffff;
-  --card-button-border-hover: #ffffff;
-}
-
-body.dark-mode {
-  --card-text-color: #ffffff;
-  --card-background: #181a1b;
-  --button-color: #2a2b2b;
-  --button-color-border: #505050;
-  --card-button-border-hover: #181a1b;
-}
-
-body {
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  text-align: center;
-  height: 100vh;
-  padding: 0px;
-  padding-top: 50px;
-  margin: 0 0 0 0;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-::selection {
-  background-color: var(--middle-gradient);
-  color: white;
-}
-
-.fixed-position {
-  background-image: url("assets/backgrounds/2.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100lvh;
-  z-index: -1;
-}
-
-/* change mobile background to make it less blurry and load faster */
-@media screen and (max-width: 1000px) {
-  .fixed-position {
-    background-image: url("assets/backgrounds/mobile.webp");
-    /* background-size: 100% auto; */
-  }
-}
-
-.title {
-  color: white;
-  font-size: 45px;
-  text-shadow: 0px 5px 25px black;
-}
-
-.subtitle {
-  color: white;
-  font-size: 35px;
-  text-shadow: 10px 10px 10px black;
-  font-weight: normal;
-}
-
-.background-gradient {
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 75%));
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-li,
-ul {
-  margin: 0 0 0 0;
-  padding: 5px;
-}
-
-.card-container {
-  min-height: calc(100vh - 225px);
-  min-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
+/* define keyframes for fade-in animation on cards */
 @keyframes fade-in-light {
   0% {
     opacity: 0;
@@ -193,6 +95,119 @@ ul {
   }
 }
 
+/* define universal variables */
+:root {
+  --left-gradient: #FE5296;
+  --middle-gradient: #FA617B;
+  --right-gradient: #F77063;
+  --link-color: #088F9C;
+}
+
+/* define variables for colors that change for light and dark mode */
+body.dark-mode {
+  --card-text-color: #ffffff;
+  --card-background: #181a1b;
+  --button-color: #2a2b2b;
+  --button-color-border: #505050;
+  --card-button-border-hover: #181a1b;
+}
+
+body.light-mode {
+  --card-text-color: #000000;
+  --button-color: #e2e2e2;
+  --button-color-border: #bbbbbb;
+  --card-background: #ffffff;
+  --card-button-border-hover: #ffffff;
+}
+
+body {
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  padding: 0px;
+  padding-top: 50px;
+  margin: 0 0 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* add the background image using an empty div */
+.fixed-position {
+  background-image: url("assets/backgrounds/2.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
+  z-index: -1;
+}
+
+.background-gradient {
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 75%));
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* change mobile background to make it less blurry and load faster */
+@media screen and (max-width: 1000px) {
+  .fixed-position {
+    background-image: url("assets/backgrounds/mobile.webp");
+  }
+}
+
+::selection {
+  background-color: var(--middle-gradient);
+  color: #ffffff;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 45px;
+  text-shadow: 0px 5px 25px #000000;
+}
+
+.subtitle {
+  color: #ffffff;
+  font-size: 35px;
+  text-shadow: 10px 10px 10px #000000;
+  font-weight: normal;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+li,
+ul {
+  margin: 0 0 0 0;
+  padding: 5px;
+}
+
+a {
+  color: var(--link-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.card-container {
+  min-height: calc(100vh - 225px);
+  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .dark-mode .card {
   animation: fade-in-dark .6s ease-in-out;
 }
@@ -222,14 +237,17 @@ ul {
   scale: 105%;
 }
 
-.card-content {
-  background-color: var(--card-background);
-  border-bottom-right-radius: var(--card-border-radius);
-  border-bottom-left-radius: var(--card-border-radius);
-  padding-bottom: 15px;
-  flex-grow: 1;
-  margin-top: -2px;
-  box-shadow: 0px 5px 25px black;
+.card h2 {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.card h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .card p {
@@ -254,21 +272,18 @@ ul {
   padding: 5px;
 }
 
-.card h2 {
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  font-weight: 700;
-}
-
-.card h4 {
-  font-size: 18px;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
 .card hr {
   margin: 5px 20px;
+}
+
+.card-content {
+  background-color: var(--card-background);
+  border-bottom-right-radius: var(--card-border-radius);
+  border-bottom-left-radius: var(--card-border-radius);
+  padding-bottom: 15px;
+  flex-grow: 1;
+  margin-top: -2px;
+  box-shadow: 0px 5px 25px #000000;
 }
 
 .image {
@@ -277,6 +292,10 @@ ul {
   height: 170px;
   border-top-left-radius: var(--card-border-radius);
   border-top-right-radius: var(--card-border-radius);
+}
+
+.card-location:hover {
+  text-decoration: underline;
 }
 
 .featured-players {
@@ -317,7 +336,7 @@ ul {
   background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
   scale: 110%;
   border-color: var(--card-button-border-hover);
-  color: white;
+  color: #ffffff;
 }
 
 .card-button:active {
@@ -345,21 +364,26 @@ footer {
   margin: none;
 }
 
+.footer ::selection {
+  background-color: var(--link-color);
+  color: #000000;
+}
+
 .footer p {
-  color: white;
+  color: #ffffff;
   font-size: inherit;
   text-wrap: balance;
   line-height: 1.5;
 }
 
 .footer a {
-  color: black;
+  color: #000000;
   font-weight: 500;
 }
 
 .footer hr {
-  border-color: white;
-  color: white;
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 .footer button {
@@ -367,24 +391,18 @@ footer {
   font-size: inherit;
   padding: 5px 15px;
   margin: 0 10px;
-  border: 1px solid white;
+  border: 1px solid #ffffff;
   background-color: transparent;
-  color: white;
+  color: #ffffff;
   border-radius: 5px;
 }
 
 .footer button:hover {
-  color: black;
-  border-color: black;
+  color: #000000;
+  border-color: #000000;
   transition: all .35s;
 }
 
-a {
-  color: var(--link-color);
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.footer a:hover, .card-location:hover {
+.footer a:hover {
   text-decoration: underline;
 }
