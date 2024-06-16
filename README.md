@@ -5,8 +5,8 @@ the successor to meleemajors.com
 <table>
     <tr>
         <td><img src="assets/darkModeDesktopView.webp"></td>
-        <td><img src="assets/lightModeDesktopView.webp"></td>
-        <td><img src="assets/darkModeMobileView.webp"></td>
+        <!-- <td><img src="assets/lightModeDesktopView.webp"></td> -->
+        <!-- <td><img src="assets/darkModeMobileView.webp"></td> -->
         <td><img src="assets/lightModeMobileView.webp"></td>
     </tr>
 </table>
