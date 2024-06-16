@@ -14,7 +14,7 @@ the successor to meleemajors.com
 ## contributing
 
 - are we missing a tournament, or have incorrect information? you can either open an [issue](https://github.com/jtof-dev/meleemajors.gg/issues) with what we are missing, or make a [pull request](https://github.com/jtof-dev/meleemajors.gg/pulls) with an updated [tournaments.json](ssg/src/tournaments.json)
-  - want more information? check out our [contributing docs](CONTRIBUTING.md)
+  - want more information? check out our [contributing docs](.github/CONTRIBUTING.md)
 
 ## backend
 
