@@ -51,6 +51,7 @@ the successor to meleemajors.com
 
 ## todo
 
+### front-end
 - [x] add a black background image filter to the website background
 - [x] finish formatting a template card
 - [x] add custom fonts
@@ -60,7 +61,13 @@ the successor to meleemajors.com
 - [x] fix mobile formatting
 - [x] add last card like the original website had
 - [x] add dark mode / switch to dark mode
-- [x] credit the artist for the mobile picture (I can't find the original artist)
+- [x] credit the artist for the mobile picture
 - [x] make footer fit better relative to the text on-screen
+- [x] set up ko-fi
 - [ ] add a currently live title for live tournaments
-- [ ] and, of course, write the backend
+
+### backend
+- [ ] get initial ssg functioning
+- [ ] set up daily rebuilds using github actions
+- [ ] implement a currently live checker for live tournaments
+- [ ] generate a calender subscription alongside the website
