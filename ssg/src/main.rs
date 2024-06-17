@@ -1,3 +1,4 @@
+use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use gql_client::{Client, ClientConfig};
 use regex::Regex;
@@ -27,6 +28,8 @@ async fn main() {
             for tournament in vec {
                 let tournament_data =
                     scrape_data(tournament, &token, &query_event, &query_entrants).await;
+                println!("{}", tournament_data);
+
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!("\n{}", generate_card(tournament_data)));
             }
@@ -131,6 +134,8 @@ async fn scrape_data(
         vars_event["slug"].as_str().unwrap()
     ); // ---> result
 
+    // convert start.gg kebab case name to camel case to keep a consistent naming scheme
+    let startgg_tournament_name = kebab_to_camel(&tournament_slug);
     return json!({
       "name": name,
       "entrants": entrant_count,
@@ -138,7 +143,8 @@ async fn scrape_data(
       "city-and-state": city_state,
       "maps-link": google_maps_link,
       "image-url": largest_image_url,
-      "start.gg-url": startgg_url
+      "start.gg-url": startgg_url,
+      "start.gg-tournament-name": startgg_tournament_name
     });
 }
 

@@ -93,6 +93,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "514de17de45fdb8dc022b1a7975556c53c86f9f0aa5f534b98977b171857c2c9"
 
 [[package]]
+name = "case_converter"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93ee718de6479b48d6536e7afc873be344e5feadc31d9366cb681b667a882fc9"
+
+[[package]]
 name = "cc"
 version = "1.0.99"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1006,6 +1012,7 @@ dependencies = [
 name = "ssg"
 version = "0.1.0"
 dependencies = [
+ "case_converter",
  "chrono",
  "gql_client",
  "regex",
