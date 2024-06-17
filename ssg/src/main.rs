@@ -1,5 +1,6 @@
 use chrono::DateTime;
 use gql_client::{Client, ClientConfig};
+use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::env;
@@ -24,15 +25,8 @@ async fn main() {
     match v {
         Value::Array(vec) => {
             for tournament in vec {
-                // scrape tournament info for a specific tournament entry
-                let tournament_slug = tournament["start.gg-tournament-name"].as_str().unwrap();
-                let event_slug = tournament["start.gg-melee-singles"].as_str().unwrap();
-                let vars_event = json!({
-                  "slug": tournament_slug,
-                  "slug_event": event_slug
-                });
                 let tournament_data =
-                    scrape_data(&token, &query_event, &query_entrants, vars_event).await;
+                    scrape_data(tournament, &token, &query_event, &query_entrants).await;
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!("\n{}", generate_card(tournament_data)));
             }
@@ -51,11 +45,23 @@ fn read_file(path: &str) -> String {
 }
 
 async fn scrape_data(
+    tournament: Value,
     token: &str,
     query_event: &str,
     query_entrants: &str,
-    vars_event: Value,
 ) -> Value {
+    // scrape tournament info for a specific tournament entry
+    let startgg_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
+    let regex_startgg_url = Regex::new(r"^(https?://)?(www\.)?start\.gg/").unwrap();
+    let event_slug = regex_startgg_url.replace(startgg_url, "");
+    let parts: Vec<&str> = event_slug.split("/").collect();
+    let tournament_part = parts.get(1).unwrap_or(&"");
+    let tournament_slug = tournament_part.to_string();
+    let vars_event = json!({
+      "slug": tournament_slug,
+      "slug_event": event_slug
+    });
+    println!("{}", vars_event);
     // format header with api token
     let mut headers = HashMap::new();
     headers.insert("authorization".to_string(), format!("Bearer {}", token));

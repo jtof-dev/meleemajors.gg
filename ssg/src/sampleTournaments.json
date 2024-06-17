@@ -1,7 +1,6 @@
 [
     {
-        "start.gg-tournament-name": "<url tournament name>",
-        "start.gg-melee-singles": "tournament/<url tournament name>/event/<melee singles event name>",
+        "start.gg-melee-singles-url": "<url to melee singles>",
         "schedule": "<url or path to image>",
         "featured-players": [
             "TBD",
@@ -16,8 +15,7 @@
         "stream": "<either NA or url to stream>"
     },
     {
-        "start.gg-tournament-name": "<url tournament name>",
-        "start.gg-melee-singles": "tournament/<url tournament name>/event/<melee singles event name>",
+        "start.gg-melee-singles-url": "<url to melee singles>",
         "schedule": "<url or path to image>",
         "featured-players": [
             "TBD",

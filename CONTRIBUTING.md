@@ -10,8 +10,7 @@
 ```
 [
     {
-        "start.gg-tournament-name": "<url tournament name>",
-        "start.gg-melee-singles": "tournament/<url tournament name>/event/<melee singles event name>",
+        "start.gg-melee-singles-url": "<url to melee singles>",
         "schedule": "<url or path to image>",
         "featured-players": [
             "TBD",
@@ -28,10 +27,9 @@
 ]
 ```
 
-- both the `start.gg-tournament-name` and the `start.gg-melee-singles` fields are taken from the start.gg link to a tournament
-  - for example, from [https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles](https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles), the `tournament-name` would be `tipped-off-15-connected-1`, and `melee-singles` would be `tournament/tipped-off-15-connected-1/event/melee-singles`
+- the `start.gg-melee-singles-url` field is for the start.gg url to melee singles (like [https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles](https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles))
 
-- the schedule url can either be a link to a website, or a relative link to an image starting from `site` - for example, `assets/schedules/tipped-off-15-schedule.webp`f
+- the schedule url can either be a link to a website, or a relative link to an image starting from `site` - for example, `assets/schedules/tipped-off-15-schedule.webp`
 
 - finally, don't forget to add commas between tournament entries, like this:
 

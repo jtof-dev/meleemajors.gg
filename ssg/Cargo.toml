@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.38"
 gql_client = "1.0.7"
+regex = "1.10.5"
 serde_json = "1.0.117"
 tokio = { version = "1.38.0", features = ["full"] }
 tokio-macros = "2.3.0"
