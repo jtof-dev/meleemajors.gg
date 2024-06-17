@@ -391,6 +391,7 @@ footer {
 .footer hr {
   border-color: #ffffff;
   color: #ffffff;
+  margin-top: 0px;
 }
 
 .footer button {
@@ -398,6 +399,7 @@ footer {
   font-size: inherit;
   padding: 5px 15px;
   margin: 0 10px;
+  margin-bottom: 10px;
   border: 1px solid #ffffff;
   background-color: transparent;
   color: #ffffff;
@@ -408,6 +410,11 @@ footer {
   color: #000000;
   border-color: #000000;
   transition: all .35s;
+  scale: 102%;
+}
+
+.footer button:active {
+  scale: 95%;
 }
 
 .footer a:hover {
