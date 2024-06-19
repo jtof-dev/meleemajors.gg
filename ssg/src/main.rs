@@ -4,7 +4,7 @@ use gql_client::{Client, ClientConfig};
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::HashMap;
-use std::env;
+use std::{env, fs};
 use std::fs::File;
 use urlencoding::encode;
 
@@ -17,6 +17,7 @@ async fn main() {
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
     // create variable that holds the website being made, starting with the header.html
     let mut temp_html = String::from(read_file("html/header.html"));
+    let template_card = read_file("html/templateCard.html");
 
     // iterate through tournaments in json array
     let tournaments = read_file("tournaments.json");
@@ -31,13 +32,14 @@ async fn main() {
                 println!("{}", tournament_data);
 
                 // use scraped info to make a tournament card, and append it to temp_html
-                temp_html.push_str(&format!("\n{}", generate_card(tournament_data)));
+                temp_html.push_str(&format!("\n{}", generate_card(tournament_data, &template_card)));
             }
         }
         _ => panic!("root must be an array"),
     }
     // after all cards have been appended to temp_html, add the footer.html
     temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
+    fs::write("index.html", temp_html).unwrap();
 }
 
 // returns string contents of file with given path or panics otherwise
@@ -64,7 +66,7 @@ async fn scrape_data(
       "slug": tournament_slug,
       "slug_event": event_slug
     });
-    println!("{}", vars_event);
+    // println!("{}", vars_event);
     // format header with api token
     let mut headers = HashMap::new();
     headers.insert("authorization".to_string(), format!("Bearer {}", token));
@@ -144,12 +146,51 @@ async fn scrape_data(
       "maps-link": google_maps_link,
       "image-url": largest_image_url,
       "start.gg-url": startgg_url,
-      "start.gg-tournament-name": startgg_tournament_name
+      "start.gg-tournament-name": startgg_tournament_name,
+      "player0": tournament["featured-players"][0],
+      "player1": tournament["featured-players"][1],
+      "player2": tournament["featured-players"][2],
+      "player3": tournament["featured-players"][3],
+      "player4": tournament["featured-players"][4],
+      "player5": tournament["featured-players"][5],
+      "player6": tournament["featured-players"][6],
+      "player7": tournament["featured-players"][7],
+      "stream-url": tournament["stream-url"],
+      "schedule-url": tournament["schedule-url"],
     });
 }
 
-fn generate_card(tournament_data: Value) -> String {
-    return "<div>card</div>".into();
+fn generate_card(tournament_data: Value, template_card: &str) -> String {
+    let schedule_link_class = match tournament_data["schedule-url"].as_str().unwrap() {
+        "" => " hidden",
+        _ => "",
+    };
+    let stream_link_class = match tournament_data["stream-url"].as_str().unwrap() {
+        "" => " hidden",
+        _ => "",
+    };
+
+    let temp_card = template_card
+        .replace("{{start.gg-tournament-name}}", tournament_data["start.gg-tournament-name"].as_str().unwrap())
+        .replace("{{start.gg-url}}", tournament_data["start.gg-url"].as_str().unwrap())
+        .replace("{{schedule-url}}", tournament_data["schedule-url"].as_str().unwrap())
+        .replace("{{stream-url}}", tournament_data["stream-url"].as_str().unwrap())
+        .replace("{{name}}", tournament_data["name"].as_str().unwrap())
+        .replace("{{date}}", tournament_data["date"].as_str().unwrap())
+        .replace("{{maps-link}}", tournament_data["maps-link"].as_str().unwrap())
+        .replace("{{city-and-state}}", tournament_data["city-and-state"].as_str().unwrap())
+        .replace("{{entrants}}", tournament_data["entrants"].as_number().unwrap().to_string().as_str())
+        .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
+        .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
+        .replace("{{player2}}", tournament_data["player2"].as_str().unwrap())
+        .replace("{{player3}}", tournament_data["player3"].as_str().unwrap())
+        .replace("{{player4}}", tournament_data["player4"].as_str().unwrap())
+        .replace("{{player5}}", tournament_data["player5"].as_str().unwrap())
+        .replace("{{player6}}", tournament_data["player6"].as_str().unwrap())
+        .replace("{{player7}}", tournament_data["player7"].as_str().unwrap())
+        .replace("{{schedule-link-class}}", schedule_link_class)
+        .replace("{{stream-link-class}}", stream_link_class);
+    return temp_card;
 }
 
-fn make_site() {}
+// fn make_site() {}

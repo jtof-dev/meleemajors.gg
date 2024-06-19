@@ -1,7 +1,7 @@
 [
     {
-        "start.gg-melee-singles-url": "<url to melee singles>",
-        "schedule": "<url or path to image>",
+        "start.gg-melee-singles-url": "url to melee singles",
+        "schedule-url": "either empty quotes or url or path to image",
         "featured-players": [
             "TBD",
             "TBD",
@@ -12,11 +12,11 @@
             "TBD",
             "TBD"
         ],
-        "stream": "<either NA or url to stream>"
+        "stream-url": "either empty quotes or url to stream"
     },
     {
         "start.gg-melee-singles-url": "<url to melee singles>",
-        "schedule": "<url or path to image>",
+        "schedule-url": "either empty quotes or url or path to image",
         "featured-players": [
             "TBD",
             "TBD",
@@ -27,6 +27,6 @@
             "TBD",
             "TBD"
         ],
-        "stream": "<either NA or url to stream>"
+        "stream-url": "either empty quotes or url to stream"
     }
 ]

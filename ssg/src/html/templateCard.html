@@ -1,11 +1,12 @@
 <div class="card">
-    <img src="{{start.gg-tournament-name}}.webp" class="image">
+    <img src="assets/cards/{{start.gg-tournament-name}}.webp" class="image">
     <div class="card-content">
         <h2>{{name}}</h2>
         <h4>{{date}}</h4>
         <div class="featured-players">
             <u>Featured Players</u>
             <ul class="featured-players-columns">
+                <li>{{player0}}</li>
                 <li>{{player1}}</li>
                 <li>{{player2}}</li>
                 <li>{{player3}}</li>
@@ -13,7 +14,6 @@
                 <li>{{player5}}</li>
                 <li>{{player6}}</li>
                 <li>{{player7}}</li>
-                <li>{{player8}}</li>
             </ul>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         <div class="buttons">
             <a href="{{start.gg-url}}"
               target="_blank"
-              class="card-button{{start-gg-link-class}}"
+              class="card-button"
               data-umami-event="start-gg-clicked"
               data-umami-event-name="{{name}}"
             >Start.gg</a>
@@ -40,7 +40,7 @@
               data-umami-event="schedule-clicked"
               data-umami-event-name="{{name}}"
             >Schedule</a>
-            <a href="https://twitch.tv/Mang0"
+            <a href="{{stream-url}}"
               target="_blank"
               class="card-button{{stream-link-class}}"
               data-umami-event="stream-clicked"
