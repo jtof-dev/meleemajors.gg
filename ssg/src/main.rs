@@ -107,7 +107,11 @@ async fn scrape_data(
     let address = data_event["tournament"]["venueAddress"].as_str().unwrap();
     let city = data_event["tournament"]["city"].as_str().unwrap();
     let state = data_event["tournament"]["addrState"].as_str().unwrap();
-    let entrant_count = data_entrants["event"]["numEntrants"].as_number().unwrap(); // ---> result
+    let entrant_count = data_entrants["event"]["numEntrants"].as_number(); // ---> result
+    let entrant_count_str = match entrant_count {
+        Some(number) => number.to_string(),
+        None => "TBD".to_string(),
+    };
 
     // get human-readable start and date
     let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0).unwrap();
@@ -149,7 +153,7 @@ async fn scrape_data(
 
     return json!({
       "name": name,
-      "entrants": entrant_count,
+      "entrants": entrant_count_str,
       "date": start_end_date,
       "city-and-state": city_state,
       "maps-link": google_maps_link,
@@ -174,7 +178,7 @@ fn download_tournament_image(image_url: &str, tournament_name: &str) {
     FfmpegCommand::new()
         .input(image_url)
         .args(["-vf", "scale=-1:340"])
-        .output(format!("output/assets/{}.webp", tournament_name))
+        .output(format!("cards/{}.webp", tournament_name))
         .spawn()
         .unwrap()
         .wait()
@@ -223,10 +227,8 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
         .replace(
             "{{entrants}}",
             tournament_data["entrants"]
-                .as_number()
-                .unwrap()
-                .to_string()
-                .as_str(),
+                .as_str()
+                .unwrap(),
         )
         .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
         .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
@@ -246,7 +248,7 @@ fn make_site(temp_html: &str) {
     fs::remove_dir_all("../../site/assets/cards").unwrap();
 
     Command::new("cp")
-        .args(&["-r", "output/cards", "../../site/assets"])
+        .args(&["-r", "cards", "../../site/assets"])
         .output()
         .unwrap();
 }
