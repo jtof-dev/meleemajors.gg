@@ -1,11 +1,13 @@
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
+use ffmpeg_sidecar::command::FfmpegCommand;
 use gql_client::{Client, ClientConfig};
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::HashMap;
-use std::{env, fs};
 use std::fs::File;
+use std::process::Command;
+use std::{env, fs};
 use urlencoding::encode;
 
 #[tokio::main]
@@ -29,17 +31,20 @@ async fn main() {
             for tournament in vec {
                 let tournament_data =
                     scrape_data(tournament, &token, &query_event, &query_entrants).await;
-                println!("{}", tournament_data);
+                // println!("{}", tournament_data);
 
                 // use scraped info to make a tournament card, and append it to temp_html
-                temp_html.push_str(&format!("\n{}", generate_card(tournament_data, &template_card)));
+                temp_html.push_str(&format!(
+                    "\n{}",
+                    generate_card(tournament_data, &template_card)
+                ));
             }
         }
         _ => panic!("root must be an array"),
     }
     // after all cards have been appended to temp_html, add the footer.html
     temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
-    fs::write("index.html", temp_html).unwrap();
+    make_site(&temp_html);
 }
 
 // returns string contents of file with given path or panics otherwise
@@ -129,7 +134,8 @@ async fn scrape_data(
         .max_by_key(|img| img["width"].as_u64().unwrap())
         .unwrap();
     let largest_image_url = largest_image["url"].as_str().unwrap(); // ---> result
-
+    let cleaned_largest_image_url =
+        largest_image_url.split(".png").next().unwrap().to_owned() + ".png";
     // get start.gg url
     let startgg_url = format!(
         "https://www.start.gg/tournament/{}",
@@ -138,13 +144,16 @@ async fn scrape_data(
 
     // convert start.gg kebab case name to camel case to keep a consistent naming scheme
     let startgg_tournament_name = kebab_to_camel(&tournament_slug);
+
+    download_tournament_image(largest_image_url, &startgg_tournament_name);
+
     return json!({
       "name": name,
       "entrants": entrant_count,
       "date": start_end_date,
       "city-and-state": city_state,
       "maps-link": google_maps_link,
-      "image-url": largest_image_url,
+      "image-url": cleaned_largest_image_url,
       "start.gg-url": startgg_url,
       "start.gg-tournament-name": startgg_tournament_name,
       "player0": tournament["featured-players"][0],
@@ -160,6 +169,18 @@ async fn scrape_data(
     });
 }
 
+fn download_tournament_image(image_url: &str, tournament_name: &str) {
+    // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
+    FfmpegCommand::new()
+        .input(image_url)
+        .args(["-vf", "scale=-1:340"])
+        .output(format!("output/assets/{}.webp", tournament_name))
+        .spawn()
+        .unwrap()
+        .wait()
+        .unwrap();
+}
+
 fn generate_card(tournament_data: Value, template_card: &str) -> String {
     let schedule_link_class = match tournament_data["schedule-url"].as_str().unwrap() {
         "" => " hidden",
@@ -171,15 +192,42 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
     };
 
     let temp_card = template_card
-        .replace("{{start.gg-tournament-name}}", tournament_data["start.gg-tournament-name"].as_str().unwrap())
-        .replace("{{start.gg-url}}", tournament_data["start.gg-url"].as_str().unwrap())
-        .replace("{{schedule-url}}", tournament_data["schedule-url"].as_str().unwrap())
-        .replace("{{stream-url}}", tournament_data["stream-url"].as_str().unwrap())
+        .replace(
+            "{{start.gg-tournament-name}}",
+            tournament_data["start.gg-tournament-name"]
+                .as_str()
+                .unwrap(),
+        )
+        .replace(
+            "{{start.gg-url}}",
+            tournament_data["start.gg-url"].as_str().unwrap(),
+        )
+        .replace(
+            "{{schedule-url}}",
+            tournament_data["schedule-url"].as_str().unwrap(),
+        )
+        .replace(
+            "{{stream-url}}",
+            tournament_data["stream-url"].as_str().unwrap(),
+        )
         .replace("{{name}}", tournament_data["name"].as_str().unwrap())
         .replace("{{date}}", tournament_data["date"].as_str().unwrap())
-        .replace("{{maps-link}}", tournament_data["maps-link"].as_str().unwrap())
-        .replace("{{city-and-state}}", tournament_data["city-and-state"].as_str().unwrap())
-        .replace("{{entrants}}", tournament_data["entrants"].as_number().unwrap().to_string().as_str())
+        .replace(
+            "{{maps-link}}",
+            tournament_data["maps-link"].as_str().unwrap(),
+        )
+        .replace(
+            "{{city-and-state}}",
+            tournament_data["city-and-state"].as_str().unwrap(),
+        )
+        .replace(
+            "{{entrants}}",
+            tournament_data["entrants"]
+                .as_number()
+                .unwrap()
+                .to_string()
+                .as_str(),
+        )
         .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
         .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
         .replace("{{player2}}", tournament_data["player2"].as_str().unwrap())
@@ -193,4 +241,12 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
     return temp_card;
 }
 
-// fn make_site() {}
+fn make_site(temp_html: &str) {
+    fs::write("../../site/index.html", temp_html).unwrap();
+    fs::remove_dir_all("../../site/assets/cards").unwrap();
+
+    Command::new("cp")
+        .args(&["-r", "output/cards", "../../site/assets"])
+        .output()
+        .unwrap();
+}
