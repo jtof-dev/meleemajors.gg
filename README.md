@@ -9,7 +9,7 @@
 
 # meleemajors.gg
 
-the successor to meleemajors.com
+> the successor to meleemajors.com
 
 ## contributing
 
@@ -22,6 +22,7 @@ the successor to meleemajors.com
   - start.gg uses graphql on the backend, and bundle a nice [api explorer](https://developer.start.gg/explorer) that makes it very easy to build queries
   - from there, it just took a lot of data parsing and find-and-replacing variables in a [templateCard.html](ssg/src/html/templateCard.html)
 
+### code flowchart
 ```
            ┌───────────────┐               ┌─────────────────────┐
            │               │               │                     │
@@ -63,7 +64,18 @@ the successor to meleemajors.com
   │                                │                              
   └────────────────────────────────┘                              
   ```
-flowchart made using [asciiflow.com](https://asciiflow.com)
+flowchart made using [asciiflow](https://asciiflow.com)
+
+### running locally
+
+- in `ssg/src`, you can just `cargo run`, but you first need to export your start.gg api key as an environmental variable
+- to simplify this, I normally run the backend using [run.sh](ssg/src/sampleRun.sh), which does the following:
+
+```
+export STARTGGAPI=<TOKEN>
+
+cargo run
+```
 
 ## hosting
 

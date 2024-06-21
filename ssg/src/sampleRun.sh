@@ -1,5 +1,5 @@
 #!/bin/bash
 
-export STARTGGAPI=TOKEN
+export STARTGGAPI=<TOKEN>
 
 cargo run
