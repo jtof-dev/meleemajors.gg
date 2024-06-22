@@ -1,7 +1,8 @@
 use case_converter::kebab_to_camel;
-use chrono::DateTime;
+use chrono::{DateTime, NaiveDateTime};
 use ffmpeg_sidecar::command::FfmpegCommand;
 use gql_client::{Client, ClientConfig};
+use icalendar::{Calendar, Class, Component, Event, EventLike};
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::HashMap;
@@ -20,6 +21,8 @@ async fn main() {
     // create variable that holds the website being made, starting with the header.html
     let mut temp_html = String::from(read_file("html/header.html"));
     let template_card = read_file("html/templateCard.html");
+    // create variable that holds the calendar subscription
+    let mut temp_calendar = Calendar::new().name("upcoming melee majors").done();
 
     // iterate through tournaments in json array
     let tournaments = read_file("tournaments.json");
@@ -30,14 +33,15 @@ async fn main() {
         Value::Array(vec) => {
             for tournament in vec {
                 let tournament_data =
-                    scrape_data(tournament, &token, &query_event, &query_entrants).await;
+                    scrape_data(tournament.clone(), &token, &query_event, &query_entrants).await;
                 // println!("{}", tournament_data);
 
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!(
                     "\n{}",
-                    generate_card(tournament_data, &template_card)
+                    generate_card(tournament_data.clone(), &template_card)
                 ));
+                temp_calendar = generate_calendar(tournament, tournament_data, &mut temp_calendar);
             }
         }
         _ => panic!("root must be an array"),
@@ -45,6 +49,7 @@ async fn main() {
     // after all cards have been appended to temp_html, add the footer.html
     temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
     make_site(&temp_html);
+    make_calendar(temp_calendar);
 }
 
 // returns string contents of file with given path or panics otherwise
@@ -115,6 +120,7 @@ async fn scrape_data(
 
     // get human-readable start and date
     let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0).unwrap();
+
     let formatted_start_date = naive_start_date.format("%B %d").to_string();
 
     let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0).unwrap();
@@ -152,24 +158,27 @@ async fn scrape_data(
     download_tournament_image(largest_image_url, &startgg_tournament_name);
 
     return json!({
-      "name": name,
-      "entrants": entrant_count_str,
-      "date": start_end_date,
-      "city-and-state": city_state,
-      "maps-link": google_maps_link,
-      "image-url": cleaned_largest_image_url,
-      "start.gg-url": startgg_url,
-      "start.gg-tournament-name": startgg_tournament_name,
-      "player0": tournament["featured-players"][0],
-      "player1": tournament["featured-players"][1],
-      "player2": tournament["featured-players"][2],
-      "player3": tournament["featured-players"][3],
-      "player4": tournament["featured-players"][4],
-      "player5": tournament["featured-players"][5],
-      "player6": tournament["featured-players"][6],
-      "player7": tournament["featured-players"][7],
-      "stream-url": tournament["stream-url"],
-      "schedule-url": tournament["schedule-url"],
+        "image-url": cleaned_largest_image_url,
+        "start.gg-tournament-name": startgg_tournament_name,
+        "name": name,
+        "date": start_end_date,
+        "start-unix-timestamp": start_date,
+        "end-unix-timestamp": end_date,
+        "player0": tournament["featured-players"][0],
+        "player1": tournament["featured-players"][1],
+        "player2": tournament["featured-players"][2],
+        "player3": tournament["featured-players"][3],
+        "player4": tournament["featured-players"][4],
+        "player5": tournament["featured-players"][5],
+        "player6": tournament["featured-players"][6],
+        "player7": tournament["featured-players"][7],
+        "entrants": entrant_count_str,
+        "city-and-state": city_state,
+        "maps-link": google_maps_link,
+        "full-address": address,
+        "start.gg-url": startgg_url,
+        "stream-url": tournament["stream-url"],
+        "schedule-url": tournament["schedule-url"]
     });
 }
 
@@ -183,6 +192,59 @@ fn download_tournament_image(image_url: &str, tournament_name: &str) {
         .unwrap()
         .wait()
         .unwrap();
+}
+
+fn generate_calendar(
+    tournament: Value,
+    tournament_data: Value,
+    temp_calendar: &mut Calendar,
+) -> Calendar {
+    return temp_calendar
+        .push(
+            Event::new()
+                .starts(
+                    DateTime::from_timestamp(
+                        tournament_data["start-unix-timestamp"]
+                            .as_number()
+                            .unwrap()
+                            .as_i64()
+                            .unwrap(),
+                        0,
+                    )
+                    .unwrap()
+                    .date_naive(),
+                )
+                .ends(
+                    DateTime::from_timestamp(
+                        tournament_data["end-unix-timestamp"]
+                            .as_number()
+                            .unwrap()
+                            .as_i64()
+                            .unwrap(),
+                        0,
+                    )
+                    .unwrap()
+                    .date_naive(),
+                )
+                .summary(tournament_data["name"].as_str().unwrap())
+                .description(&format!(
+                    "{}\n\nattendees: {}\n\nnotable entrants:\n\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n",
+                    tournament_data["start.gg-url"].as_str().unwrap(),
+                    tournament_data["entrants"].as_str().unwrap(),
+                    tournament_data["player0"].as_str().unwrap(),
+                    tournament_data["player1"].as_str().unwrap(),
+                    tournament_data["player2"].as_str().unwrap(),
+                    tournament_data["player3"].as_str().unwrap(),
+                    tournament_data["player4"].as_str().unwrap(),
+                    tournament_data["player5"].as_str().unwrap(),
+                    tournament_data["player6"].as_str().unwrap(),
+                    tournament_data["player7"].as_str().unwrap()
+                ))
+                .class(Class::Public)
+                .location(tournament_data["full-address"].as_str().unwrap())
+                .done(),
+        )
+        .done();
 }
 
 fn generate_card(tournament_data: Value, template_card: &str) -> String {
@@ -226,9 +288,7 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
         )
         .replace(
             "{{entrants}}",
-            tournament_data["entrants"]
-                .as_str()
-                .unwrap(),
+            tournament_data["entrants"].as_str().unwrap(),
         )
         .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
         .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
@@ -251,4 +311,8 @@ fn make_site(temp_html: &str) {
         .args(&["-r", "cards", "../../site/assets"])
         .output()
         .unwrap();
+}
+
+fn make_calendar(temp_calendar: Calendar) {
+    fs::write("../../site/calendar.ics", temp_calendar.to_string()).unwrap();
 }
