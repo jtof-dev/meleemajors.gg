@@ -199,6 +199,10 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border-style: solid;
+}
+
 .card-container {
   min-height: calc(100vh - 225px);
   min-width: 100%;
@@ -415,6 +419,10 @@ footer {
 
 .footer button:active {
   scale: 95%;
+}
+
+.calendar-button {
+  width: 120px;
 }
 
 .footer a:hover {

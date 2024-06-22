@@ -1,5 +1,5 @@
 use case_converter::kebab_to_camel;
-use chrono::{DateTime, NaiveDateTime};
+use chrono::DateTime;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
@@ -41,7 +41,7 @@ async fn main() {
                     "\n{}",
                     generate_card(tournament_data.clone(), &template_card)
                 ));
-                temp_calendar = generate_calendar(tournament, tournament_data, &mut temp_calendar);
+                temp_calendar = generate_calendar(tournament_data, &mut temp_calendar);
             }
         }
         _ => panic!("root must be an array"),
@@ -195,7 +195,6 @@ fn download_tournament_image(image_url: &str, tournament_name: &str) {
 }
 
 fn generate_calendar(
-    tournament: Value,
     tournament_data: Value,
     temp_calendar: &mut Calendar,
 ) -> Calendar {

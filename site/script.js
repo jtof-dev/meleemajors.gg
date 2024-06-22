@@ -1,5 +1,5 @@
 // check light / dark mode on startup and write the setting to localStorage
-function initial_setup() {
+function initialSetup() {
     if (window.localStorage.getItem("dark") === null) {
         window.localStorage.setItem("dark", true)
     }
@@ -13,8 +13,11 @@ function initial_setup() {
     }
 }
 
+// calls initial_setup() as soon as possible on page load
+document.addEventListener("DOMContentLoaded", initialSetup)
+
 // change the class on <body> and write the setting to localStorage
-function switchcolors(event) {
+function switchColors(event) {
     if (window.localStorage.getItem("dark") === "true") { // if true
         document.body.className = "light-mode"
         window.localStorage.setItem("dark", false)
@@ -27,5 +30,21 @@ function switchcolors(event) {
     }
 }
 
-// calls initial_setup() as soon as possible on page load
-document.addEventListener("DOMContentLoaded", initial_setup)
+function calendarButton(event) {
+    const button = event.currentTarget
+    button.innerText = "copied!"
+    setTimeout(() => {button.innerText = "calendar"}, 3500)
+    copyToClipboard("https://meleemajors.gg/calendar.ics")
+}
+
+function copyToClipboard(text) {
+  if (!navigator.clipboard) {
+    console.error("Clipboard API not supported", err);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function () {
+    console.log("Copied");
+  }, function (err) {
+    console.error("Copy", err);
+  });
+}

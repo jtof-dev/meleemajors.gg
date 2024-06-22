@@ -125,8 +125,8 @@ cargo run
 
 ### backend
 - [x] get initial ssg functioning
+- [x] generate a calender subscription alongside the website
 - [ ] set up daily rebuilds using github actions
 - [ ] implement a currently live checker for live tournaments
 - [ ] elegantly handle when the start.gg api is down
-- [ ] generate a calender subscription alongside the website
 - [ ] search for top players automatically using an index of the top 100 players
