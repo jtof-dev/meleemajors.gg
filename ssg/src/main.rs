@@ -5,9 +5,11 @@ use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
 use regex::Regex;
 use serde_json::{json, Value};
+use tokio::time::sleep;
 use std::collections::HashMap;
 use std::fs::File;
 use std::process::Command;
+use std::time::Duration;
 use std::{env, fs};
 use urlencoding::encode;
 
@@ -15,6 +17,20 @@ use urlencoding::encode;
 async fn main() {
     // get start.gg api token from an environmental variable named "STARTGGAPI"
     let token = env::var("STARTGGAPI").unwrap();
+
+    let mut headers = HashMap::new();
+    headers.insert("authorization".to_string(), format!("Bearer {}", token));
+
+    // query start.gg with getTournamentEvent.gql
+    let config = ClientConfig {
+        endpoint: "https://api.start.gg/gql/alpha".to_string(),
+        timeout: Some(60),
+        headers: Some(headers),
+        proxy: None,
+    };
+
+    let client = Client::new_with_config(config);
+
     // get graphgl queries
     let query_event = read_file("graphql/getTournamentEvent.gql");
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
@@ -33,7 +49,7 @@ async fn main() {
         Value::Array(vec) => {
             for tournament in vec {
                 let tournament_data =
-                    scrape_data(tournament.clone(), &token, &query_event, &query_entrants).await;
+                    scrape_data(tournament, client.clone(), &query_event, &query_entrants).await;
                 // println!("{}", tournament_data);
 
                 // use scraped info to make a tournament card, and append it to temp_html
@@ -61,7 +77,7 @@ fn read_file(path: &str) -> String {
 
 async fn scrape_data(
     tournament: Value,
-    token: &str,
+    client: Client,
     query_event: &str,
     query_entrants: &str,
 ) -> Value {
@@ -76,37 +92,47 @@ async fn scrape_data(
       "slug": tournament_slug,
       "slug_event": event_slug
     });
-    // println!("{}", vars_event);
-    // format header with api token
-    let mut headers = HashMap::new();
-    headers.insert("authorization".to_string(), format!("Bearer {}", token));
 
-    // query start.gg with getTournamentEvent.gql
-    let config = ClientConfig {
-        endpoint: "https://api.start.gg/gql/alpha".to_string(),
-        timeout: Some(60),
-        headers: Some(headers),
-        proxy: None,
-    };
-
-    let client = Client::new_with_config(config);
-    let data_event = client
-        .query_with_vars_unwrap::<Value, Value>(query_event, vars_event.clone())
-        .await
-        .unwrap();
+    let data_event: Value;
+    let name: &str;
+    loop {
+        match data_event_query(client.clone(), query_event, vars_event.clone()).await {
+            Ok(data) => {
+                data_event = data;
+                name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
+                println!("Successfully scraped data for {}", name);
+                break;
+            }
+            Err(e) => {
+                println!("Error while querying with getTournamentEvent.gql: {:?}", e);
+                println!("Retrying in 2 seconds...");
+                sleep(Duration::from_secs(2)).await;
+            }
+        }
+    }
 
     let vars_entrants = json!({
       "eventId": data_event["event"].get("id").unwrap().to_string(),
     });
 
     // query start.gg with getTournamentEntrants.gql
-    let data_entrants = client
-        .query_with_vars_unwrap::<Value, Value>(query_entrants, vars_entrants)
-        .await
-        .unwrap();
+    let data_entrants: Value;
+    loop {
+        match data_entrants_query(client.clone(), query_entrants, vars_entrants.clone()).await {
+            Ok(data) => {
+                data_entrants = data;
+                println!("Successfully scraped entrants for {}", name);
+                break;
+            }
+            Err(e) => {
+                println!("Error while querying with getTournamentEntrants.gql: {:?}", e);
+                println!("Retrying in 2 seconds...");
+                sleep(Duration::from_secs(2)).await;
+            }
+        }
+    }
 
     // grab basic info from queries
-    let name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
     let start_date = data_event["tournament"]["startAt"].as_number().unwrap();
     let end_date = data_event["tournament"]["endAt"].as_number().unwrap();
     let address = data_event["tournament"]["venueAddress"].as_str().unwrap();
@@ -184,6 +210,18 @@ async fn scrape_data(
         "stream-url": tournament["stream-url"],
         "schedule-url": tournament["schedule-url"]
     });
+}
+
+async fn data_event_query(client: Client, query_event: &str, vars_event: Value) -> Result<Value, gql_client::GraphQLError> {
+    return client
+        .query_with_vars_unwrap::<Value, Value>(query_event, vars_event.clone())
+        .await;
+}
+
+async fn data_entrants_query(client: Client, query_entrants: &str, vars_entrants: Value) -> Result<Value, gql_client::GraphQLError> {
+    return client
+    .query_with_vars_unwrap::<Value, Value>(query_entrants, vars_entrants)
+    .await;
 }
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {

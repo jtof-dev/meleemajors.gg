@@ -128,7 +128,7 @@ cargo run
 ### backend
 - [x] get initial ssg functioning
 - [x] generate a calender subscription alongside the website
-- [ ] elegantly handle when the start.gg api is down
+- [x] elegantly handle when the start.gg api is down
 - [ ] search for top players automatically using an index of the top 100 players
 
 ### potential future plans
