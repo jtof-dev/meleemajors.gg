@@ -7,7 +7,7 @@
     </tr>
 </table>
 
-# <img src="site/assets/favicon/favicon2.webp" height="25px"> meleemajors.gg
+# <img src="site/assets/favicon/favicon.webp" height="25px"> meleemajors.gg
 
 > the successor to meleemajors.com
 
