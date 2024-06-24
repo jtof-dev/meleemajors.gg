@@ -114,12 +114,17 @@ async fn scrape_data(
     };
 
     // get human-readable start and date
-    let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0).unwrap();
+    let timezone = chrono_tz::US::Central;
+    let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0)
+        .unwrap()
+        .with_timezone(&timezone);
     let formatted_start_date = naive_start_date.format("%B %d").to_string();
 
-    let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0).unwrap();
+    // us central timezone:
+    let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0)
+        .unwrap()
+        .with_timezone(&timezone);
     let formatted_end_date = naive_end_date.format("%B %d").to_string();
-
     let start_end_date = format!("{} - {}", formatted_start_date, formatted_end_date); // ---> result
 
     // put together city and state
@@ -226,9 +231,7 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
         )
         .replace(
             "{{entrants}}",
-            tournament_data["entrants"]
-                .as_str()
-                .unwrap(),
+            tournament_data["entrants"].as_str().unwrap(),
         )
         .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
         .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
