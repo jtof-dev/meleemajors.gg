@@ -96,7 +96,7 @@ async fn scrape_data(
     let data_event: Value;
     let name: &str;
     loop {
-        match data_event_query(client.clone(), query_event, vars_event.clone()).await {
+        match graphql_query(client.clone(), query_event, vars_event.clone()).await {
             Ok(data) => {
                 data_event = data;
                 name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
@@ -118,7 +118,7 @@ async fn scrape_data(
     // query start.gg with getTournamentEntrants.gql
     let data_entrants: Value;
     loop {
-        match data_entrants_query(client.clone(), query_entrants, vars_entrants.clone()).await {
+        match graphql_query(client.clone(), query_entrants, vars_entrants.clone()).await {
             Ok(data) => {
                 data_entrants = data;
                 println!("Successfully scraped entrants for {}", name);
@@ -212,16 +212,10 @@ async fn scrape_data(
     });
 }
 
-async fn data_event_query(client: Client, query_event: &str, vars_event: Value) -> Result<Value, gql_client::GraphQLError> {
+async fn graphql_query(client: Client, query: &str, vars: Value) -> Result<Value, gql_client::GraphQLError> {
     return client
-        .query_with_vars_unwrap::<Value, Value>(query_event, vars_event.clone())
+        .query_with_vars_unwrap::<Value, Value>(query, vars)
         .await;
-}
-
-async fn data_entrants_query(client: Client, query_entrants: &str, vars_entrants: Value) -> Result<Value, gql_client::GraphQLError> {
-    return client
-    .query_with_vars_unwrap::<Value, Value>(query_entrants, vars_entrants)
-    .await;
 }
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
