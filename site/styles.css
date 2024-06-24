@@ -132,6 +132,7 @@ body {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  background-color: #000000;
 }
 
 /* add the background image using an empty div */
