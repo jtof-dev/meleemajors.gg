@@ -235,17 +235,11 @@ hr {
   font-size: 16px;
   transition: all 200ms, border 500ms;
   animation-fill-mode: both;
+  position: relative;
 }
 
 .card:hover {
   scale: 105%;
-}
-
-.currently-live {
-  border-style: solid;
-  border-color: #ff0000;
-  border-radius: 28px;
-  border-width: 3px;
 }
 
 .card h2 {
@@ -285,6 +279,28 @@ hr {
 
 .card hr {
   margin: 5px 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.live-badge {
+  border-radius: var(--card-border-radius);
+  background: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  font-size: 16px;
+  top: 0;
+  left: 50%;
+  translate: -50% -50%;
+  padding: 10px 15px;
+}
+
+.live-badge::selection {
+  background-color: var(--link-color);
+  color: #000000;
 }
 
 .card-content {
@@ -427,8 +443,4 @@ footer {
 
 .footer a:hover {
   text-decoration: underline;
-}
-
-.hidden {
-  display: none;
 }

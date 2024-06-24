@@ -121,12 +121,13 @@ cargo run
 - [x] credit the artist for the mobile picture
 - [x] make footer fit better relative to the text on-screen
 - [x] set up ko-fi
-- [ ] add a currently live title for live tournaments
+- [x] add a currently live title for live tournaments
+- [x] implement a currently live checker for live tournaments
+- [ ] add a calender info panel in the footer that appears / dissapears
 
 ### backend
 - [x] get initial ssg functioning
 - [x] generate a calender subscription alongside the website
-- [ ] set up daily rebuilds using github actions
-- [ ] implement a currently live checker for live tournaments
 - [ ] elegantly handle when the start.gg api is down
 - [ ] search for top players automatically using an index of the top 100 players
+- [ ] set up daily rebuilds using github actions

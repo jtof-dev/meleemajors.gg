@@ -194,10 +194,7 @@ fn download_tournament_image(image_url: &str, tournament_name: &str) {
         .unwrap();
 }
 
-fn generate_calendar(
-    tournament_data: Value,
-    temp_calendar: &mut Calendar,
-) -> Calendar {
+fn generate_calendar(tournament_data: Value, temp_calendar: &mut Calendar) -> Calendar {
     return temp_calendar
         .push(
             Event::new()
@@ -298,7 +295,9 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
         .replace("{{player6}}", tournament_data["player6"].as_str().unwrap())
         .replace("{{player7}}", tournament_data["player7"].as_str().unwrap())
         .replace("{{schedule-link-class}}", schedule_link_class)
-        .replace("{{stream-link-class}}", stream_link_class);
+        .replace("{{stream-link-class}}", stream_link_class)
+        .replace("{{start-unix-timestamp}}", &tournament_data["start-unix-timestamp"].as_number().unwrap().to_string())
+        .replace("{{end-unix-timestamp}}", &tournament_data["end-unix-timestamp"].as_number().unwrap().to_string());
     return temp_card;
 }
 

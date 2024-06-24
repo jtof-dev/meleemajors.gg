@@ -1,20 +1,40 @@
-// check light / dark mode on startup and write the setting to localStorage
 function initialSetup() {
+  setTheme()
+  setCurrentlyLive()
+}
+
+// calls initialSetup() as soon as possible on page load
+document.addEventListener("DOMContentLoaded", initialSetup)
+
+// check light / dark mode on startup and write the setting to localStorage
+function setTheme() {
     if (window.localStorage.getItem("dark") === null) {
         window.localStorage.setItem("dark", true)
     }
     if (window.localStorage.getItem("dark") === "true") {
         document.body.className = "dark-mode"
-        document.getElementById("checkbox").checked = 1
     }
     else {
         document.body.className = "light-mode"
-        document.getElementById("checkbox").checked = 0
+        document.querySelector(".theme-toggle").innerText = "switch to dark mode"
     }
 }
 
-// calls initial_setup() as soon as possible on page load
-document.addEventListener("DOMContentLoaded", initialSetup)
+// check if any tournaments are currently live
+function setCurrentlyLive() {
+  const cards = document.querySelectorAll(".card")
+  for (const card of cards) {
+    const startTime = parseInt(card.getAttribute("data-start-time"))
+    const endTime = parseInt(card.getAttribute("data-end-time"))
+    const now = new Date().getTime() / 1000
+    if (startTime <= now && now <= endTime) {
+      const div = document.createElement("div")
+      div.className = "live-badge"
+      div.innerText = "LIVE NOW"
+      card.appendChild(div)
+    }
+  }
+}
 
 // change the class on <body> and write the setting to localStorage
 function switchColors(event) {
