@@ -5,38 +5,36 @@ use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
 use regex::Regex;
 use serde_json::{json, Value};
-use tokio::time::sleep;
 use std::collections::HashMap;
 use std::fs::File;
 use std::process::Command;
 use std::time::Duration;
 use std::{env, fs};
+use tokio::time::sleep;
 use urlencoding::encode;
 
 #[tokio::main]
 async fn main() {
-    // get start.gg api token from an environmental variable named "STARTGGAPI"
+    // define constant graphql variables for scrape_data()
     let token = env::var("STARTGGAPI").unwrap();
-
     let mut headers = HashMap::new();
     headers.insert("authorization".to_string(), format!("Bearer {}", token));
-
-    // query start.gg with getTournamentEvent.gql
     let config = ClientConfig {
         endpoint: "https://api.start.gg/gql/alpha".to_string(),
         timeout: Some(60),
         headers: Some(headers),
         proxy: None,
     };
-
     let client = Client::new_with_config(config);
 
     // get graphgl queries
     let query_event = read_file("graphql/getTournamentEvent.gql");
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
+
     // create variable that holds the website being made, starting with the header.html
     let mut temp_html = String::from(read_file("html/header.html"));
     let template_card = read_file("html/templateCard.html");
+
     // create variable that holds the calendar subscription
     let mut temp_calendar = Calendar::new().name("upcoming melee majors").done();
 
@@ -50,7 +48,6 @@ async fn main() {
             for tournament in vec {
                 let tournament_data =
                     scrape_data(tournament, client.clone(), &query_event, &query_entrants).await;
-                // println!("{}", tournament_data);
 
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!(
@@ -93,44 +90,17 @@ async fn scrape_data(
       "slug_event": event_slug
     });
 
-    let data_event: Value;
-    let name: &str;
-    loop {
-        match graphql_query(client.clone(), query_event, vars_event.clone()).await {
-            Ok(data) => {
-                data_event = data;
-                name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
-                println!("Successfully scraped data for {}", name);
-                break;
-            }
-            Err(e) => {
-                println!("Error while querying with getTournamentEvent.gql: {:?}", e);
-                println!("Retrying in 2 seconds...");
-                sleep(Duration::from_secs(2)).await;
-            }
-        }
-    }
-
+    // get tournament data from queries using graphql_query()
+    let data_event = graphql_query(client.clone(), query_event, vars_event.clone()).await;
+    // get name early for logging
+    let name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
+    println!("Successfully scraped data for {}", name);
     let vars_entrants = json!({
       "eventId": data_event["event"].get("id").unwrap().to_string(),
     });
-
-    // query start.gg with getTournamentEntrants.gql
-    let data_entrants: Value;
-    loop {
-        match graphql_query(client.clone(), query_entrants, vars_entrants.clone()).await {
-            Ok(data) => {
-                data_entrants = data;
-                println!("Successfully scraped entrants for {}", name);
-                break;
-            }
-            Err(e) => {
-                println!("Error while querying with getTournamentEntrants.gql: {:?}", e);
-                println!("Retrying in 2 seconds...");
-                sleep(Duration::from_secs(2)).await;
-            }
-        }
-    }
+    // get entrant info from graphql_query()
+    let data_entrants = graphql_query(client, query_entrants, vars_entrants).await;
+    println!("Successfully scraped entrants for {}", name);
 
     // grab basic info from queries
     let start_date = data_event["tournament"]["startAt"].as_number().unwrap();
@@ -138,11 +108,13 @@ async fn scrape_data(
     let address = data_event["tournament"]["venueAddress"].as_str().unwrap();
     let city = data_event["tournament"]["city"].as_str().unwrap();
     let state = data_event["tournament"]["addrState"].as_str().unwrap();
-    let entrant_count = data_entrants["event"]["numEntrants"].as_number(); // ---> result
+
+    // get number of entrants, and assign "TBD" if start.gg returns a null value
+    let entrant_count = data_entrants["event"]["numEntrants"].as_number(); 
     let entrant_count_str = match entrant_count {
         Some(number) => number.to_string(),
         None => "TBD".to_string(),
-    };
+    }; // ---> result
 
     // get human-readable start and date
     let timezone = chrono_tz::US::Central;
@@ -151,7 +123,7 @@ async fn scrape_data(
         .with_timezone(&timezone);
     let formatted_start_date = naive_start_date.format("%B %d").to_string();
 
-    // us central timezone:
+    // us central timezone
     let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0)
         .unwrap()
         .with_timezone(&timezone);
@@ -212,10 +184,23 @@ async fn scrape_data(
     });
 }
 
-async fn graphql_query(client: Client, query: &str, vars: Value) -> Result<Value, gql_client::GraphQLError> {
-    return client
-        .query_with_vars_unwrap::<Value, Value>(query, vars)
-        .await;
+async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
+    // infinitely requery start.gg if a query fails (which happens often) - and only return a successful response
+    loop {
+        match client
+            .query_with_vars_unwrap::<Value, Value>(query, vars.clone())
+            .await
+        {
+            Ok(data) => {
+                return data;
+            }
+            Err(e) => {
+                println!("Error while querying: {:?}", e);
+                println!("Retrying in 2 seconds...");
+                sleep(Duration::from_secs(2)).await;
+            }
+        }
+    }
 }
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {

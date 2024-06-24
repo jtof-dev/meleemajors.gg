@@ -123,13 +123,19 @@ cargo run
 - [x] set up ko-fi
 - [x] add a currently live title for live tournaments
 - [x] implement a currently live checker for live tournaments
+- [ ] add `alt` tags to images
+- [ ] add meta description
 - [ ] add a calender info panel in the footer that appears / dissapears
 
 ### backend
 - [x] get initial ssg functioning
 - [x] generate a calender subscription alongside the website
 - [x] elegantly handle when the start.gg api is down
+- [ ] minify javascript
 - [ ] search for top players automatically using an index of the top 100 players
+
+### misc
+- [ ] write a script that parses `site/index.html` and updates the `header.html` and `footer.html` files in `ssg/src/html/`
 
 ### potential future plans
 - [ ] set up daily rebuilds using github actions
