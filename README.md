@@ -1,7 +1,3 @@
-# meleemajors.gg
-
-the successor to meleemajors.com
-
 <table>
     <tr>
         <td><img src="assets/darkModeDesktopView.webp"></td>
@@ -11,14 +7,75 @@ the successor to meleemajors.com
     </tr>
 </table>
 
+# meleemajors.gg
+
+> the successor to meleemajors.com
+
 ## contributing
 
 - are we missing a tournament, or have incorrect information? you can either open an [issue](https://github.com/jtof-dev/meleemajors.gg/issues) with what we are missing, or make a [pull request](https://github.com/jtof-dev/meleemajors.gg/pulls) with an updated [tournaments.json](ssg/src/tournaments.json)
-  - want more information? check out our [contributing docs](CONTRIBUTING.md)
+  - for a quick rundown on formatting `tournaments.json`, check out our [contributing documentation](CONTRIBUTING.md)
 
 ## backend
 
-- on the backend, we are working on a static site generator written in rust - it reads a [tournaments.json](ssg/src/tournaments.json), and generates a tournament from each entry in that array
+- on the backend, we read the `tournaments.json`, and scrape the majority of the information needed about the tournament using [start.gg's api](https://developer.start.gg/)
+  - start.gg uses graphql on the backend, and bundle a nice [api explorer](https://developer.start.gg/explorer) that makes it very easy to build queries
+  - from there, it just took a lot of data parsing and find-and-replacing variables in a [templateCard.html](ssg/src/html/templateCard.html)
+
+### code flowchart
+```
+           ┌───────────────┐               ┌─────────────────────┐
+           │               │               │                     │
+           │ main function ├───► then: ───►│ copy files to site/ │
+           │               │               │                     │
+           └───────┬───────┘               └─────────────────────┘
+                   │                                              
+                   │                                              
+                   │                                              
+                   ▼                                              
+       iterate through tournaments                                
+                                                                  
+          for each tournament:                                    
+                   │                                              
+                   │                                              
+                   │                                              
+                   ▼                                              
+        ┌─────────────────────┐                                   
+        │                     │                                   
+┌──────►│ scrape start.gg api ├───────┐                           
+│       │                     │       │                           
+│       └─────────────────────┘       │                           
+│                                     │                           
+│                                     │                           
+│                                     │                           
+│                                     │                           
+│   ┌────────────────────────────┐    │                           
+│   │                            │    │                           
+└───┤ generate a tournament card │◄───┘                           
+    │                            │                                
+    └──────────────┬─────────────┘                                
+                   │                                              
+                   │                                              
+                   │                                              
+                   ▼                                              
+  ┌────────────────────────────────┐                              
+  │                                │                              
+  │ generate calendar subscription │                              
+  │                                │                              
+  └────────────────────────────────┘                              
+  ```
+flowchart made using [asciiflow](https://asciiflow.com)
+
+### running locally
+
+- in `ssg/src`, you can just `cargo run`, but you first need to export your start.gg api key as an environmental variable
+- to simplify this, I normally run the backend using [run.sh](ssg/src/sampleRun.sh), which does the following:
+
+```
+export STARTGGAPI=<TOKEN>
+
+cargo run
+```
 
 ## hosting
 
@@ -43,7 +100,7 @@ the successor to meleemajors.com
 ## analytics
 
 - we use [umami](https://umami.is/) for basic analytics, like daily site views and how visitors interact with the website. while this could be useful improving the website, this is mostly because we want to know how much the website is getting used
-- umami is a good choice for analytics, both because it has a free tier, and because it is relatively privacy-friendly (at least, according umami, for what that's worth)
+- these analytics are completely anonymous (at least to us), and just let us dig around with how the website actually gets used
 
 ## meleemajors.com
 
@@ -64,11 +121,13 @@ the successor to meleemajors.com
 - [x] credit the artist for the mobile picture
 - [x] make footer fit better relative to the text on-screen
 - [x] set up ko-fi
-- [ ] add a currently live title for live tournaments
+- [x] add a currently live title for live tournaments
+- [x] implement a currently live checker for live tournaments
+- [ ] add a calender info panel in the footer that appears / dissapears
 
 ### backend
 - [x] get initial ssg functioning
-- [ ] set up daily rebuilds using github actions
-- [ ] implement a currently live checker for live tournaments
+- [x] generate a calender subscription alongside the website
 - [ ] elegantly handle when the start.gg api is down
-- [ ] generate a calender subscription alongside the website
+- [ ] search for top players automatically using an index of the top 100 players
+- [ ] set up daily rebuilds using github actions
