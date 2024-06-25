@@ -204,10 +204,10 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
 }
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
-    // ffmpeg -i "image_url" -vf "scale=-1:170" "tournament_name".webp
+    // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
     FfmpegCommand::new()
         .input(image_url)
-        .args(["-vf", "scale=-1:170"])
+        .args(["-vf", "scale=-1:340"])
         .output(format!("cards/{}.webp", tournament_name))
         .spawn()
         .unwrap()
