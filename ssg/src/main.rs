@@ -196,18 +196,18 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
             }
             Err(e) => {
                 println!("Error while querying: {:?}", e);
-                println!("Retrying in 2 seconds...");
-                sleep(Duration::from_secs(2)).await;
+                println!("Retrying in 10 seconds...");
+                sleep(Duration::from_secs(10)).await;
             }
         }
     }
 }
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
-    // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
+    // ffmpeg -i "image_url" -vf "scale=-1:170" "tournament_name".webp
     FfmpegCommand::new()
         .input(image_url)
-        .args(["-vf", "scale=-1:340"])
+        .args(["-vf", "scale=-1:170"])
         .output(format!("cards/{}.webp", tournament_name))
         .spawn()
         .unwrap()

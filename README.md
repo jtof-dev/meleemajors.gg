@@ -123,8 +123,8 @@ cargo run
 - [x] set up ko-fi
 - [x] add a currently live title for live tournaments
 - [x] implement a currently live checker for live tournaments
-- [ ] add `alt` tags to images
-- [ ] add meta description
+- [x] add `alt` tags to images
+- [x] add meta description
 - [ ] add a calender info panel in the footer that appears / dissapears
 
 ### backend
