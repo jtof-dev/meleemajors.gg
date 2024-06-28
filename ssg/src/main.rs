@@ -13,8 +13,18 @@ use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
 
+mod generate_gql;
+
 #[tokio::main]
 async fn main() {
+    // break off into generate.rs if --generate flag is passed
+    let args: Vec<String> = std::env::args().collect();
+
+    if args.contains(&String::from("--generate")) {
+        generate_gql::main();
+        return;
+    }
+
     // define constant graphql variables for scrape_data()
     let token = env::var("STARTGGAPI").unwrap();
     let mut headers = HashMap::new();
@@ -66,7 +76,7 @@ async fn main() {
 }
 
 // returns string contents of file with given path or panics otherwise
-fn read_file(path: &str) -> String {
+pub fn read_file(path: &str) -> String {
     let file = File::open(path).unwrap();
     let file_contents = std::io::read_to_string(file).unwrap();
     return file_contents;

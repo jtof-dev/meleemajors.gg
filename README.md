@@ -77,6 +77,12 @@ export STARTGGAPI=<TOKEN>
 cargo run
 ```
 
+- [getFeaturedPlayers.gql](ssg/src/graphql/getFeaturedPlayers.gql) is generated using [generate_gql.rs](ssg/src/generate_gql.rs), and calling with
+
+```
+cargo run -- --generate
+```
+
 ## hosting
 
 - we use [github pages](https://pages.github.com) to do all the work for us, as long as our website stays static

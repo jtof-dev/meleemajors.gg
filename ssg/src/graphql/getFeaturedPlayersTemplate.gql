@@ -1,0 +1,9 @@
+query TournamentQuery($slug_event: String) {
+  event(slug: $slug_event) {
+    {{entrant-name}}: entrants(query: { page: 0, filter: { name: "{{entrant-name}}" } }) {
+      nodes {
+        name
+      }
+    }
+  }
+}
