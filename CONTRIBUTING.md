@@ -11,17 +11,7 @@
 {
     "start.gg-melee-singles-url": "url to melee singles",
     "schedule-url": "either empty quotes or url or path to image",
-    "stream-url": "either empty quotes or url to stream",
-    "featured-players": [
-        "TBD",
-        "TBD",
-        "TBD",
-        "TBD",
-        "TBD",
-        "TBD",
-        "TBD",
-        "TBD"
-    ]
+    "stream-url": "either empty quotes or url to stream"
 }
 ```
 

@@ -137,4 +137,4 @@ cargo run -- --generate
 - [x] get initial ssg functioning
 - [x] generate a calender subscription alongside the website
 - [x] elegantly handle when the start.gg api is down
-- [ ] search for top players automatically using an index of the top 100 players
+- [x] search for top players automatically using an index of the top 100 players

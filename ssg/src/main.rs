@@ -3,6 +3,7 @@ use chrono::DateTime;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
+use itertools::Itertools;
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::HashMap;
@@ -40,6 +41,10 @@ async fn main() {
     // get graphgl queries
     let query_event = read_file("graphql/getTournamentEvent.gql");
     let query_entrants = read_file("graphql/getTournamentEntrants.gql");
+    let query_top_players = read_file("graphql/getFeaturedPlayers.gql");
+
+    // read top players json
+    let top_players_json: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
 
     // create variable that holds the website being made, starting with the header.html
     let mut temp_html = String::from(read_file("html/header.html"));
@@ -57,7 +62,7 @@ async fn main() {
         Value::Array(vec) => {
             for tournament in vec {
                 let tournament_data =
-                    scrape_data(tournament, client.clone(), &query_event, &query_entrants).await;
+                    scrape_data(tournament, client.clone(), &query_event, &query_entrants, &query_top_players, &top_players_json).await;
 
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!(
@@ -87,6 +92,8 @@ async fn scrape_data(
     client: Client,
     query_event: &str,
     query_entrants: &str,
+    query_top_players: &str,
+    top_players_json: &Value,
 ) -> Value {
     // scrape tournament info for a specific tournament entry
     let startgg_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
@@ -109,8 +116,19 @@ async fn scrape_data(
       "eventId": data_event["event"].get("id").unwrap().to_string(),
     });
     // get entrant info from graphql_query()
-    let data_entrants = graphql_query(client, query_entrants, vars_entrants).await;
+    let data_entrants = graphql_query(client.clone(), query_entrants, vars_entrants).await;
     println!("Successfully scraped entrants for {}", name);
+    let vars_top_players = json!({
+        "slug_event": event_slug
+    });
+    let data_entrants_top_players = graphql_query(client, query_top_players, vars_top_players).await.to_string();
+
+    let top_eight = top_players_json.as_array().unwrap().iter()
+        .filter(|player| { data_entrants_top_players.contains(&(player.as_str().unwrap().to_owned() + "\"")) })
+        .take(8)
+        .map(|player| { player.as_str().unwrap() })
+        .pad_using(8, |_| "TBD")
+        .collect::<Vec<&str>>();
 
     // grab basic info from queries
     let start_date = data_event["tournament"]["startAt"].as_number().unwrap();
@@ -176,14 +194,14 @@ async fn scrape_data(
         "date": start_end_date,
         "start-unix-timestamp": start_date,
         "end-unix-timestamp": end_date,
-        "player0": tournament["featured-players"][0],
-        "player1": tournament["featured-players"][1],
-        "player2": tournament["featured-players"][2],
-        "player3": tournament["featured-players"][3],
-        "player4": tournament["featured-players"][4],
-        "player5": tournament["featured-players"][5],
-        "player6": tournament["featured-players"][6],
-        "player7": tournament["featured-players"][7],
+        "player0": top_eight[0],
+        "player1": top_eight[1],
+        "player2": top_eight[2],
+        "player3": top_eight[3],
+        "player4": top_eight[4],
+        "player5": top_eight[5],
+        "player6": top_eight[6],
+        "player7": top_eight[7],
         "entrants": entrant_count_str,
         "city-and-state": city_state,
         "maps-link": google_maps_link,
