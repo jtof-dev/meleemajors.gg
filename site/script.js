@@ -50,11 +50,13 @@ function switchColors(event) {
     }
 }
 
-function calendarButton(event) {
-    const button = event.currentTarget
-    button.innerText = "copied!"
-    setTimeout(() => {button.innerText = "calendar"}, 3500)
+function copyCalendar() {
     copyToClipboard("https://meleemajors.gg/calendar.ics")
+}
+
+function calendarButton(event) {
+    const contents = document.querySelector(".calendar-note")
+    contents.classList.toggle("calendar-note-hidden")
 }
 
 function copyToClipboard(text) {

@@ -62,6 +62,15 @@
   src: url('assets/fonts/montserrat-v26-latin-900.woff2') format('woff2');
 }
 
+/* fira-mono-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/fira-mono-v14-latin-regular.woff2') format('woff2');
+}
+
 /* define keyframes for fade-in animation on cards */
 @keyframes fade-in-light {
   0% {
@@ -283,7 +292,7 @@ hr {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .live-badge {
@@ -440,6 +449,72 @@ footer {
 
 .calendar-button {
   width: 120px;
+}
+
+.calendar-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  max-height: 150px;
+  transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out, opacity 0.7s ease-in-out;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.calendar-note-hidden {
+  max-height: 0;
+  margin-bottom: 0;
+  opacity: 0;
+}
+
+.calendar-url-snippet {
+  font-size: 16px;
+  padding: 0 0 0 0;
+  padding-left: 10px;
+  margin: 10px;
+  border-style: solid;
+  height: 40px;
+  color: #ffffff;
+  border-color: white;
+  border-radius: 5px;
+  border-width: 1px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  width: calc(100% - 20px);
+}
+
+.calendar-url-snippet pre {
+  font-family: "Fira Mono", monospace;
+  margin: 0;
+  align-items: left;
+  align-self: center;
+}
+
+.calendar-url-snippet button {
+  border: none;
+  margin: 0;
+  padding: inherit;
+  background-color: transparent;
+  align-items: right;
+  justify-content: right;
+}
+
+.calendar-url-snippet button:hover {
+  scale: 110%;
+}
+
+.calendar-url-snippet button:active {
+  scale: 95%;
+}
+
+.calendar-url-snippet img {
+  height: 20px;
+  width: 20px;
+  margin: inherit;
+  margin-right: 5px;
 }
 
 .footer a:hover {

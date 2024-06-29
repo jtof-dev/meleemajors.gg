@@ -1,23 +1,32 @@
 </div>
 <footer>
-    <div class="footer">
-        <button onclick="calendarButton(event)" class="calendar-button" data-umami-event="calendar-button-clicked">calendar</button>
-        <button onclick="switchColors(event)" class="theme-toggle" data-umami-event="theme-toggle-clicked">switch to light mode</button>
-        <a href="https://ko-fi.com/meleemajors" target="_blank" data-umami-event="ko-fi-button"><button>buy us a coffee on ko-fi</button></a>
-        <hr>
-        <p>see something wrong? open an issue or pull request on our <a
-                href="https://github.com/jtof-dev/meleemajors.gg" data-umami-event="github-link-clicked" target="_blank">github
-                repo</a></p>
-        <p>this <a href="https://github.com/jtof-dev/meleemajors.gg" target="_blank"
-                data-umami-event="second-github-link-clicked">website</a> is
-            open-source, and is licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank"
-                data-umami-event="license-link-clicked">agpl-3</a></p>
-        <p>powered by <a href="https://pages.github.com" target="_blank"
-                data-umami-event="github-pages-clicked">github
-                pages</a> | made with love by <a href="https://github.com/jtof-dev" target="_blank"
-                data-umami-event="jtof-github-clicked">jtof</a> and <a href="https://github.com/nathanbabcock"
-                target="_blank" data-umami-event="excalo-github-clicked">excalo</a></p>
+  <div class="footer">
+    <div class="calendar-note calendar-note-hidden">
+      <p>you can import this link into your calendar app to follow the newest majors</p>
+      <div class="calendar-url-snippet">
+        <pre>https://meleemajors.gg/calendar.ics</pre>
+        <button onclick="copyCalendar()"><img src="assets/copyButton.svg" alt="copy button"></button>
+      </div>
     </div>
+    <button onclick="calendarButton(event)" class="calendar-button"
+      data-umami-event="calendar-button-clicked">calendar</button>
+    <button onclick="switchColors(event)" class="theme-toggle" data-umami-event="theme-toggle-clicked">switch to light
+      mode</button>
+    <a href="https://ko-fi.com/meleemajors" target="_blank" data-umami-event="ko-fi-button"><button>buy us a coffee on
+        ko-fi</button></a>
+    <hr>
+    <p>see something wrong? open an issue or pull request on our <a href="https://github.com/jtof-dev/meleemajors.gg"
+        data-umami-event="github-link-clicked" target="_blank">github
+        repo</a></p>
+    <p>this <a href="https://github.com/jtof-dev/meleemajors.gg" target="_blank"
+        data-umami-event="second-github-link-clicked">website</a> is
+      open-source, and is licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank"
+        data-umami-event="license-link-clicked">agpl-3</a></p>
+    <p>powered by <a href="https://pages.github.com" target="_blank" data-umami-event="github-pages-clicked">github
+        pages</a> | made with love by <a href="https://github.com/jtof-dev" target="_blank"
+        data-umami-event="jtof-github-clicked">jtof</a> and <a href="https://github.com/nathanbabcock" target="_blank"
+        data-umami-event="excalo-github-clicked">excalo</a></p>
+  </div>
 </footer>
 </body>
 

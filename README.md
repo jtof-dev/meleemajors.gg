@@ -131,7 +131,7 @@ cargo run -- --generate
 - [x] implement a currently live checker for live tournaments
 - [x] add `alt` tags to images
 - [x] add meta description
-- [ ] add a calender info panel in the footer that appears / dissapears
+- [x] add a calender info panel in the footer that appears / dissapears
 
 ### backend
 - [x] get initial ssg functioning
