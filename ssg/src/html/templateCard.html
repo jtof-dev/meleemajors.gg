@@ -1,51 +1,36 @@
 <div class="card" data-start-time="{{start-unix-timestamp}}" data-end-time="{{end-unix-timestamp}}">
-    <img src="assets/cards/{{start.gg-tournament-name}}.webp" alt="{{name}} banner image" class="image">
-    <div class="card-content">
-        <h2>{{name}}</h2>
-        <h4>{{date}}</h4>
-        <div class="featured-players">
-            <u>Featured Players</u>
-            <ul class="featured-players-columns">
-                <li>{{player0}}</li>
-                <li>{{player2}}</li>
-                <li>{{player4}}</li>
-                <li>{{player6}}</li>
-                <li>{{player1}}</li>
-                <li>{{player3}}</li>
-                <li>{{player5}}</li>
-                <li>{{player7}}</li>
-            </ul>
-        </div>
-        <hr>
-        <p>
-          <a class="card-location"
-            href="{{maps-link}}"
-            target="_blank"
-            data-umami-event="map-link-clicked"
-            data-umami-event-location="{{city-and-state}}">
-            {{city-and-state}}
-          </a>&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> {{entrants}}
-        </p>
-        <hr>
-        <div class="buttons">
-            <a href="{{start.gg-url}}"
-              target="_blank"
-              class="card-button"
-              data-umami-event="start-gg-clicked"
-              data-umami-event-name="{{name}}"
-            >Start.gg</a>
-            <a href="{{schedule-url}}"
-              target="_blank"
-              class="card-button{{schedule-link-class}}"
-              data-umami-event="schedule-clicked"
-              data-umami-event-name="{{name}}"
-            >Schedule</a>
-            <a href="{{stream-url}}"
-              target="_blank"
-              class="card-button{{stream-link-class}}"
-              data-umami-event="stream-clicked"
-              data-umami-event-name="{{name}}"
-            >Stream</a>
-        </div>
+  <img src="assets/cards/{{start.gg-tournament-name}}.webp" alt="{{name}} banner image" class="image">
+  <div class="card-content">
+    <h2>{{name}}</h2>
+    <h4>{{date}}</h4>
+    <div class="featured-players">
+      <u>Featured Players</u>
+      <ul class="featured-players-columns">
+        <li>{{player0}}</li>
+        <li>{{player2}}</li>
+        <li>{{player4}}</li>
+        <li>{{player6}}</li>
+        <li>{{player1}}</li>
+        <li>{{player3}}</li>
+        <li>{{player5}}</li>
+        <li>{{player7}}</li>
+      </ul>
     </div>
+    <hr>
+    <p>
+      <a class="card-location" href="{{maps-link}}" target="_blank" data-umami-event="map-link-clicked"
+        data-umami-event-location="{{city-and-state}}">
+        {{city-and-state}}
+      </a>&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> {{entrants}}
+    </p>
+    <hr>
+    <div class="buttons">
+      <a href="{{start.gg-url}}" target="_blank" class="card-button" data-umami-event="start-gg-clicked"
+        data-umami-event-name="{{name}}">Start.gg</a>
+      <a href="{{schedule-url}}" target="_blank" class="card-button{{schedule-link-class}}"
+        data-umami-event="schedule-clicked" data-umami-event-name="{{name}}">Schedule</a>
+      <a href="{{stream-url}}" target="_blank" class="card-button{{stream-link-class}}"
+        data-umami-event="stream-clicked" data-umami-event-name="{{name}}">Stream</a>
+    </div>
+  </div>
 </div>

@@ -122,6 +122,7 @@ async fn scrape_data(
         "slug_event": event_slug
     });
     let data_entrants_top_players = graphql_query(client, query_top_players, vars_top_players).await.to_string();
+    println!("Successfully scraped top eight players for {}", name);
 
     let top_eight = top_players_json.as_array().unwrap().iter()
         .filter(|player| { data_entrants_top_players.contains(&(player.as_str().unwrap().to_owned() + "\"")) })
