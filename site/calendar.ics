@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240630T074812Z
+DTSTAMP:20240630T081457Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2024-6\n\nattendees: 158\n\
  nnotable entrants:\n\nJmook\nHungrybox\nWizzrobe\nPanda\nMOF\nCPU0\nGahtzu\
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20240701
 DTSTART;VALUE=DATE:20240628
 LOCATION:101 N Atlantic Ave, Daytona Beach, FL 32118, USA
 SUMMARY:CEO 2024
-UID:40589c38-af93-4577-ad9f-7b9e26081767
+UID:ae1d6c15-148d-42b7-b454-380d2f68053a
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240630T074812Z
+DTSTAMP:20240630T081457Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/warehouse-war-4\n\nattendees: 1
  87\n\nnotable entrants:\n\nCody Schwab\nJmook\nHungrybox\nAklo\nSalt\nMagi\
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20240728
 DTSTART;VALUE=DATE:20240727
 LOCATION:601 4th Ave S, Nashville, TN 37210, USA
 SUMMARY:Warehouse War 4
-UID:6bab92b0-f99b-4514-9444-94341d0288d1
+UID:8187af37-9718-4c0a-8b33-2fa8f991bd48
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240630T074812Z
+DTSTAMP:20240630T081457Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2024\n\nattendees: TB
  D\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
@@ -37,10 +37,10 @@ DTEND;VALUE=DATE:20240812
 DTSTART;VALUE=DATE:20240808
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2024
-UID:61a29797-a99f-4f53-a301-365ee96f1079
+UID:b3a974b1-bad9-4c54-850e-ce124e59d7bd
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240630T074812Z
+DTSTAMP:20240630T081457Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/eggdog-invitational\n\nattendee
  s: 12\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\naMSa\nHungrybox\nMan
@@ -49,10 +49,10 @@ DTEND;VALUE=DATE:20240902
 DTSTART;VALUE=DATE:20240829
 LOCATION:Vancouver, BC, Canada
 SUMMARY:Eggdog Invitational
-UID:756b536a-e081-4f7b-98dc-151c71ed9b60
+UID:b9b52452-d151-45cc-a4a0-1e08c9bd4712
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240630T074812Z
+DTSTAMP:20240630T081457Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024\n\
  nattendees: 344\n\nnotable entrants:\n\nCody Schwab\nPlup\nWizzrobe\nSalt\n
@@ -61,6 +61,6 @@ DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:5d5f8c6d-bb29-4c5b-bf1d-7df640e7b284
+UID:b39f9bce-b96d-447f-9e4e-b01227d64219
 END:VEVENT
 END:VCALENDAR

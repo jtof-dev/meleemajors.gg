@@ -254,7 +254,7 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
-    println!("Banner image url for {}: {}", tournament_name, image_url);
+    // println!("Banner image url for {}: {}", tournament_name, image_url);
     FfmpegCommand::new()
         .input(image_url)
         .args(["-vf", "scale=-1:340"])
@@ -390,6 +390,16 @@ fn make_site(temp_html: &str) {
 
     Command::new("cp")
         .args(&["-r", "cards", "../../site/assets"])
+        .output()
+        .unwrap();
+
+    Command::new("rm")
+        .args(&["-rf", "cards"])
+        .output()
+        .unwrap();
+
+    Command::new("mkdir")
+        .arg("cards")
         .output()
         .unwrap();
 }

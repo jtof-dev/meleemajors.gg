@@ -8,16 +8,16 @@ document.addEventListener("DOMContentLoaded", initialSetup)
 
 // check light / dark mode on startup and write the setting to localStorage
 function setTheme() {
-    if (window.localStorage.getItem("dark") === null) {
-        window.localStorage.setItem("dark", true)
-    }
-    if (window.localStorage.getItem("dark") === "true") {
-        document.body.className = "dark-mode"
-    }
-    else {
-        document.body.className = "light-mode"
-        document.querySelector(".theme-toggle").innerText = "switch to dark mode"
-    }
+  if (window.localStorage.getItem("dark") === null) {
+    window.localStorage.setItem("dark", true)
+  }
+  if (window.localStorage.getItem("dark") === "true") {
+    document.body.className = "dark-mode"
+  }
+  else {
+    document.body.className = "light-mode"
+    document.querySelector(".theme-toggle").innerText = "switch to dark mode"
+  }
 }
 
 // check if any tournaments are currently live
@@ -38,20 +38,20 @@ function setCurrentlyLive() {
 
 // change the class on <body> and write the setting to localStorage
 function switchColors(event) {
-    if (window.localStorage.getItem("dark") === "true") { // if true
-        document.body.className = "light-mode"
-        window.localStorage.setItem("dark", false)
-        event.currentTarget.innerText = "switch to dark mode"
-    }
-    else {
-        document.body.className = "dark-mode"
-        window.localStorage.setItem("dark", true)
-        event.currentTarget.innerText = "switch to light mode"
-    }
+  if (window.localStorage.getItem("dark") === "true") { // if true
+    document.body.className = "light-mode"
+    window.localStorage.setItem("dark", false)
+    event.currentTarget.innerText = "switch to dark mode"
+  }
+  else {
+    document.body.className = "dark-mode"
+    window.localStorage.setItem("dark", true)
+    event.currentTarget.innerText = "switch to light mode"
+  }
 }
 
 function copyCalendar() {
-    copyToClipboard("https://meleemajors.gg/calendar.ics")
+  copyToClipboard("https://meleemajors.gg/calendar.ics")
 }
 
 function calendarButton(event) {
@@ -60,6 +60,21 @@ function calendarButton(event) {
   if (!contents.classList.contains("calendar-note-hidden") && window.scrollY === 0) {
     scrollToBottom()
   }
+
+  // // Calculate the bottom threshold as a percentage of the total scrollable height
+  // const bottomThreshold = 0.3; // Adjust this value as needed (0.1 means 10% from the bottom)
+
+  // // Calculate how far from the bottom the user is
+  // const scrollableHeight = document.documentElement.scrollHeight;
+  // const viewportHeight = window.innerHeight;
+  // const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+  // const bottomOffset = scrollableHeight - viewportHeight;
+
+  // if (!contents.classList.contains("calendar-note-hidden") && scrollPosition >= bottomOffset * (1 - bottomThreshold)) {
+  //   // this correctly identifies the bottom of the page, but the scrolling is jerky
+  //   scrollToBottom();
+  // }
 }
 
 function scrollToBottom() {
