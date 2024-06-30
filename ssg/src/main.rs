@@ -187,14 +187,17 @@ async fn scrape_data(
     ); // ---> result
 
     // get larger image url
+    let image_cleaner_regex = Regex::new(r"^(.*?\.(jpg|png))").unwrap();
     let images = data_event["tournament"]["images"].as_array().unwrap();
     let largest_image = images
         .iter()
         .max_by_key(|img| img["width"].as_u64().unwrap())
         .unwrap();
-    let largest_image_url = largest_image["url"].as_str().unwrap(); // ---> result
-    let cleaned_largest_image_url =
-        largest_image_url.split(".png").next().unwrap().to_owned() + ".png";
+    let largest_image_url = largest_image["url"].as_str().unwrap();
+    let cleaned_largest_image_url = image_cleaner_regex
+        .captures(largest_image_url)
+        .map_or("", |cap| cap.get(1).map_or("", |m| m.as_str())); // ---> result
+
     // get start.gg url
     let startgg_url = format!(
         "https://www.start.gg/tournament/{}",

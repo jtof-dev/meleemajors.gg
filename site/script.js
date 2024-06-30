@@ -58,18 +58,22 @@ function calendarButton(event) {
   const contents = document.querySelector(".calendar-note")
   contents.classList.toggle("calendar-note-hidden")
   if (!contents.classList.contains("calendar-note-hidden") && window.scrollY === 0) {
-    const startTime = Date.now();
-    const animationDuration = 400;
-    const speed = 20 * 60 // pixels per second
-    let lastFrameTime = undefined;
-    const animateScroll = (time) => {
-      const deltaTime = time - (lastFrameTime || time)
-      lastFrameTime = time
-      scrollTo({ top: window.scrollY + (deltaTime / 1000) * speed, behavior: 'instant' })
-      if (Date.now() - startTime < animationDuration) requestAnimationFrame(animateScroll)
-    }
-    animateScroll();
+    scrollToBottom()
   }
+}
+
+function scrollToBottom() {
+  const startTime = Date.now();
+  const animationDuration = 400;
+  const speed = 20 * 60 // pixels per second
+  let lastFrameTime = undefined;
+  const animateScroll = (time) => {
+    const deltaTime = time - (lastFrameTime || time)
+    lastFrameTime = time
+    scrollTo({ top: window.scrollY + (deltaTime / 1000) * speed, behavior: 'instant' })
+    if (Date.now() - startTime < animationDuration) requestAnimationFrame(animateScroll)
+  }
+  animateScroll();
 }
 
 function copyToClipboard(text) {
