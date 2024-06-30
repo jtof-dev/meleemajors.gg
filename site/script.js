@@ -56,25 +56,11 @@ function copyCalendar() {
 
 function calendarButton(event) {
   const contents = document.querySelector(".calendar-note")
+
   contents.classList.toggle("calendar-note-hidden")
-  if (!contents.classList.contains("calendar-note-hidden") && window.scrollY === 0) {
+  if (!contents.classList.contains("calendar-note-hidden")) {
     scrollToBottom()
   }
-
-  // // Calculate the bottom threshold as a percentage of the total scrollable height
-  // const bottomThreshold = 0.3; // Adjust this value as needed (0.1 means 10% from the bottom)
-
-  // // Calculate how far from the bottom the user is
-  // const scrollableHeight = document.documentElement.scrollHeight;
-  // const viewportHeight = window.innerHeight;
-  // const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-
-  // const bottomOffset = scrollableHeight - viewportHeight;
-
-  // if (!contents.classList.contains("calendar-note-hidden") && scrollPosition >= bottomOffset * (1 - bottomThreshold)) {
-  //   // this correctly identifies the bottom of the page, but the scrolling is jerky
-  //   scrollToBottom();
-  // }
 }
 
 function scrollToBottom() {
@@ -85,10 +71,11 @@ function scrollToBottom() {
   const animateScroll = (time) => {
     const deltaTime = time - (lastFrameTime || time)
     lastFrameTime = time
-    scrollTo({ top: window.scrollY + (deltaTime / 1000) * speed, behavior: 'instant' })
+    const top = window.scrollY + (deltaTime / 1000) * speed
+    scrollTo({ top, behavior: 'instant' })
     if (Date.now() - startTime < animationDuration) requestAnimationFrame(animateScroll)
   }
-  animateScroll();
+  requestAnimationFrame(animateScroll)
 }
 
 function copyToClipboard(text) {
