@@ -1,5 +1,6 @@
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
+use chrono_tz::Tz;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
@@ -61,8 +62,15 @@ async fn main() {
     match v {
         Value::Array(vec) => {
             for tournament in vec {
-                let tournament_data =
-                    scrape_data(tournament, client.clone(), &query_event, &query_entrants, &query_top_players, &top_players_json).await;
+                let tournament_data = scrape_data(
+                    tournament,
+                    client.clone(),
+                    &query_event,
+                    &query_entrants,
+                    &query_top_players,
+                    &top_players_json,
+                )
+                .await;
 
                 // use scraped info to make a tournament card, and append it to temp_html
                 temp_html.push_str(&format!(
@@ -121,13 +129,20 @@ async fn scrape_data(
     let vars_top_players = json!({
         "slug_event": event_slug
     });
-    let data_entrants_top_players = graphql_query(client, query_top_players, vars_top_players).await.to_string();
+    let data_entrants_top_players = graphql_query(client, query_top_players, vars_top_players)
+        .await
+        .to_string();
     println!("Successfully scraped top eight players for {}", name);
 
-    let top_eight = top_players_json.as_array().unwrap().iter()
-        .filter(|player| { data_entrants_top_players.contains(&(player.as_str().unwrap().to_owned() + "\"")) })
+    let top_eight = top_players_json
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|player| {
+            data_entrants_top_players.contains(&(player.as_str().unwrap().to_owned() + "\""))
+        })
         .take(8)
-        .map(|player| { player.as_str().unwrap() })
+        .map(|player| player.as_str().unwrap())
         .pad_using(8, |_| "TBD")
         .collect::<Vec<&str>>();
 
@@ -139,23 +154,26 @@ async fn scrape_data(
     let state = data_event["tournament"]["addrState"].as_str().unwrap();
 
     // get number of entrants, and assign "TBD" if start.gg returns a null value
-    let entrant_count = data_entrants["event"]["numEntrants"].as_number(); 
+    let entrant_count = data_entrants["event"]["numEntrants"].as_number();
     let entrant_count_str = match entrant_count {
         Some(number) => number.to_string(),
         None => "TBD".to_string(),
     }; // ---> result
 
-    // get human-readable start and date
-    let timezone = chrono_tz::US::Central;
+    // get human-readable start and end date
+    // first, get timezone for event
+    let event_timezone = data_event["tournament"]["timezone"].as_str().unwrap();
+    let formatted_event_timezone: Tz = event_timezone.parse().expect("Invalid timezone");
+    // start date
     let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0)
         .unwrap()
-        .with_timezone(&timezone);
+        .with_timezone(&formatted_event_timezone);
     let formatted_start_date = naive_start_date.format("%B %d").to_string();
 
-    // us central timezone
+    // end date
     let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0)
         .unwrap()
-        .with_timezone(&timezone);
+        .with_timezone(&formatted_event_timezone);
     let formatted_end_date = naive_end_date.format("%B %d").to_string();
     let start_end_date = format!("{} - {}", formatted_start_date, formatted_end_date); // ---> result
 
@@ -186,10 +204,9 @@ async fn scrape_data(
     // convert start.gg kebab case name to camel case to keep a consistent naming scheme
     let startgg_tournament_name = kebab_to_camel(&tournament_slug);
 
-    download_tournament_image(largest_image_url, &startgg_tournament_name);
+    download_tournament_image(&cleaned_largest_image_url, &startgg_tournament_name);
 
     return json!({
-        "image-url": cleaned_largest_image_url,
         "start.gg-tournament-name": startgg_tournament_name,
         "name": name,
         "date": start_end_date,
@@ -234,6 +251,7 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
 
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
+    println!("Banner image url for {}: {}", tournament_name, image_url);
     FfmpegCommand::new()
         .input(image_url)
         .args(["-vf", "scale=-1:340"])

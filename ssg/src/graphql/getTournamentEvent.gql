@@ -6,6 +6,7 @@ query TournamentQuery($slug: String, $slug_event: String) {
     city
     addrState
     venueAddress
+    timezone
     images {
       url
       width
