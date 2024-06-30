@@ -66,7 +66,7 @@ function calendarButton(event) {
 function scrollToBottom() {
   const startTime = Date.now();
   const animationDuration = 400;
-  const speed = 20 * 60 // pixels per second
+  const speed = 30 * 60 // pixels per second
   let lastFrameTime = undefined;
   const animateScroll = (time) => {
     const deltaTime = time - (lastFrameTime || time)

@@ -132,7 +132,6 @@ cargo run -- --generate
 - [x] add `alt` tags to images
 - [x] add meta description
 - [x] add a calender info panel in the footer that appears / dissapears
-- [ ] implement `scrollToBottom()` for when you are near the footer and open the `calendar` button
 
 ### backend
 - [x] get initial ssg functioning
