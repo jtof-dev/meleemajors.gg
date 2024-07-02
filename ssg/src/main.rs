@@ -198,7 +198,7 @@ async fn scrape_data(
     // get start.gg url
     let startgg_url = format!(
         "https://www.start.gg/tournament/{}",
-        vars_event["slug"].as_str().unwrap()
+        vars_event["slug_event"].as_str().unwrap()
     ); // ---> result
 
     // convert start.gg kebab case name to camel case to keep a consistent naming scheme
