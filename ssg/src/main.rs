@@ -197,7 +197,7 @@ async fn scrape_data(
 
     // get start.gg url
     let startgg_url = format!(
-        "https://www.start.gg/tournament/{}",
+        "https://www.start.gg/{}",
         vars_event["slug_event"].as_str().unwrap()
     ); // ---> result
 

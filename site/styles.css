@@ -425,7 +425,7 @@ footer {
   font-family: inherit;
   font-size: inherit;
   padding: 5px 15px;
-  margin: 0 10px;
+  margin: 0 2.5px;
   margin-bottom: 10px;
   border: 1px solid #ffffff;
   background-color: transparent;
@@ -517,6 +517,47 @@ footer {
   margin-right: 5px;
 }
 
+.email-note {
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out, opacity 0.45s ease-in-out, scale 0.4s ease-in-out;
+  max-height: 250px;
+  margin-bottom: 10px;
+  opacity: 1;
+  scale: 100%;
+}
+
+.email-note button {
+  width: 150px;
+}
+
+.email-note-hidden {
+  max-height: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  scale: 95%;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px 15px;
+  margin: 0 2.5px;
+  margin-bottom: 10px;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+input::placeholder {
+  color: #ffffff;
+  opacity: 50%;
+}
+
+input:focus {
+  outline: none;
+}
+
 .footer a:hover {
   text-decoration: underline;
 }
@@ -542,6 +583,9 @@ footer {
     font-size: 15px;
   }
   .footer button {
+    font-size: 15px;
+  }
+  input {
     font-size: 15px;
   }
 }
