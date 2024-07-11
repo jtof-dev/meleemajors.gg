@@ -48,7 +48,7 @@ async fn main() {
     let top_players_json: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
 
     // create variable that holds the website being made, starting with the header.html
-    let mut temp_html = String::from(read_file("html/header.html"));
+    let mut temp_html = read_file("html/header.html");
     let template_card = read_file("html/templateCard.html");
 
     // create variable that holds the calendar subscription
@@ -91,8 +91,7 @@ async fn main() {
 // returns string contents of file with given path or panics otherwise
 pub fn read_file(path: &str) -> String {
     let file = File::open(path).unwrap();
-    let file_contents = std::io::read_to_string(file).unwrap();
-    return file_contents;
+    std::io::read_to_string(file).unwrap()
 }
 
 async fn scrape_data(
@@ -107,7 +106,7 @@ async fn scrape_data(
     let startgg_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
     let regex_startgg_url = Regex::new(r"^(https?://)?(www\.)?start\.gg/").unwrap();
     let event_slug = regex_startgg_url.replace(startgg_url, "");
-    let parts: Vec<&str> = event_slug.split("/").collect();
+    let parts: Vec<&str> = event_slug.split('/').collect();
     let tournament_part = parts.get(1).unwrap_or(&"");
     let tournament_slug = tournament_part.to_string();
     let vars_event = json!({
@@ -206,7 +205,7 @@ async fn scrape_data(
 
     download_tournament_image(&cleaned_largest_image_url, &startgg_tournament_name);
 
-    return json!({
+    json!({
         "start.gg-tournament-name": startgg_tournament_name,
         "name": name,
         "date": start_end_date,
@@ -227,7 +226,7 @@ async fn scrape_data(
         "start.gg-url": startgg_url,
         "stream-url": tournament["stream-url"],
         "schedule-url": tournament["schedule-url"]
-    });
+    })
 }
 
 async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
@@ -378,7 +377,7 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
                 .unwrap()
                 .to_string(),
         );
-    return temp_card;
+    temp_card
 }
 
 fn make_site(temp_html: &str) {
@@ -386,19 +385,13 @@ fn make_site(temp_html: &str) {
     fs::remove_dir_all("../../site/assets/cards").unwrap();
 
     Command::new("cp")
-        .args(&["-r", "cards", "../../site/assets"])
+        .args(["-r", "cards", "../../site/assets"])
         .output()
         .unwrap();
 
-    Command::new("rm")
-        .args(&["-rf", "cards"])
-        .output()
-        .unwrap();
+    Command::new("rm").args(["-rf", "cards"]).output().unwrap();
 
-    Command::new("mkdir")
-        .arg("cards")
-        .output()
-        .unwrap();
+    Command::new("mkdir").arg("cards").output().unwrap();
 }
 
 fn make_calendar(temp_calendar: Calendar) {
