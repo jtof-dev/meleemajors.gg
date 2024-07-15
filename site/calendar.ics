@@ -5,19 +5,32 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240708T054054Z
+DTSTAMP:20240715T001126Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/s-factor-11/event/smash-bros-me
+ lee-singles\n\nattendees: 172\n\nnotable entrants:\n\nHungrybox\nMang0\nS2J
+ \nShroomed\nEddy Mexico\nLucky\nTBD\nTBD\n
+DTEND;VALUE=DATE:20240715
+DTSTART;VALUE=DATE:20240713
+LOCATION:Filadelfia 40, Nápoles, Benito Juárez, 03810 Ciudad de México, 
+ CDMX, México
+SUMMARY:S Factor 11
+UID:8f273aa6-3837-4d3d-af9a-1f5db8a43741
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240715T001126Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/warehouse-war-4/event/melee-sin
- gles-saturday\n\nattendees: 213\n\nnotable entrants:\n\nCody Schwab\nJmook\
+ gles-saturday\n\nattendees: 227\n\nnotable entrants:\n\nCody Schwab\nJmook\
  nHungrybox\nAklo\nSalt\nMagi\nAxe\nZamu\n
 DTEND;VALUE=DATE:20240728
 DTSTART;VALUE=DATE:20240727
 LOCATION:601 4th Ave S, Nashville, TN 37210, USA
 SUMMARY:Warehouse War 4
-UID:510a2920-c70b-4a32-afd5-4164f19b566d
+UID:7371cde1-0157-487e-9bef-5fbad41e94b7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240708T054054Z
+DTSTAMP:20240715T001126Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2024/event/melee-1v1-
  singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\n
@@ -26,30 +39,30 @@ DTEND;VALUE=DATE:20240812
 DTSTART;VALUE=DATE:20240808
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2024
-UID:fbb57fbb-d7ae-4fd3-bd04-7687057cd05b
+UID:78f680f3-30bb-49f7-bc5e-a358c0a446d8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240708T054054Z
+DTSTAMP:20240715T001126Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/eggdog-invitational/event/melee
- -singles\n\nattendees: 12\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\n
+ -singles\n\nattendees: 15\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\n
  aMSa\nHungrybox\nMang0\nWizzrobe\nAklo\n
 DTEND;VALUE=DATE:20240902
 DTSTART;VALUE=DATE:20240829
 LOCATION:Vancouver, BC, Canada
 SUMMARY:Eggdog Invitational
-UID:886be2d2-b8a5-4c54-900b-c6630f142d00
+UID:6b91b913-96fb-489e-8efa-f389bf6df03a
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240708T054054Z
+DTSTAMP:20240715T001126Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 350\n\nnotable entrants:\n\nCody Schwab\nPl
+ ent/melee-singles\n\nattendees: 364\n\nnotable entrants:\n\nCody Schwab\nPl
  up\nWizzrobe\nSalt\nZamu\nSpark\nFiction\nKrudo\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:9c94bfc6-ae50-4001-8cbd-13d2e184c1be
+UID:c886564c-6abc-4b9a-b8a4-8ea0150c17e5
 END:VEVENT
 END:VCALENDAR

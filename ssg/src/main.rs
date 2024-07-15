@@ -2,6 +2,7 @@ use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use chrono_tz::Tz;
 use ffmpeg_sidecar::command::FfmpegCommand;
+use ffmpeg_sidecar::event::{FfmpegEvent, LogLevel};
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
 use itertools::Itertools;
@@ -248,17 +249,25 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
     }
 }
 
+/// ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
 fn download_tournament_image(image_url: &str, tournament_name: &str) {
-    // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
-    // println!("Banner image url for {}: {}", tournament_name, image_url);
+    println!("[ffmpeg] downloading {image_url}");
     FfmpegCommand::new()
         .input(image_url)
         .args(["-vf", "scale=-1:340"])
         .output(format!("cards/{}.webp", tournament_name))
         .spawn()
         .unwrap()
-        .wait()
-        .unwrap();
+        .iter()
+        .unwrap()
+        .for_each(|event| {
+            match event {
+                FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => eprintln!("[ffmpeg] {:?}", msg),
+                FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
+                FfmpegEvent::Done => println!("[ffmpeg] downloaded {image_url}"),
+                _ => {}
+            }
+        });
 }
 
 fn generate_calendar(tournament_data: Value, temp_calendar: &mut Calendar) -> Calendar {
