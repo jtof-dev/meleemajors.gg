@@ -20,76 +20,62 @@ mod generate_gql;
 
 #[tokio::main]
 async fn main() {
-    // break off into generate.rs if --generate flag is passed
     let args: Vec<String> = std::env::args().collect();
 
     if args.contains(&String::from("--generate")) {
         generate_gql::main();
         return;
     }
-
-    // define constant graphql variables for scrape_data()
-    let token = env::var("STARTGGAPI").unwrap();
-    let mut headers = HashMap::new();
-    headers.insert("authorization".to_string(), format!("Bearer {}", token));
-    let config = ClientConfig {
+    let startgg_api_token = env::var("STARTGGAPI").unwrap();
+    let mut startgg_query_headers = HashMap::new();
+    startgg_query_headers.insert(
+        "authorization".to_string(),
+        format!("Bearer {}", startgg_api_token),
+    );
+    let startgg_query_config = ClientConfig {
         endpoint: "https://api.start.gg/gql/alpha".to_string(),
         timeout: Some(60),
-        headers: Some(headers),
+        headers: Some(startgg_query_headers),
         proxy: None,
     };
-    let client = Client::new_with_config(config);
-
-    // get graphgl queries
-    let query_event = read_file("graphql/getTournamentEvent.gql");
-    let query_entrants = read_file("graphql/getTournamentEntrants.gql");
-    let query_top_players = read_file("graphql/getFeaturedPlayers.gql");
-
-    // read top players json
-    let top_players_json: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
-
-    // create variable that holds the website being made, starting with the header.html
-    let mut temp_html = read_file("html/header.html");
+    let startgg_query_client = Client::new_with_config(startgg_query_config);
+    let startgg_query_tournament_info = read_file("graphql/getTournamentInfo.gql");
+    let startgg_query_tournament_entrants = read_file("graphql/getTournamentEntrants.gql");
+    let startgg_query_featured_players = read_file("graphql/getFeaturedPlayers.gql");
+    let featured_players_json: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
+    let mut index_html = read_file("html/header.html");
     let template_card = read_file("html/templateCard.html");
-
-    // create variable that holds the calendar subscription
-    let mut temp_calendar = Calendar::new().name("upcoming melee majors").done();
-
-    // iterate through tournaments in json array
+    let mut calendar_ics = Calendar::new().name("upcoming melee majors").done();
     let tournaments = read_file("tournaments.json");
+    let tournaments_json: Value = serde_json::from_str(&tournaments).unwrap();
 
-    let v: Value = serde_json::from_str(&tournaments).unwrap();
-
-    match v {
+    match tournaments_json {
         Value::Array(vec) => {
             for tournament in vec {
                 let tournament_data = scrape_data(
                     tournament,
-                    client.clone(),
-                    &query_event,
-                    &query_entrants,
-                    &query_top_players,
-                    &top_players_json,
+                    startgg_query_client.clone(),
+                    &startgg_query_tournament_info,
+                    &startgg_query_tournament_entrants,
+                    &startgg_query_featured_players,
+                    &featured_players_json,
                 )
                 .await;
 
-                // use scraped info to make a tournament card, and append it to temp_html
-                temp_html.push_str(&format!(
+                index_html.push_str(&format!(
                     "\n{}",
                     generate_card(tournament_data.clone(), &template_card)
                 ));
-                temp_calendar = generate_calendar(tournament_data, &mut temp_calendar);
+                calendar_ics = generate_calendar(tournament_data, &mut calendar_ics);
             }
         }
         _ => panic!("root must be an array"),
     }
-    // after all cards have been appended to temp_html, add the footer.html
-    temp_html.push_str(&format!("\n{}", read_file("html/footer.html")));
-    make_site(&temp_html);
-    make_calendar(temp_calendar);
+    index_html.push_str(&format!("\n{}", read_file("html/footer.html")));
+    make_site(&index_html);
+    make_calendar(calendar_ics);
 }
 
-// returns string contents of file with given path or panics otherwise
 pub fn read_file(path: &str) -> String {
     let file = File::open(path).unwrap();
     std::io::read_to_string(file).unwrap()
@@ -97,141 +83,154 @@ pub fn read_file(path: &str) -> String {
 
 async fn scrape_data(
     tournament: Value,
-    client: Client,
-    query_event: &str,
-    query_entrants: &str,
-    query_top_players: &str,
-    top_players_json: &Value,
+    startgg_query_client: Client,
+    startgg_query_tournament_info: &str,
+    startgg_query_tournament_entrants: &str,
+    startgg_query_featured_players: &str,
+    featured_players_json: &Value,
 ) -> Value {
-    // scrape tournament info for a specific tournament entry
-    let startgg_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
-    let regex_startgg_url = Regex::new(r"^(https?://)?(www\.)?start\.gg/").unwrap();
-    let event_slug = regex_startgg_url.replace(startgg_url, "");
-    let parts: Vec<&str> = event_slug.split('/').collect();
-    let tournament_part = parts.get(1).unwrap_or(&"");
-    let tournament_slug = tournament_part.to_string();
-    let vars_event = json!({
-      "slug": tournament_slug,
-      "slug_event": event_slug
+    let startgg_melee_singles_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
+    let startgg_melee_singles_url_regex = Regex::new(r"^(https?://)?(www\.)?start\.gg/").unwrap();
+    let startgg_query_event_slug =
+        startgg_melee_singles_url_regex.replace(startgg_melee_singles_url, "");
+
+    let startgg_query_event_slug_parts: Vec<&str> = startgg_query_event_slug.split('/').collect();
+    let startgg_query_tournament_slug_part = startgg_query_event_slug_parts.get(1).unwrap_or(&"");
+    let startgg_query_tournament_slug = startgg_query_tournament_slug_part.to_string();
+    let startgg_query_tournament_info_vars = json!({
+      "slug": startgg_query_tournament_slug,
+      "slug_event": startgg_query_event_slug
     });
 
-    // get tournament data from queries using graphql_query()
-    let data_event = graphql_query(client.clone(), query_event, vars_event.clone()).await;
-    // get name early for logging
-    let name = data_event["tournament"]["name"].as_str().unwrap(); // ---> result
-    println!("Successfully scraped data for {}", name);
-    let vars_entrants = json!({
-      "eventId": data_event["event"].get("id").unwrap().to_string(),
-    });
-    // get entrant info from graphql_query()
-    let data_entrants = graphql_query(client.clone(), query_entrants, vars_entrants).await;
-    println!("Successfully scraped entrants for {}", name);
-    let vars_top_players = json!({
-        "slug_event": event_slug
-    });
-    let data_entrants_top_players = graphql_query(client, query_top_players, vars_top_players)
-        .await
-        .to_string();
-    println!("Successfully scraped top eight players for {}", name);
+    let tournament_info = graphql_query(
+        startgg_query_client.clone(),
+        startgg_query_tournament_info,
+        startgg_query_tournament_info_vars.clone(),
+    )
+    .await;
+    let tournament_name = tournament_info["tournament"]["name"].as_str().unwrap(); // ---> result
+    println!("successfully scraped data for {}", tournament_name);
 
-    let top_eight = top_players_json
+    let startgg_query_event_id = tournament_info["event"].get("id").unwrap().to_string();
+    let startgg_query_tournament_entrants_var = json!({
+      "eventId": startgg_query_event_id,
+    });
+    let entrant_count = graphql_query(
+        startgg_query_client.clone(),
+        startgg_query_tournament_entrants,
+        startgg_query_tournament_entrants_var,
+    )
+    .await;
+    println!("successfully scraped entrants for {}", tournament_name);
+
+    let startgg_query_featured_players_vars = json!({
+        "slug_event": startgg_query_event_slug
+    });
+    let featured_players = graphql_query(
+        startgg_query_client,
+        startgg_query_featured_players,
+        startgg_query_featured_players_vars,
+    )
+    .await
+    .to_string();
+    println!(
+        "successfully scraped top eight players for {}",
+        tournament_name
+    );
+
+    let featured_players_top_eight = featured_players_json
         .as_array()
         .unwrap()
         .iter()
-        .filter(|player| {
-            data_entrants_top_players.contains(&(player.as_str().unwrap().to_owned() + "\""))
-        })
+        .filter(|player| featured_players.contains(&(player.as_str().unwrap().to_owned() + "\"")))
         .take(8)
         .map(|player| player.as_str().unwrap())
         .pad_using(8, |_| "TBD")
         .collect::<Vec<&str>>();
 
-    // grab basic info from queries
-    let start_date = data_event["tournament"]["startAt"].as_number().unwrap();
-    let end_date = data_event["tournament"]["endAt"].as_number().unwrap();
-    let address = data_event["tournament"]["venueAddress"].as_str().unwrap();
-    let city = data_event["tournament"]["city"].as_str().unwrap();
-    let state = data_event["tournament"]["addrState"].as_str().unwrap();
-
-    // get number of entrants, and assign "TBD" if start.gg returns a null value
-    let entrant_count = data_entrants["event"]["numEntrants"].as_number();
-    let entrant_count_str = match entrant_count {
-        Some(number) => number.to_string(),
+    let tournament_entrant_count = entrant_count["event"]["numEntrants"].as_number();
+    let tournament_entrant_count_string = match tournament_entrant_count {
+        Some(tournament_entrant_count) => tournament_entrant_count.to_string(),
         None => "TBD".to_string(),
     }; // ---> result
 
-    // get human-readable start and end date
-    // first, get timezone for event
-    let event_timezone = data_event["tournament"]["timezone"].as_str().unwrap();
-    let formatted_event_timezone: Tz = event_timezone.parse().expect("Invalid timezone");
-    // start date
-    let naive_start_date = DateTime::from_timestamp(start_date.as_i64().unwrap(), 0)
-        .unwrap()
-        .with_timezone(&formatted_event_timezone);
-    let formatted_start_date = naive_start_date.format("%B %d").to_string();
+    let tournament_timezone = tournament_info["tournament"]["timezone"].as_str().unwrap();
+    let tournament_timezone_tz: Tz = tournament_timezone.parse().expect("Invalid timezone");
 
-    // end date
-    let naive_end_date = DateTime::from_timestamp(end_date.as_i64().unwrap(), 0)
-        .unwrap()
-        .with_timezone(&formatted_event_timezone);
-    let formatted_end_date = naive_end_date.format("%B %d").to_string();
-    let start_end_date = format!("{} - {}", formatted_start_date, formatted_end_date); // ---> result
+    let tournament_start_date = tournament_info["tournament"]["startAt"]
+        .as_number()
+        .unwrap();
+    let tournament_start_date_naive =
+        DateTime::from_timestamp(tournament_start_date.as_i64().unwrap(), 0)
+            .unwrap()
+            .with_timezone(&tournament_timezone_tz);
+    let tournament_start_date_readable = tournament_start_date_naive.format("%B %d").to_string();
 
-    // put together city and state
-    let city_state = format!("{}, {}", city, state); // ---> result
-
-    // wrap location into google maps link
-    let google_maps_link = format!(
-        "https://www.google.com/maps/search/?api=1&query={}",
-        encode(address)
+    let tournament_end_date = tournament_info["tournament"]["endAt"].as_number().unwrap();
+    let tournament_end_date_naive =
+        DateTime::from_timestamp(tournament_end_date.as_i64().unwrap(), 0)
+            .unwrap()
+            .with_timezone(&tournament_timezone_tz);
+    let tournament_end_date_readable = tournament_end_date_naive.format("%B %d").to_string();
+    let tournament_date = format!(
+        "{} - {}",
+        tournament_start_date_readable, tournament_end_date_readable
     ); // ---> result
 
-    // get larger image url
-    let images = data_event["tournament"]["images"].as_array().unwrap();
-    let largest_image = images
+    let tournament_city = tournament_info["tournament"]["city"].as_str().unwrap();
+    let tournament_state = tournament_info["tournament"]["addrState"].as_str().unwrap();
+    let tournament_city_and_state = format!("{}, {}", tournament_city, tournament_state); // ---> result
+
+    let tournament_address = tournament_info["tournament"]["venueAddress"]
+        .as_str()
+        .unwrap();
+    let tournament_google_maps_link = format!(
+        "https://www.google.com/maps/search/?api=1&query={}",
+        encode(tournament_address)
+    ); // ---> result
+
+    let tournament_banner_images = tournament_info["tournament"]["images"].as_array().unwrap();
+    let tournament_banner_image_largest = tournament_banner_images
         .iter()
         .max_by_key(|img| img["width"].as_u64().unwrap())
         .unwrap();
-    let largest_image_url = largest_image["url"].as_str().unwrap();
-    let cleaned_largest_image_url = Regex::new(r"\?.*").unwrap().replace(largest_image_url, "");
+    let tournament_banner_image_largest_url =
+        tournament_banner_image_largest["url"].as_str().unwrap();
+    let tournament_banner_url = Regex::new(r"\?.*")
+        .unwrap()
+        .replace(tournament_banner_image_largest_url, "");
 
-    // get start.gg url
-    let startgg_url = format!(
-        "https://www.start.gg/{}",
-        vars_event["slug_event"].as_str().unwrap()
-    ); // ---> result
+    let tournament_name_camel = kebab_to_camel(&startgg_query_tournament_slug);
+    let tournament_stream_url = tournament["stream-url"].as_str().unwrap();
+    let tournament_schedule_url = tournament["schedule-url"].as_str().unwrap();
 
-    // convert start.gg kebab case name to camel case to keep a consistent naming scheme
-    let startgg_tournament_name = kebab_to_camel(&tournament_slug);
-
-    download_tournament_image(&cleaned_largest_image_url, &startgg_tournament_name);
+    download_tournament_image(&tournament_banner_url, &tournament_name_camel);
 
     json!({
-        "start.gg-tournament-name": startgg_tournament_name,
-        "name": name,
-        "date": start_end_date,
-        "start-unix-timestamp": start_date,
-        "end-unix-timestamp": end_date,
-        "player0": top_eight[0],
-        "player1": top_eight[1],
-        "player2": top_eight[2],
-        "player3": top_eight[3],
-        "player4": top_eight[4],
-        "player5": top_eight[5],
-        "player6": top_eight[6],
-        "player7": top_eight[7],
-        "entrants": entrant_count_str,
-        "city-and-state": city_state,
-        "maps-link": google_maps_link,
-        "full-address": address,
-        "start.gg-url": startgg_url,
-        "stream-url": tournament["stream-url"],
-        "schedule-url": tournament["schedule-url"]
+        "start.gg-tournament-name": tournament_name_camel,
+        "name": tournament_name,
+        "date": tournament_date,
+        "start-unix-timestamp": tournament_start_date,
+        "end-unix-timestamp": tournament_end_date,
+        "player0": featured_players_top_eight[0],
+        "player1": featured_players_top_eight[1],
+        "player2": featured_players_top_eight[2],
+        "player3": featured_players_top_eight[3],
+        "player4": featured_players_top_eight[4],
+        "player5": featured_players_top_eight[5],
+        "player6": featured_players_top_eight[6],
+        "player7": featured_players_top_eight[7],
+        "entrants": tournament_entrant_count_string,
+        "city-and-state": tournament_city_and_state,
+        "maps-link": tournament_google_maps_link,
+        "full-address": tournament_address,
+        "start.gg-url": startgg_melee_singles_url,
+        "stream-url": tournament_stream_url,
+        "schedule-url": tournament_schedule_url
     })
 }
 
 async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
-    // infinitely requery start.gg if a query fails (which happens often) - and only return a successful response
     loop {
         match client
             .query_with_vars_unwrap::<Value, Value>(query, vars.clone())
@@ -249,29 +248,29 @@ async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
     }
 }
 
-/// ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
-fn download_tournament_image(image_url: &str, tournament_name: &str) {
-    println!("[ffmpeg] downloading {image_url}");
+fn download_tournament_image(banner_image_url: &str, tournament_name_camel: &str) {
+    // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
+    println!("[ffmpeg] downloading {banner_image_url}");
     FfmpegCommand::new()
-        .input(image_url)
+        .input(banner_image_url)
         .args(["-vf", "scale=-1:340"])
-        .output(format!("cards/{}.webp", tournament_name))
+        .output(format!("cards/{}.webp", tournament_name_camel))
         .spawn()
         .unwrap()
         .iter()
         .unwrap()
-        .for_each(|event| {
-            match event {
-                FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => eprintln!("[ffmpeg] {:?}", msg),
-                FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
-                FfmpegEvent::Done => println!("[ffmpeg] downloaded {image_url}"),
-                _ => {}
+        .for_each(|event| match event {
+            FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
+                eprintln!("[ffmpeg] {:?}", msg)
             }
+            FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
+            FfmpegEvent::Done => println!("[ffmpeg] downloaded {banner_image_url}"),
+            _ => {}
         });
 }
 
-fn generate_calendar(tournament_data: Value, temp_calendar: &mut Calendar) -> Calendar {
-    return temp_calendar
+fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Calendar {
+    return calendar_ics
         .push(
             Event::new()
                 .starts(
@@ -329,7 +328,7 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
         _ => "",
     };
 
-    let temp_card = template_card
+    let tournament_card = template_card
         .replace(
             "{{start.gg-tournament-name}}",
             tournament_data["start.gg-tournament-name"]
@@ -386,11 +385,11 @@ fn generate_card(tournament_data: Value, template_card: &str) -> String {
                 .unwrap()
                 .to_string(),
         );
-    temp_card
+    tournament_card
 }
 
-fn make_site(temp_html: &str) {
-    fs::write("../../site/index.html", temp_html).unwrap();
+fn make_site(index_html: &str) {
+    fs::write("../../site/index.html", index_html).unwrap();
     fs::remove_dir_all("../../site/assets/cards").unwrap();
 
     Command::new("cp")
@@ -403,6 +402,6 @@ fn make_site(temp_html: &str) {
     Command::new("mkdir").arg("cards").output().unwrap();
 }
 
-fn make_calendar(temp_calendar: Calendar) {
-    fs::write("../../site/calendar.ics", temp_calendar.to_string()).unwrap();
+fn make_calendar(calendar_ics: Calendar) {
+    fs::write("../../site/calendar.ics", calendar_ics.to_string()).unwrap();
 }

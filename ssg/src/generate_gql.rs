@@ -3,7 +3,6 @@ use std::fs;
 use crate::read_file;
 
 pub fn main() {
-    // define graphql parts
     let mut get_featured_players_query =
         "query getFeaturedPlayers($slug_event: String!) {".to_owned();
 

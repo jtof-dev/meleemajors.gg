@@ -138,3 +138,6 @@ cargo run -- --generate
 - [x] generate a calender subscription alongside the website
 - [x] elegantly handle when the start.gg api is down
 - [x] search for top players automatically using an index of the top 100 players
+- [ ] refactor code into functional code with more human-readable names
+- [ ] add automatic mailchimp email generation
+- [ ] add emails to mailchimp calendar using their api
