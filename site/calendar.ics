@@ -5,19 +5,19 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240731T224558Z
+DTSTAMP:20240801T073112Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2024/event/melee-1v1-
- singles\n\nattendees: 892\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
+ singles\n\nattendees: 895\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
  nmoky\nPlup\nHungrybox\nMang0\nAklo\n
 DTEND;VALUE=DATE:20240812
 DTSTART;VALUE=DATE:20240808
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2024
-UID:f70b2578-54ca-4d45-a43c-ab775787b166
+UID:20bf705b-5943-4dc4-9914-28b25b011e24
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240731T224558Z
+DTSTAMP:20240801T073112Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/eggdog-invitational/event/melee
  -singles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\n
@@ -26,18 +26,54 @@ DTEND;VALUE=DATE:20240902
 DTSTART;VALUE=DATE:20240829
 LOCATION:Vancouver, BC, Canada
 SUMMARY:Eggdog Invitational
-UID:87439288-ee43-4823-82ae-6de21cfe1df2
+UID:f17e90d8-aaab-4d26-8974-26990a7a5eb7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240731T224558Z
+DTSTAMP:20240801T073112Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/riptide-2024-5/event/melee-sing
+ les\n\nattendees: 387\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmok
+ y\nPlup\nWizzrobe\nTrif\nZuppy\n
+DTEND;VALUE=DATE:20240909
+DTSTART;VALUE=DATE:20240906
+LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
+SUMMARY:Riptide 2024
+UID:5ff5b5b1-13be-4268-868d-7896dfb36395
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240801T073112Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
+ gles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD
+ \nTBD\nTBD\n
+DTEND;VALUE=DATE:20241007
+DTSTART;VALUE=DATE:20241005
+LOCATION:219 Littleton Rd, Westford, MA 01886, USA
+SUMMARY:Wavelength 2024
+UID:619ac73a-3bc7-42d4-9ce7-1165012ae911
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240801T073112Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
+ 24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
+ TBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20241104
+DTSTART;VALUE=DATE:20241101
+LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
+SUMMARY:Luminosity Makes Moves Miami 2024
+UID:620b18a8-7b67-4e79-be40-5f27550b7442
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240801T073112Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 392\n\nnotable entrants:\n\nCody Schwab\nPl
+ ent/melee-singles\n\nattendees: 394\n\nnotable entrants:\n\nCody Schwab\nPl
  up\nWizzrobe\nSalt\nZamu\nSpark\nFiction\nKrudo\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:62beac7c-f58a-4497-b586-d5f00e47ea4e
+UID:3531cef7-f1b8-4f95-91c3-2ac9226196d3
 END:VEVENT
 END:VCALENDAR

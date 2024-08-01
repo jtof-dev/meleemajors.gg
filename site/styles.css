@@ -2,73 +2,73 @@
 /* montserrat-regular - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
-  src: url('assets/fonts/montserrat-v26-latin-regular.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-regular.woff2") format("woff2");
 }
 
 /* montserrat-italic - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: italic;
   font-weight: 400;
-  src: url('assets/fonts/montserrat-v26-latin-italic.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-italic.woff2") format("woff2");
 }
 
 /* montserrat-500 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  src: url('assets/fonts/montserrat-v26-latin-500.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-500.woff2") format("woff2");
 }
 
 /* montserrat-600 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
-  src: url('assets/fonts/montserrat-v26-latin-600.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-600.woff2") format("woff2");
 }
 
 /* montserrat-700 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
-  src: url('assets/fonts/montserrat-v26-latin-700.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-700.woff2") format("woff2");
 }
 
 /* montserrat-800 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 800;
-  src: url('assets/fonts/montserrat-v26-latin-800.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-800.woff2") format("woff2");
 }
 
 /* montserrat-900 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 900;
-  src: url('assets/fonts/montserrat-v26-latin-900.woff2') format('woff2');
+  src: url("assets/fonts/montserrat-v26-latin-900.woff2") format("woff2");
 }
 
 /* fira-mono-regular - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Fira Mono';
+  font-family: "Fira Mono";
   font-style: normal;
   font-weight: 400;
-  src: url('assets/fonts/fira-mono-v14-latin-regular.woff2') format('woff2');
+  src: url("assets/fonts/fira-mono-v14-latin-regular.woff2") format("woff2");
 }
 
 /* define keyframes for fade-in animation on cards */
@@ -99,17 +99,17 @@
   }
 
   100% {
-    opacity: .95;
+    opacity: 0.95;
     translate: 0;
   }
 }
 
 /* define universal variables */
 :root {
-  --left-gradient: #FE5296;
-  --middle-gradient: #FA617B;
-  --right-gradient: #F77063;
-  --link-color: #088F9C;
+  --left-gradient: #fe5296;
+  --middle-gradient: #fa617b;
+  --right-gradient: #f77063;
+  --link-color: #088f9c;
 }
 
 /* define variables for colors that change for light and dark mode */
@@ -217,11 +217,11 @@ hr {
 }
 
 .dark-mode .card {
-  animation: fade-in-dark .6s ease-in-out;
+  animation: fade-in-dark 0.6s ease-in-out;
 }
 
 .light-mode .card {
-  animation: fade-in-light .6s ease-in-out;
+  animation: fade-in-light 0.6s ease-in-out;
 }
 
 .card {
@@ -237,7 +237,9 @@ hr {
   opacity: 95%;
   margin: 20px;
   font-size: 16px;
-  transition: all 200ms, border 500ms;
+  transition:
+    all 200ms,
+    border 500ms;
   animation-fill-mode: both;
   position: relative;
 }
@@ -261,7 +263,7 @@ hr {
 
 .card p {
   padding: 5px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .card b {
@@ -291,7 +293,11 @@ hr {
 
 .live-badge {
   border-radius: var(--card-border-radius);
-  background: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  background: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--right-gradient)
+  );
   font-weight: bold;
   color: white;
   position: absolute;
@@ -360,11 +366,17 @@ hr {
   line-height: 45px;
   height: 45px;
   border-radius: 17px;
-  transition: all 200ms, color 400ms;
+  transition:
+    all 200ms,
+    color 400ms;
 }
 
 .card-button:hover {
-  background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  background-image: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--right-gradient)
+  );
   scale: 110%;
   border-color: var(--card-button-border-hover);
   color: #ffffff;
@@ -387,7 +399,11 @@ footer {
 }
 
 .footer {
-  background-image: linear-gradient(to right, var(--left-gradient), var(--right-gradient));
+  background-image: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--right-gradient)
+  );
   width: max-content;
   height: max-content;
   max-width: 100vw;
@@ -436,7 +452,7 @@ footer {
 .footer button:hover {
   color: #000000;
   border-color: #000000;
-  transition: all .35s;
+  transition: all 0.35s;
   scale: 102%;
 }
 
@@ -455,7 +471,11 @@ footer {
   justify-content: center;
   margin-bottom: 10px;
   max-height: 250px;
-  transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out, opacity 0.45s ease-in-out, scale 0.4s ease-in-out;
+  transition:
+    max-height 0.4s ease-in-out,
+    margin-bottom 0.4s ease-in-out,
+    opacity 0.45s ease-in-out,
+    scale 0.4s ease-in-out;
   overflow: hidden;
   opacity: 1;
   scale: 100%;
@@ -519,7 +539,11 @@ footer {
 
 .email-note {
   overflow: hidden;
-  transition: max-height 0.4s ease-in-out, margin-bottom 0.4s ease-in-out, opacity 0.45s ease-in-out, scale 0.4s ease-in-out;
+  transition:
+    max-height 0.4s ease-in-out,
+    margin-bottom 0.4s ease-in-out,
+    opacity 0.45s ease-in-out,
+    scale 0.4s ease-in-out;
   max-height: 250px;
   margin-bottom: 10px;
   opacity: 1;
@@ -567,7 +591,8 @@ input:focus {
   .fixed-position {
     background-image: url("assets/backgrounds/mobile.webp");
   }
-  .title, .subtitle {
+  .title,
+  .subtitle {
     color: var(--card-background);
   }
   .subtitle {
