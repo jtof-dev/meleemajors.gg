@@ -5,19 +5,19 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2024/event/melee-1v1-
- singles\n\nattendees: 895\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
+ singles\n\nattendees: 905\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
  nmoky\nPlup\nHungrybox\nMang0\nAklo\n
 DTEND;VALUE=DATE:20240812
 DTSTART;VALUE=DATE:20240808
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2024
-UID:20bf705b-5943-4dc4-9914-28b25b011e24
+UID:fd0b6c4c-9850-4d60-8b96-de208ab95782
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/eggdog-invitational/event/melee
  -singles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\n
@@ -26,22 +26,34 @@ DTEND;VALUE=DATE:20240902
 DTSTART;VALUE=DATE:20240829
 LOCATION:Vancouver, BC, Canada
 SUMMARY:Eggdog Invitational
-UID:f17e90d8-aaab-4d26-8974-26990a7a5eb7
+UID:7a7aa6ca-551e-4af2-8cbb-721b96b748ba
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/galint-melee-open-2024/event/me
+ lee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nSoonsay\nJunebug\nSke
+ rzo\nChango\nZeo\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20240902
+DTSTART;VALUE=DATE:20240831
+LOCATION:4211 No. 3 Rd, Richmond, BC V6X 2C3, Canada
+SUMMARY:Galint Melee Open 2024
+UID:7d8eae53-8bcd-4a2e-bf1d-9fd9be2a4e45
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2024-5/event/melee-sing
- les\n\nattendees: 387\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmok
+ les\n\nattendees: 400\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmok
  y\nPlup\nWizzrobe\nTrif\nZuppy\n
 DTEND;VALUE=DATE:20240909
 DTSTART;VALUE=DATE:20240906
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2024
-UID:5ff5b5b1-13be-4268-868d-7896dfb36395
+UID:a623db8e-e8fe-4578-b18a-36bc8d14c970
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
  gles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD
@@ -50,10 +62,22 @@ DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:619ac73a-3bc7-42d4-9ce7-1165012ae911
+UID:4c5a0b73-71f8-4f48-87c4-c5c031bf159b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
+ elee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\n
+ TBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20241021
+DTSTART;VALUE=DATE:20241019
+LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
+SUMMARY:Pataka Esports Festival
+UID:8f742e9b-59ab-47c3-9e6a-0b8677067d52
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -62,18 +86,18 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:620b18a8-7b67-4e79-be40-5f27550b7442
+UID:2522fe01-fae5-4d5d-94bf-64a0e807a726
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240801T073112Z
+DTSTAMP:20240803T130529Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 394\n\nnotable entrants:\n\nCody Schwab\nPl
- up\nWizzrobe\nSalt\nZamu\nSpark\nFiction\nKrudo\n
+ ent/melee-singles\n\nattendees: 407\n\nnotable entrants:\n\nCody Schwab\nJm
+ ook\nPlup\naMSa\nWizzrobe\nSalt\nZamu\nSpark\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:3531cef7-f1b8-4f95-91c3-2ac9226196d3
+UID:05dda0a0-cf7d-4f0f-a759-17c47fb54404
 END:VEVENT
 END:VCALENDAR
