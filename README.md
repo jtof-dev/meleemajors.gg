@@ -23,47 +23,49 @@
   - from there, it just took a lot of data parsing and find-and-replacing variables in a [templateCard.html](ssg/src/html/templateCard.html)
 
 ### code flowchart
+
 ```
            ┌───────────────┐               ┌─────────────────────┐
            │               │               │                     │
            │ main function ├───► then: ───►│ copy files to site/ │
            │               │               │                     │
            └───────┬───────┘               └─────────────────────┘
-                   │                                              
-                   │                                              
-                   │                                              
-                   ▼                                              
-       iterate through tournaments                                
-                                                                  
-          for each tournament:                                    
-                   │                                              
-                   │                                              
-                   │                                              
-                   ▼                                              
-        ┌─────────────────────┐                                   
-        │                     │                                   
-┌──────►│ scrape start.gg api ├───────┐                           
-│       │                     │       │                           
-│       └─────────────────────┘       │                           
-│                                     │                           
-│                                     │                           
-│                                     │                           
-│                                     │                           
-│   ┌────────────────────────────┐    │                           
-│   │                            │    │                           
-└───┤ generate a tournament card │◄───┘                           
-    │                            │                                
-    └──────────────┬─────────────┘                                
-                   │                                              
-                   │                                              
-                   │                                              
-                   ▼                                              
-  ┌────────────────────────────────┐                              
-  │                                │                              
-  │ generate calendar subscription │                              
-  │                                │                              
-  └────────────────────────────────┘                              
-  ```
+                   │
+                   │
+                   │
+                   ▼
+       iterate through tournaments
+
+          for each tournament:
+                   │
+                   │
+                   │
+                   ▼
+        ┌─────────────────────┐
+        │                     │
+┌──────►│ scrape start.gg api ├───────┐
+│       │                     │       │
+│       └─────────────────────┘       │
+│                                     │
+│                                     │
+│                                     │
+│                                     │
+│   ┌────────────────────────────┐    │
+│   │                            │    │
+└───┤ generate a tournament card │◄───┘
+    │                            │
+    └──────────────┬─────────────┘
+                   │
+                   │
+                   │
+                   ▼
+  ┌────────────────────────────────┐
+  │                                │
+  │ generate calendar subscription │
+  │                                │
+  └────────────────────────────────┘
+```
+
 flowchart made using [asciiflow](https://asciiflow.com)
 
 ### running locally
@@ -90,7 +92,7 @@ cargo run -- --generate
 - after everything was set up, our domain records looked like this:
 
 | type  | domain name                          | content             |
-|-------|--------------------------------------|---------------------|
+| ----- | ------------------------------------ | ------------------- |
 | A     | meleemajors.gg                       | 185.199.108.153     |
 | A     | meleemajors.gg                       | 185.199.109.153     |
 | A     | meleemajors.gg                       | 185.199.110.153     |
@@ -115,6 +117,7 @@ cargo run -- --generate
 ## todo
 
 ### front-end
+
 - [x] add a black background image filter to the website background
 - [x] finish formatting a template card
 - [x] add custom fonts
@@ -134,10 +137,13 @@ cargo run -- --generate
 - [x] add a calender info panel in the footer that appears / dissapears
 
 ### backend
+
 - [x] get initial ssg functioning
 - [x] generate a calender subscription alongside the website
 - [x] elegantly handle when the start.gg api is down
 - [x] search for top players automatically using an index of the top 100 players
-- [ ] refactor code into functional code with more human-readable names
+- [x] refactor code into functional code with more human-readable names
+- [ ] add image caching so ffmpeg doesn't redownload every banner image every run
+- [ ] add iterator for looping through top 8 players attending
 - [ ] add automatic mailchimp email generation
 - [ ] add emails to mailchimp calendar using their api
