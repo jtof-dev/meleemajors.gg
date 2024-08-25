@@ -116,34 +116,5 @@ cargo run -- --generate
 
 ## todo
 
-### front-end
-
-- [x] add a black background image filter to the website background
-- [x] finish formatting a template card
-- [x] add custom fonts
-- [x] fix footer not staying at the bottom of the page properly
-- [x] flesh out footer with contributing instructions
-- [x] add better padding for title
-- [x] fix mobile formatting
-- [x] add last card like the original website had
-- [x] add dark mode / switch to dark mode
-- [x] credit the artist for the mobile picture
-- [x] make footer fit better relative to the text on-screen
-- [x] set up ko-fi
-- [x] add a currently live title for live tournaments
-- [x] implement a currently live checker for live tournaments
-- [x] add `alt` tags to images
-- [x] add meta description
-- [x] add a calender info panel in the footer that appears / dissapears
-
-### backend
-
-- [x] get initial ssg functioning
-- [x] generate a calender subscription alongside the website
-- [x] elegantly handle when the start.gg api is down
-- [x] search for top players automatically using an index of the top 100 players
-- [x] refactor code into functional code with more human-readable names
-- [ ] add image caching so ffmpeg doesn't redownload every banner image every run
-- [ ] add iterator for looping through top 8 players attending
 - [ ] add automatic mailchimp email generation
 - [ ] add emails to mailchimp calendar using their api

@@ -3,14 +3,14 @@ use chrono::DateTime;
 use chrono_tz::Tz;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use ffmpeg_sidecar::event::{FfmpegEvent, LogLevel};
+use fs_extra::{copy_items, dir};
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
 use itertools::Itertools;
 use regex::Regex;
 use serde_json::{json, Value};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
-use std::process::Command;
 use std::time::Duration;
 use std::{env, fs};
 use tokio::time::sleep;
@@ -26,54 +26,56 @@ async fn main() {
         generate_gql::main();
         return;
     }
-    let startgg_api_token = env::var("STARTGGAPI").unwrap();
-    let mut startgg_query_headers = HashMap::new();
-    startgg_query_headers.insert(
-        "authorization".to_string(),
-        format!("Bearer {}", startgg_api_token),
-    );
-    let startgg_query_config = ClientConfig {
+    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
+
+    let mut query_headers = HashMap::new();
+    query_headers.insert("authorization".to_string(), format!("Bearer {}", api_token));
+    let query_config = ClientConfig {
         endpoint: "https://api.start.gg/gql/alpha".to_string(),
         timeout: Some(60),
-        headers: Some(startgg_query_headers),
+        headers: Some(query_headers),
         proxy: None,
     };
-    let startgg_query_client = Client::new_with_config(startgg_query_config);
-    let startgg_query_tournament_info = read_file("graphql/getTournamentInfo.gql");
-    let startgg_query_tournament_entrants = read_file("graphql/getTournamentEntrants.gql");
-    let startgg_query_featured_players = read_file("graphql/getFeaturedPlayers.gql");
-    let featured_players_json: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
+    let query_client = Client::new_with_config(query_config);
+    let query_tournament_info = read_file("graphql/getTournamentInfo.gql");
+    let query_tournament_entrants = read_file("graphql/getTournamentEntrants.gql");
+    let query_featured_players = read_file("graphql/getFeaturedPlayers.gql");
+    let json_featured_players: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
     let mut index_html = read_file("html/header.html");
     let template_card = read_file("html/templateCard.html");
+    let index_footer_html = read_file("html/footer.html");
     let mut calendar_ics = Calendar::new().name("upcoming melee majors").done();
     let tournaments = read_file("tournaments.json");
-    let tournaments_json: Value = serde_json::from_str(&tournaments).unwrap();
+    let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
+    let mut all_images: HashSet<String> = HashSet::new();
 
-    match tournaments_json {
+    match json_tournaments {
         Value::Array(vec) => {
             for tournament in vec {
                 let tournament_data = scrape_data(
                     tournament,
-                    startgg_query_client.clone(),
-                    &startgg_query_tournament_info,
-                    &startgg_query_tournament_entrants,
-                    &startgg_query_featured_players,
-                    &featured_players_json,
+                    query_client.clone(),
+                    &query_tournament_info,
+                    &query_tournament_entrants,
+                    &query_featured_players,
+                    &json_featured_players,
+                    &mut all_images,
                 )
                 .await;
 
-                index_html.push_str(&format!(
-                    "\n{}",
-                    generate_card(tournament_data.clone(), &template_card)
+                index_html.push_str(&replace_placeholder_values(
+                    &tournament_data,
+                    &template_card,
                 ));
                 calendar_ics = generate_calendar(tournament_data, &mut calendar_ics);
             }
         }
         _ => panic!("root must be an array"),
     }
-    index_html.push_str(&format!("\n{}", read_file("html/footer.html")));
+    index_html.push_str(&format!("\n{}", index_footer_html));
     make_site(&index_html);
     make_calendar(calendar_ics);
+    cleanup_images(all_images);
 }
 
 pub fn read_file(path: &str) -> String {
@@ -88,6 +90,7 @@ async fn scrape_data(
     query_tournament_entrants: &str,
     query_featured_players: &str,
     featured_players_json: &Value,
+    all_images: &mut HashSet<String>,
 ) -> Value {
     let melee_singles_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
     let event_slug = Regex::new(r"^(https?://)?(www\.)?start\.gg/")
@@ -107,9 +110,10 @@ async fn scrape_data(
         tournament_info_vars.clone(),
     )
     .await;
-    let tournament_name = result_tournament_info["tournament"]["name"]
-        .as_str()
-        .unwrap(); // ---> result
+
+    let tournament_info = &result_tournament_info["tournament"];
+
+    let tournament_name = tournament_info["name"].as_str().unwrap(); // ---> result
     println!("successfully scraped data for {}", tournament_name);
 
     let tournament_entrants_var = json!({
@@ -153,39 +157,25 @@ async fn scrape_data(
         None => "TBD".to_string(),
     }; // ---> result
 
-    let timezone: Tz = result_tournament_info["tournament"]["timezone"]
+    let timezone: Tz = tournament_info["timezone"]
         .as_str()
         .unwrap()
         .parse()
         .expect("Invalid timezone");
 
-    let start_date =
-        unix_timestamp_to_readable_date(&result_tournament_info["tournament"]["startAt"], timezone);
+    let start_date = unix_timestamp_to_readable_date(&tournament_info["startAt"], timezone);
 
-    let end_date =
-        unix_timestamp_to_readable_date(&result_tournament_info["tournament"]["endAt"], timezone);
+    let end_date = unix_timestamp_to_readable_date(&tournament_info["endAt"], timezone);
 
     let date = format!("{start_date} - {end_date}"); // ---> result
 
-    let city = result_tournament_info["tournament"]["city"]
-        .as_str()
-        .unwrap();
-    let state = result_tournament_info["tournament"]["addrState"]
-        .as_str()
-        .unwrap();
+    let city = tournament_info["city"].as_str().unwrap();
+    let state = tournament_info["addrState"].as_str().unwrap();
     let city_and_state = format!("{}, {}", city, state); // ---> result
 
-    let address = result_tournament_info["tournament"]["venueAddress"]
-        .as_str()
-        .unwrap();
-    let google_maps_link = format!(
-        "https://www.google.com/maps/search/?api=1&query={}",
-        encode(address)
-    ); // ---> result
+    let address = tournament_info["venueAddress"].as_str().unwrap();
 
-    let banner_images = result_tournament_info["tournament"]["images"]
-        .as_array()
-        .unwrap();
+    let banner_images = tournament_info["images"].as_array().unwrap();
     let banner_image_largest = banner_images
         .iter()
         .max_by_key(|img| img["width"].as_u64().unwrap())
@@ -196,17 +186,18 @@ async fn scrape_data(
         .replace(banner_image_largest_url, "");
 
     let name_camel = kebab_to_camel(&tournament_slug);
+
+    download_tournament_image(&banner_url, &name_camel, all_images);
+
     let stream_url = tournament["stream-url"].as_str().unwrap();
     let schedule_url = tournament["schedule-url"].as_str().unwrap();
-
-    download_tournament_image(&banner_url, &name_camel);
 
     json!({
         "start.gg-tournament-name": name_camel,
         "name": tournament_name,
         "date": date,
-        "start-unix-timestamp": result_tournament_info["tournament"]["startAt"],
-        "end-unix-timestamp": result_tournament_info["tournament"]["endAt"],
+        "start-unix-timestamp": tournament_info["startAt"],
+        "end-unix-timestamp": tournament_info["endAt"],
         "player0": featured_players_top_eight[0],
         "player1": featured_players_top_eight[1],
         "player2": featured_players_top_eight[2],
@@ -217,11 +208,14 @@ async fn scrape_data(
         "player7": featured_players_top_eight[7],
         "entrants": entrant_count_string,
         "city-and-state": city_and_state,
-        "maps-link": google_maps_link,
+        "maps-link": format!("https://www.google.com/maps/search/?api=1&query={}", encode(address)),
         "full-address": address,
         "start.gg-url": melee_singles_url,
         "stream-url": stream_url,
-        "schedule-url": schedule_url
+        "schedule-url": schedule_url,
+        "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
+        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""}
+
     })
 }
 
@@ -251,25 +245,36 @@ fn unix_timestamp_to_readable_date(date: &Value, timezone: Tz) -> String {
         .to_string()
 }
 
-fn download_tournament_image(url: &str, name: &str) {
+fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
-    println!("[ffmpeg] downloading {url}");
-    FfmpegCommand::new()
-        .input(url)
-        .args(["-vf", "scale=-1:340"])
-        .output(format!("cards/{}.webp", name))
-        .spawn()
-        .unwrap()
-        .iter()
-        .unwrap()
-        .for_each(|event| match event {
-            FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
-                eprintln!("[ffmpeg] {:?}", msg)
-            }
-            FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
-            FfmpegEvent::Done => println!("[ffmpeg] downloaded {url}"),
-            _ => {}
-        });
+
+    let image_path = format!("cards/{name}.webp");
+
+    image_data.insert(format!("{name}.webp"));
+
+    if fs::metadata(&image_path).is_ok() {
+        println!("{name}.webp already exists! skipping...");
+    } else {
+        println!("[ffmpeg] downloading {url}");
+        FfmpegCommand::new()
+            .input(url)
+            .args(["-vf", "scale=-1:340"])
+            .overwrite()
+            .output(image_path)
+            .spawn()
+            .unwrap()
+            .iter()
+            .unwrap()
+            .for_each(|event| match event {
+                FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
+                    eprintln!("[ffmpeg] {:?}", msg)
+                }
+                FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
+                FfmpegEvent::Done => println!("[ffmpeg] downloaded {url}"),
+                // e => println!("{:?}", e),
+                _ => {}
+            });
+    }
 }
 
 fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Calendar {
@@ -301,18 +306,9 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
                     .date_naive(),
                 )
                 .summary(tournament_data["name"].as_str().unwrap())
-                .description(&format!(
-                    "{}\n\nattendees: {}\n\nnotable entrants:\n\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n",
-                    tournament_data["start.gg-url"].as_str().unwrap(),
-                    tournament_data["entrants"].as_str().unwrap(),
-                    tournament_data["player0"].as_str().unwrap(),
-                    tournament_data["player1"].as_str().unwrap(),
-                    tournament_data["player2"].as_str().unwrap(),
-                    tournament_data["player3"].as_str().unwrap(),
-                    tournament_data["player4"].as_str().unwrap(),
-                    tournament_data["player5"].as_str().unwrap(),
-                    tournament_data["player6"].as_str().unwrap(),
-                    tournament_data["player7"].as_str().unwrap()
+                .description(&replace_placeholder_values(
+                    &tournament_data,
+                    "{{start.gg-url}}\n\nattendees: {{entrants}}\n\nnotable entrants:\n\n{{player0}}\n{{player1}}\n{{player2}}\n{{player3}}\n{{player4}}\n{{player5}}\n{{player6}}\n{{player7}}\n",
                 ))
                 .class(Class::Public)
                 .location(tournament_data["full-address"].as_str().unwrap())
@@ -321,90 +317,51 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
         .done();
 }
 
-fn generate_card(tournament_data: Value, template_card: &str) -> String {
-    let schedule_link_class = match tournament_data["schedule-url"].as_str().unwrap() {
-        "" => " hidden",
-        _ => "",
-    };
-    let stream_link_class = match tournament_data["stream-url"].as_str().unwrap() {
-        "" => " hidden",
-        _ => "",
-    };
-
-    let tournament_card = template_card
-        .replace(
-            "{{start.gg-tournament-name}}",
-            tournament_data["start.gg-tournament-name"]
-                .as_str()
-                .unwrap(),
-        )
-        .replace(
-            "{{start.gg-url}}",
-            tournament_data["start.gg-url"].as_str().unwrap(),
-        )
-        .replace(
-            "{{schedule-url}}",
-            tournament_data["schedule-url"].as_str().unwrap(),
-        )
-        .replace(
-            "{{stream-url}}",
-            tournament_data["stream-url"].as_str().unwrap(),
-        )
-        .replace("{{name}}", tournament_data["name"].as_str().unwrap())
-        .replace("{{date}}", tournament_data["date"].as_str().unwrap())
-        .replace(
-            "{{maps-link}}",
-            tournament_data["maps-link"].as_str().unwrap(),
-        )
-        .replace(
-            "{{city-and-state}}",
-            tournament_data["city-and-state"].as_str().unwrap(),
-        )
-        .replace(
-            "{{entrants}}",
-            tournament_data["entrants"].as_str().unwrap(),
-        )
-        .replace("{{player0}}", tournament_data["player0"].as_str().unwrap())
-        .replace("{{player1}}", tournament_data["player1"].as_str().unwrap())
-        .replace("{{player2}}", tournament_data["player2"].as_str().unwrap())
-        .replace("{{player3}}", tournament_data["player3"].as_str().unwrap())
-        .replace("{{player4}}", tournament_data["player4"].as_str().unwrap())
-        .replace("{{player5}}", tournament_data["player5"].as_str().unwrap())
-        .replace("{{player6}}", tournament_data["player6"].as_str().unwrap())
-        .replace("{{player7}}", tournament_data["player7"].as_str().unwrap())
-        .replace("{{schedule-link-class}}", schedule_link_class)
-        .replace("{{stream-link-class}}", stream_link_class)
-        .replace(
-            "{{start-unix-timestamp}}",
-            &tournament_data["start-unix-timestamp"]
-                .as_number()
-                .unwrap()
-                .to_string(),
-        )
-        .replace(
-            "{{end-unix-timestamp}}",
-            &tournament_data["end-unix-timestamp"]
-                .as_number()
-                .unwrap()
-                .to_string(),
-        );
-    tournament_card
+fn replace_placeholder_values(data: &Value, template_file: &str) -> String {
+    data.as_object()
+        .unwrap()
+        .into_iter()
+        .fold(template_file.to_string(), |acc, (key, value)| {
+            acc.replace(
+                &format!("{{{{{key}}}}}"), // 🤮
+                &match value {
+                    Value::String(file_type_string) => file_type_string.to_owned(),
+                    Value::Number(file_type_number) => file_type_number.to_string(),
+                    _ => panic!(),
+                },
+            )
+        })
 }
 
 fn make_site(index_html: &str) {
     fs::write("../../site/index.html", index_html).unwrap();
     fs::remove_dir_all("../../site/assets/cards").unwrap();
 
-    Command::new("cp")
-        .args(["-r", "cards", "../../site/assets"])
-        .output()
-        .unwrap();
-
-    Command::new("rm").args(["-rf", "cards"]).output().unwrap();
-
-    Command::new("mkdir").arg("cards").output().unwrap();
+    copy_items(
+        &["cards"],
+        "../../site/assets/",
+        &dir::CopyOptions::new().overwrite(true),
+    )
+    .unwrap();
 }
 
 fn make_calendar(calendar_ics: Calendar) {
     fs::write("../../site/calendar.ics", calendar_ics.to_string()).unwrap();
+}
+
+fn cleanup_images(data: HashSet<String>) {
+    let images = fs::read_dir("../../site/assets/cards").unwrap();
+    images.for_each(|image| {
+        let image_str = image
+            .unwrap()
+            .path()
+            .file_name()
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .to_string();
+        if !data.contains(&image_str) {
+            fs::remove_file(format!("cards/{image_str}")).unwrap();
+        };
+    })
 }
