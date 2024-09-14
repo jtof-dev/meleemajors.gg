@@ -5,43 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240905T003019Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/riptide-2024-5/event/melee-sing
- les\n\nattendees: 601\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmok
- y\nPlup\nHungrybox\nMang0\nWizzrobe\n
-DTEND;VALUE=DATE:20240909
-DTSTART;VALUE=DATE:20240906
-LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
-SUMMARY:Riptide 2024
-UID:181f8032-20eb-4cb2-98a9-99229346ce3b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20240905T003019Z
+DTSTAMP:20240914T171455Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
- gles\n\nattendees: 216\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
+ gles\n\nattendees: 256\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
  \nMang0\nAklo\nSalt\nJoshman\n
 DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:bdcc9852-a52d-4d7e-b9eb-24fd6ca6a89c
+UID:173ec3e3-c775-4d4b-b599-07bfc7b159ef
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240905T003019Z
+DTSTAMP:20240914T171455Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
- elee-singles\n\nattendees: 49\n\nnotable entrants:\n\nZain\nmoky\nAklo\nJun
+ elee-singles\n\nattendees: 55\n\nnotable entrants:\n\nZain\nmoky\nAklo\nJun
  ebug\nTBD\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20241021
 DTSTART;VALUE=DATE:20241019
 LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
 SUMMARY:Pataka Esports Festival
-UID:52b516f7-8b6a-4f7d-9f33-e3a12cc7df2b
+UID:d76f4325-6ff3-4b54-88a6-009114313acc
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240905T003019Z
+DTSTAMP:20240914T171455Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -50,10 +38,10 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:b2cc995c-d3ef-4073-b65b-7730d8cef305
+UID:29328b10-22da-4b16-809e-19e07a5b9ea1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240905T003019Z
+DTSTAMP:20240914T171455Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
  ent/melee-singles\n\nattendees: 771\n\nnotable entrants:\n\nCody Schwab\nZa
@@ -62,6 +50,6 @@ DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:831007db-e096-45ba-8f7b-f03a88cec8c8
+UID:ea2f597d-b05c-46f2-806a-50e4a213fc00
 END:VEVENT
 END:VCALENDAR
