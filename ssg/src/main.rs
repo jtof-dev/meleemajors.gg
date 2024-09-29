@@ -17,10 +17,16 @@ use tokio::time::sleep;
 use urlencoding::encode;
 
 mod generate_gql;
+mod mailing_list;
 
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = std::env::args().collect();
+
+    if args.contains(&String::from("--mailing-list")) {
+        mailing_list::main().await;
+        return;
+    }
 
     if args.contains(&String::from("--generate")) {
         generate_gql::main();
