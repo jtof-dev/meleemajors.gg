@@ -1,10 +1,6 @@
 extern crate dotenv;
 use dotenv::dotenv;
-use reqwest::{
-    header::{HeaderMap, HeaderValue},
-    Client, Error,
-};
-use serde_json::Value;
+use mailerlite_rs::{parameter::Parameter, response::Response, MailerLite};
 
 fn get_mailerlite_api_token() -> String {
     // Read vars from .env file if present
@@ -13,6 +9,7 @@ fn get_mailerlite_api_token() -> String {
     if let Ok(api_token) = std::env::var("MAILERLITE_API_TOKEN") {
         api_token
     } else {
+        // todo: color error messages
         eprintln!("⚠️  Missing API token for MailerLite");
         println!("👉 Generate one here: https://dashboard.mailerlite.com/integrations/api");
         println!("👉 Then add it to run.sh or your environment variables");
@@ -20,38 +17,17 @@ fn get_mailerlite_api_token() -> String {
     }
 }
 
-fn create_reqwest_client(api_token: &str) -> Result<Client, Error> {
-    let mut headers = HeaderMap::new();
-    headers.insert(
-        "Authorization",
-        HeaderValue::from_str(&format!("Bearer {}", api_token)).unwrap(),
-    );
-    Client::builder().default_headers(headers).build()
-}
-
 /// https://developers.mailerlite.com/docs/subscribers.html#list-all-subscribers
-pub async fn list_subscribers(client: &Client) -> Result<Value, Error> {
-    client
-        .get("https://connect.mailerlite.com/api/subscribers")
-        .send()
-        .await?
-        .json::<Value>()
-        .await
-}
-
-/// https://developers.mailerlite.com/docs/campaigns.html#campaign-list
-pub async fn list_campaigns(client: &Client) -> Result<Value, Error> {
-    client
-        .get("https://connect.mailerlite.com/api/campaigns")
-        .send()
-        .await?
-        .json::<Value>()
+pub async fn list_subscribers(mailerlite: &MailerLite) -> Response {
+    mailerlite
+        .subscriber()
+        .get(Parameter::new().add("limit", "1000"))
         .await
 }
 
 pub async fn main() {
     let api_token = get_mailerlite_api_token();
-    let client = create_reqwest_client(&api_token).unwrap();
+    let client = MailerLite::new(api_token);
     // todo: read list of tournaments (either from disk or after creation in main.rs)
     // todo: list all scheduled campaigns (week before & top 8)
     // todo: find any tournaments that are missing a campaign
