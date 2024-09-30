@@ -1,6 +1,9 @@
+extern crate dotenv;
+
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use chrono_tz::Tz;
+use dotenv::dotenv;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use ffmpeg_sidecar::event::{FfmpegEvent, LogLevel};
 use fs_extra::{copy_items, dir};
@@ -10,29 +13,26 @@ use itertools::Itertools;
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::{HashMap, HashSet};
-use std::fs::File;
 use std::time::Duration;
 use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
+use utils::{read_file, replace_placeholder_values};
 
 mod generate_gql;
 mod mailing_list;
+mod utils;
 
 #[tokio::main]
 async fn main() {
+    dotenv().ok(); // Read vars from .env file if present
+    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
+
     let args: Vec<String> = std::env::args().collect();
-
-    if args.contains(&String::from("--mailing-list")) {
-        mailing_list::main().await;
-        return;
-    }
-
     if args.contains(&String::from("--generate")) {
         generate_gql::main();
         return;
     }
-    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
 
     let mut query_headers = HashMap::new();
     query_headers.insert("authorization".to_string(), format!("Bearer {}", api_token));
@@ -54,6 +54,7 @@ async fn main() {
     let tournaments = read_file("tournaments.json");
     let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
     let mut all_images: HashSet<String> = HashSet::new();
+    let mut mailing_list = mailing_list::MailingListService::new();
 
     match json_tournaments {
         Value::Array(vec) => {
@@ -73,7 +74,11 @@ async fn main() {
                     &tournament_data,
                     &template_card,
                 ));
-                calendar_ics = generate_calendar(tournament_data, &mut calendar_ics);
+                calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
+                mailing_list
+                    .schedule_tournament_emails(&tournament_data)
+                    .await;
+                std::process::exit(0); // todo: debug only -- remove
             }
         }
         _ => panic!("root must be an array"),
@@ -82,11 +87,6 @@ async fn main() {
     make_site(&index_html);
     make_calendar(calendar_ics);
     cleanup_images(all_images);
-}
-
-pub fn read_file(path: &str) -> String {
-    let file = File::open(path).unwrap();
-    std::io::read_to_string(file).unwrap()
 }
 
 async fn scrape_data(
@@ -321,22 +321,6 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
                 .done(),
         )
         .done();
-}
-
-fn replace_placeholder_values(data: &Value, template_file: &str) -> String {
-    data.as_object()
-        .unwrap()
-        .into_iter()
-        .fold(template_file.to_string(), |acc, (key, value)| {
-            acc.replace(
-                &format!("{{{{{key}}}}}"), // 🤮
-                &match value {
-                    Value::String(file_type_string) => file_type_string.to_owned(),
-                    Value::Number(file_type_number) => file_type_number.to_string(),
-                    _ => panic!(),
-                },
-            )
-        })
 }
 
 fn make_site(index_html: &str) {

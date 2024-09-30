@@ -2,3 +2,4 @@
 ssg/target
 ssg/src/run.sh
 ssg/.env
+.vscode/settings.json
