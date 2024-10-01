@@ -1,5 +1,6 @@
 extern crate dotenv;
 
+use ansi_term::Color::Yellow;
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use chrono_tz::Tz;
@@ -35,6 +36,7 @@ async fn main() {
     }
 
     // Whether to exit early for debug after a single iteration without writing
+    // Usage: `cargo run -- --bail`
     let bail = args.contains(&String::from("--bail"));
 
     let mut query_headers = HashMap::new();
@@ -57,7 +59,13 @@ async fn main() {
     let tournaments = read_file("tournaments.json");
     let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
     let mut all_images: HashSet<String> = HashSet::new();
-    let mut mailing_list = mailing_list::MailingListService::new();
+
+    let mut mailing_list = mailing_list::MailingListService::new()
+        .map_err(|e| {
+            println!("{}", Yellow.paint("Mailing list service init failed"));
+            println!("{}", Yellow.paint(format!("{:?}", e)));
+        })
+        .ok();
 
     match json_tournaments {
         Value::Array(vec) => {
@@ -78,9 +86,16 @@ async fn main() {
                     &template_card,
                 ));
                 calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
-                mailing_list
-                    .schedule_tournament_emails(&tournament_data)
-                    .await;
+
+                if let Some(ref mut service) = mailing_list {
+                    service
+                        .schedule_tournament_emails(&tournament_data)
+                        .await
+                        .ok();
+                } else {
+                    println!("{}", Yellow.paint("- Skipping email scheduling"));
+                }
+
                 if bail {
                     std::process::exit(0)
                 }

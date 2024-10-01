@@ -24,8 +24,8 @@ pub struct MailingListService {
 
 impl MailingListService {
     /// Read API token from env and initialize the HTTP client
-    pub fn new() -> Self {
-        let api_secret = get_kit_api_secret();
+    pub fn new() -> Result<Self> {
+        let api_secret = get_kit_api_secret().context("missing API secret")?;
         let mut headers = HeaderMap::new();
         headers.insert(header::ACCEPT, HeaderValue::from_static("application/json"));
 
@@ -34,46 +34,45 @@ impl MailingListService {
 
         // headers.insert(
         //     header::AUTHORIZATION,
-        //     HeaderValue::from_str(&format!("Bearer {}", api_secret)).unwrap(),
+        //     HeaderValue::from_str(&format!("Bearer {}", api_secret))?,
         // );
 
-        let client = Client::builder().default_headers(headers).build().unwrap();
+        let client = Client::builder().default_headers(headers).build()?;
         let broadcasts = Vec::new();
-        Self {
+        Ok(Self {
             client,
             api_secret,
             broadcasts,
-        }
+        })
     }
 
     /// Main entrypoint: Schedules both a tournament reminder email and a Top 8 email for the given tournament.
-    pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) {
+    pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) -> Result<()> {
         // Check for existing broadcast
-        let tournament_name = tournament_data["name"].as_str().unwrap();
+        let tournament_name = tournament_data["name"]
+            .as_str()
+            .context("Missing tournament name")?;
         let subject = format!("Tournament reminder: {}", tournament_name);
         let existing_broadcast = self.get_broadcast_by_subject(&subject).await;
         if existing_broadcast.is_some() {
             println!("{}", Green.paint("- Broadcast already scheduled"));
-            return;
+            return Ok(());
         }
 
         // Create broadcast
-        let res_create = self.create_broadcast_v3(&subject, &tournament_data).await;
-        match res_create {
-            Ok(_json) => {
-                println!("{}", Green.paint("- Created broadcast"));
-                // let broadcast_id = _json["broadcast"]["id"].as_number().unwrap().to_string();
-            }
-            Err(err) => {
+        self.create_broadcast_v3(&subject, &tournament_data)
+            .await
+            .inspect_err(|e| {
                 println!("{}", Red.paint("- Failed to create broadcast"));
-                println!("{:?}", err);
-                return;
-            }
-        }
+                println!("{:?}", e);
+            })?;
+        println!("{}", Green.paint("- Created broadcast"));
+        // let broadcast_id = res_create["broadcast"]["id"].to_string();
 
         // todo: update broadcast if needed
-
         // todo: repeat all of the above for Top 8
+
+        Ok(())
     }
 
     /// - V3: https://developers.kit.com/v3#list-broadcasts
@@ -89,7 +88,7 @@ impl MailingListService {
                 .error_for_status()?;
             let json = response.json::<Value>().await?["broadcasts"]
                 .as_array()
-                .unwrap()
+                .context("missing broadcasts field")?
                 .to_vec();
             self.broadcasts = json;
         }
@@ -101,7 +100,7 @@ impl MailingListService {
             .await
             .ok()?
             .iter()
-            .find(|campaign| campaign["subject"].as_str().unwrap() == subject)
+            .find(|campaign| campaign["subject"].as_str().unwrap_or("") == subject)
     }
 
     /// https://developers.kit.com/v3#create-a-broadcast
@@ -161,13 +160,13 @@ impl MailingListService {
         } else {
             let response_code_str = format!("Response code {}", status.as_str());
             eprintln!("{}", Red.paint(&response_code_str));
-            eprintln!("{}", Red.paint(to_string_pretty(&json).unwrap()));
+            eprintln!("{}", Red.paint(to_string_pretty(&json)?));
             Err(anyhow!(response_code_str).context(json))
         }
     }
 
     /// https://developers.kit.com/v4?shell#create-a-broadcast
-    async fn create_broadcast_v4(&self, subject: &str, tournament_data: &Value) -> Result<Value> {
+    async fn _create_broadcast_v4(&self, subject: &str, tournament_data: &Value) -> Result<Value> {
         let content_template = r#"
             <b>{{name}}</b> is this weekend, {{date}}.<br>
             feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
@@ -198,23 +197,23 @@ impl MailingListService {
         } else {
             let response_code_str = format!("Response code {}", status.as_str());
             eprintln!("{}", Red.paint(&response_code_str));
-            eprintln!("{}", Red.paint(to_string_pretty(&json).unwrap()));
+            eprintln!("{}", Red.paint(to_string_pretty(&json)?));
             Err(anyhow!(response_code_str).context(json))
         }
     }
 }
 
-fn get_kit_api_secret() -> String {
+fn get_kit_api_secret() -> Option<String> {
     let env_key = "KIT_V3_API_SECRET";
     if let Ok(api_token) = std::env::var(env_key) {
-        return api_token;
+        Some(api_token)
+    } else {
+        let api_url = "https://app.kit.com/account_settings/developer_settings";
+        eprintln!("{}", Red.paint("Missing API secret for Kit"));
+        println!("{}", Yellow.paint("Generate one here:"));
+        println!("{}", Yellow.paint(api_url));
+        println!("{}", Yellow.paint("Then add it to .env or run.sh"));
+        println!("{}", Yellow.paint(format!("{}=your-api-secret", env_key)));
+        None
     }
-
-    let api_url = "https://app.kit.com/account_settings/developer_settings";
-    eprintln!("{}", Red.paint("Missing API secret for Kit"));
-    println!("{}", Yellow.paint("Generate one here:"));
-    println!("{}", Yellow.paint(api_url));
-    println!("{}", Yellow.paint("Then add it to .env or run.sh"));
-    println!("{}", Yellow.paint(format!("{}=your-api-secret", env_key)));
-    panic!("Missing API Secret env var");
 }
