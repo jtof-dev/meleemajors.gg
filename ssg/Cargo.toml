@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 ansi_term = "0.12.1"
+anyhow = "1.0.89"
 case_converter = "0.1.1"
 chrono = "0.4.38"
 chrono-tz = "0.9.0"

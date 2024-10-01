@@ -1,9 +1,13 @@
+use std::time::Duration;
+
 use ansi_term::Color::{Green, Red, Yellow};
+use anyhow::{anyhow, Result};
 use reqwest::{
     header::{self, HeaderMap, HeaderValue},
-    Client, Error, Response,
+    Client,
 };
 use serde_json::{json, to_string_pretty, Value};
+use tokio::time::sleep;
 
 use crate::utils::{read_file, replace_placeholder_values};
 
@@ -24,6 +28,11 @@ impl MailingListService {
             header::AUTHORIZATION,
             HeaderValue::from_str(&format!("Bearer {}", api_token)).unwrap(),
         );
+        headers.insert(
+            header::CONTENT_TYPE,
+            HeaderValue::from_static("application/json"),
+        );
+        headers.insert(header::ACCEPT, HeaderValue::from_static("application/json"));
         let client = Client::builder().default_headers(headers).build().unwrap();
         let campaigns = Vec::new();
         Self { client, campaigns }
@@ -48,12 +57,12 @@ impl MailingListService {
         reqwest::Result::Ok(&self.campaigns)
     }
 
-    async fn get_existing_campaign(&mut self, name: &str) -> Option<&Value> {
+    async fn get_existing_campaign(&mut self, title: &str) -> Option<&Value> {
         self.get_all_campaigns()
             .await
             .ok()?
             .iter()
-            .find(|campaign| campaign["title"].as_str().unwrap() == name)
+            .find(|campaign| campaign["title"].as_str().unwrap() == title)
     }
 
     pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) {
@@ -81,20 +90,22 @@ impl MailingListService {
             }
         }
 
+        sleep(Duration::from_millis(1000)).await;
+
         // Schedule campaign
         let res_schedule = self.schedule_campaign(&campaign_id, tournament_data).await;
         match res_schedule {
             Ok(_) => println!("{}", Green.paint("- Scheduled campaign")),
-            Err(err) => {
+            Err(_) => {
                 println!("{}", Red.paint("- Failed to schedule campaign"));
-                println!("{:?}", err);
-                return;
+                let errors = self.get_campaign_errors(&campaign_id).await.unwrap();
+                println!("{}", Red.paint(to_string_pretty(&errors).unwrap()));
             }
         }
     }
 
     /// https://api.sender.net/campaigns/create-campaign/
-    async fn create_campaign(&self, name: &str, tournament_data: &Value) -> Result<Value, Error> {
+    async fn create_campaign(&self, name: &str, tournament_data: &Value) -> Result<Value> {
         let content_template = r#"
             <b>{{name}}</b> is this weekend, {{date}}.<br>
             feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
@@ -109,6 +120,7 @@ impl MailingListService {
             .post("https://api.sender.net/v2/campaigns")
             .json(&json!({
                 "title": name,
+                "preheader": "This weekend...", // todo
                 "subject": name,
                 "from": FROM_NAME,
                 "reply_to": FROM_EMAIL,
@@ -123,26 +135,47 @@ impl MailingListService {
         Ok(json)
     }
 
-    async fn schedule_campaign(
-        &self,
-        campaign_id: &str,
-        tournament_data: &Value,
-    ) -> Result<Value, Error> {
+    /// https://api.sender.net/campaigns/schedule-send/
+    async fn schedule_campaign(&self, campaign_id: &str, tournament_data: &Value) -> Result<Value> {
         let url = format!("https://api.sender.net/v2/campaigns/{campaign_id}/schedule");
-        print!("url: {}", url);
         // schedule time is always in Sender.net account timezone:
         // GMT-06:00 Central Time
         // Y-m-d H:i:s
         let request = self.client.post(&url).json(&json!({
-            "schedule_time": "2024-09-30 23:00:00"
+            "schedule_time": "2024-10-02 05:40:00"
         }));
         let response = request.send().await?;
-        // let json = response.json::<Value>().await?;
-        // println!("{}", to_string_pretty(&json).unwrap());
-        let text = response.text().await?;
-        println!("text response len = {}", text.len());
-        panic!();
-        // Ok(json)
+        let status = response.status();
+        let json = response.json::<Value>().await?;
+        if status.is_success() {
+            Ok(json)
+        } else {
+            eprintln!(
+                "{}",
+                Red.paint(format!("Response code {}", status.as_str()))
+            );
+            eprintln!("{}", Red.paint(to_string_pretty(&json).unwrap()));
+            Err(anyhow!("Response code: {}", status).context(json))
+        }
+    }
+
+    /// https://api.sender.net/campaigns/errors/
+    async fn get_campaign_errors(&self, campaign_id: &str) -> Result<Value> {
+        let url = format!("https://api.sender.net/v2/campaigns/{campaign_id}/errors");
+        let request = self.client.get(&url);
+        let response = request.send().await?;
+        let status = response.status();
+        let json = response.json::<Value>().await?;
+        if status.is_success() {
+            Ok(json)
+        } else {
+            eprintln!(
+                "{}",
+                Red.paint(format!("Response code {}", status.as_str()))
+            );
+            eprintln!("{}", Red.paint(to_string_pretty(&json).unwrap()));
+            Err(anyhow!("Response code: {}", status).context(json))
+        }
     }
 }
 
