@@ -1,118 +1,100 @@
 use ansi_term::Color::{Green, Red, Yellow};
-use mailerlite_rs::{data::Data, parameter::Parameter, response::Response, MailerLite};
-use serde_json::{Number, Value};
+use reqwest::{
+    header::{self, HeaderMap, HeaderValue},
+    Client, Error, Response,
+};
+use serde_json::{json, to_string_pretty, Value};
 
 use crate::utils::{read_file, replace_placeholder_values};
 
 const FROM_NAME: &'static str = "meleemajors.gg";
 const FROM_EMAIL: &'static str = "hello@meleemajors.gg";
-const DEV_GROUP_ID: &'static str = "133853657487639868";
+const DEV_GROUP_ID: &'static str = "e3Ow7r";
 
 pub struct MailingListService {
-    client: MailerLite,
-    scheduled_emails: Vec<Value>,
+    client: Client,
+    campaigns: Vec<Value>,
 }
 
 impl MailingListService {
     pub fn new() -> Self {
-        let api_token = get_mailerlite_api_token();
-        let client = MailerLite::new(api_token);
-        let scheduled_emails = Vec::new();
-        Self {
-            client,
-            scheduled_emails,
-        }
+        let api_token = get_sender_api_token();
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            header::AUTHORIZATION,
+            HeaderValue::from_str(&format!("Bearer {}", api_token)).unwrap(),
+        );
+        let client = Client::builder().default_headers(headers).build().unwrap();
+        let campaigns = Vec::new();
+        Self { client, campaigns }
     }
 
-    pub async fn list_scheduled_emails(&mut self) -> &Vec<Value> {
-        if self.scheduled_emails.is_empty() {
-            let params = Parameter::new()
-                .add("filter[status]", "draft") // todo: should change this to "ready"
-                .add("limit", "100");
-            let response = self.client.campaign().get(params).await;
-            self.scheduled_emails = response.content["data"].as_array().unwrap().clone();
+    /// https://api.sender.net/campaigns/get-all/
+    pub async fn get_all_campaigns(&mut self) -> reqwest::Result<&Vec<Value>> {
+        if self.campaigns.is_empty() {
+            let response = self
+                .client
+                .get("https://api.sender.net/v2/campaigns")
+                .query(&[("limit", "1000"), ("status", "scheduled")])
+                .send()
+                .await?
+                .error_for_status()?;
+            let json = response.json::<Value>().await?["data"]
+                .as_array()
+                .unwrap()
+                .to_vec();
+            self.campaigns = json;
         }
-        &self.scheduled_emails
+        reqwest::Result::Ok(&self.campaigns)
+    }
+
+    async fn get_existing_campaign(&mut self, name: &str) -> Option<&Value> {
+        self.get_all_campaigns()
+            .await
+            .ok()?
+            .iter()
+            .find(|campaign| campaign["title"].as_str().unwrap() == name)
     }
 
     pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) {
-        let reminder_campaign_name =
-            campaign_name_tournament_reminder(&tournament_data["name"].as_str().unwrap());
-
         // Check for existing campaign
-        let exisiting_campaign = self
-            .list_scheduled_emails()
-            .await
-            .iter()
-            .find(|campaign| campaign["name"].as_str().unwrap() == reminder_campaign_name);
+        let tournament_name = tournament_data["name"].as_str().unwrap();
+        let campaign_name = get_name(tournament_name);
+        let existing_campaign = self.get_existing_campaign(&campaign_name).await;
+        if existing_campaign.is_some() {
+            println!("{}", Green.paint("- Campaign already scheduled"));
+            return;
+        }
 
-        // Create campaign if needed
+        // Create campaign
         let campaign_id: String;
-        if let Some(campaign) = exisiting_campaign {
-            campaign_id = campaign["id"].as_str().unwrap().to_string();
-        } else {
-            let res_create = self.create_campaign(&reminder_campaign_name).await;
-            if !res_create.status_code.is_success() {
-                println!("{}", Red.paint("- Failed to create campaign"));
-                println!("{:?}", res_create);
-                return;
-            } else {
+        let res_create = self.create_campaign(&campaign_name, &tournament_data).await;
+        match res_create {
+            Ok(json) => {
                 println!("{}", Green.paint("- Created campaign"));
-                campaign_id = res_create.content["data"]["id"]
-                    .as_str()
-                    .unwrap()
-                    .to_string();
+                campaign_id = json["data"]["id"].as_str().unwrap().to_string();
+            }
+            Err(err) => {
+                println!("{}", Red.paint("- Failed to create campaign"));
+                println!("{:?}", err);
+                return;
             }
         }
 
-        // Update email contents
-        let res_update = self
-            .update_tournament_reminder(&campaign_id, tournament_data)
-            .await;
-        if !res_update.status_code.is_success() {
-            println!("{}", Red.paint("- Failed to update campaign"));
-            println!("{:?}", res_update);
-            return;
-        } else {
-            println!("{}", Green.paint("- Updated campaign"));
+        // Schedule campaign
+        let res_schedule = self.schedule_campaign(&campaign_id, tournament_data).await;
+        match res_schedule {
+            Ok(_) => println!("{}", Green.paint("- Scheduled campaign")),
+            Err(err) => {
+                println!("{}", Red.paint("- Failed to schedule campaign"));
+                println!("{:?}", err);
+                return;
+            }
         }
-
-        // todo: schedule email
-
-        // // Top 8 alert (1 hour before)
-        // let top_8_campaign_name = campaign_name_top_8(&tournament_data["name"].as_str().unwrap());
-        // let top_8_campaign = self
-        //     .list_scheduled_emails()
-        //     .await
-        //     .iter()
-        //     .find(|campaign| campaign["name"].as_str().unwrap() == top_8_campaign_name);
-        // if let Some(campaign) = top_8_campaign {
-        //     println!("{}", Green.paint("- Tournament reminder already scheduled"));
-        //     // todo: update email
-        // } else {
-        //     println!("{}", Yellow.paint("- Missing reminder"));
-        //     // todo: schedule email
-        // }
     }
 
-    pub async fn create_campaign(&self, name: &str) -> Response {
-        let data = Data::new()
-            .add("name", &name)
-            .add("type", "regular")
-            .add("groups[0]", DEV_GROUP_ID)
-            .add("emails[0][subject]", &name)
-            .add("emails[0][from_name]", FROM_NAME)
-            .add("emails[0][from]", FROM_EMAIL);
-        let response = self.client.campaign().create(data).await;
-        response
-    }
-
-    pub async fn update_tournament_reminder(
-        &mut self,
-        email_id: &str,
-        tournament_data: &Value,
-    ) -> Response {
-        let name = campaign_name_tournament_reminder(&tournament_data["name"].as_str().unwrap());
+    /// https://api.sender.net/campaigns/create-campaign/
+    async fn create_campaign(&self, name: &str, tournament_data: &Value) -> Result<Value, Error> {
         let content_template = r#"
             <b>{{name}}</b> is this weekend, {{date}}.<br>
             feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
@@ -122,39 +104,65 @@ impl MailingListService {
         let html = read_file("html/email.html")
             .replace("{{name}}", &name)
             .replace("{{content}}", &content);
-        let data = Data::new()
-            .add("name", &name)
-            .add("groups[0]", DEV_GROUP_ID)
-            .add("emails[0][subject]", &name)
-            .add("emails[0][from_name]", FROM_NAME)
-            .add("emails[0][from]", FROM_EMAIL)
-            .add("emails[0][content]", &html);
         let response = self
             .client
-            .campaign()
-            .update(email_id.to_string(), data)
-            .await;
-        response
+            .post("https://api.sender.net/v2/campaigns")
+            .json(&json!({
+                "title": name,
+                "subject": name,
+                "from": FROM_NAME,
+                "reply_to": FROM_EMAIL,
+                "content_type": "html",
+                "groups": [DEV_GROUP_ID],
+                "content": html,
+            }))
+            .send()
+            .await?
+            .error_for_status()?;
+        let json = response.json::<Value>().await?;
+        Ok(json)
+    }
+
+    async fn schedule_campaign(
+        &self,
+        campaign_id: &str,
+        tournament_data: &Value,
+    ) -> Result<Value, Error> {
+        let url = format!("https://api.sender.net/v2/campaigns/{campaign_id}/schedule");
+        print!("url: {}", url);
+        // schedule time is always in Sender.net account timezone:
+        // GMT-06:00 Central Time
+        // Y-m-d H:i:s
+        let request = self.client.post(&url).json(&json!({
+            "schedule_time": "2024-09-30 23:00:00"
+        }));
+        let response = request.send().await?;
+        // let json = response.json::<Value>().await?;
+        // println!("{}", to_string_pretty(&json).unwrap());
+        let text = response.text().await?;
+        println!("text response len = {}", text.len());
+        panic!();
+        // Ok(json)
     }
 }
 
-fn get_mailerlite_api_token() -> String {
-    if let Ok(api_token) = std::env::var("MAILERLITE_API_TOKEN") {
+fn get_sender_api_token() -> String {
+    if let Ok(api_token) = std::env::var("SENDER_API_TOKEN") {
         return api_token;
     }
 
-    let api_url = "https://dashboard.mailerlite.com/integrations/api";
-    eprintln!("{}", Red.paint("Missing API token for MailerLite"));
+    let api_url = "https://app.sender.net/settings/tokens";
+    eprintln!("{}", Red.paint("Missing API token for Sender"));
     println!("{}", Yellow.paint("Generate one here:"));
     println!("{}", Yellow.paint(api_url));
     println!("{}", Yellow.paint("Then add it to .env or run.sh"));
-    panic!("MAILERLITE_API_TOKEN must be set");
+    panic!("SENDER_API_TOKEN must be set");
 }
 
-fn campaign_name_tournament_reminder(tournament_name: &str) -> String {
+fn get_name(tournament_name: &str) -> String {
     format!("Tournament reminder: {}", tournament_name)
 }
 
-fn campaign_name_top_8(tournament_name: &str) -> String {
+fn get_name_top8(tournament_name: &str) -> String {
     format!("Top 8 starting soon: {}", tournament_name)
 }
