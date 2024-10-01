@@ -34,6 +34,9 @@ async fn main() {
         return;
     }
 
+    // Whether to exit early for debug after a single iteration without writing
+    let bail = args.contains(&String::from("--bail"));
+
     let mut query_headers = HashMap::new();
     query_headers.insert("authorization".to_string(), format!("Bearer {}", api_token));
     let query_config = ClientConfig {
@@ -78,7 +81,9 @@ async fn main() {
                 mailing_list
                     .schedule_tournament_emails(&tournament_data)
                     .await;
-                std::process::exit(0); // todo: debug only -- remove
+                if bail {
+                    std::process::exit(0)
+                }
             }
         }
         _ => panic!("root must be an array"),
@@ -204,6 +209,7 @@ async fn scrape_data(
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
         "end-unix-timestamp": tournament_info["endAt"],
+        "timezone": tournament_info["timezone"],
         "player0": featured_players_top_eight[0],
         "player1": featured_players_top_eight[1],
         "player2": featured_players_top_eight[2],

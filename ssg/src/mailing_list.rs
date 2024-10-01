@@ -1,34 +1,36 @@
-use std::time::Duration;
-
+use crate::utils::replace_placeholder_values;
 use ansi_term::Color::{Green, Red, Yellow};
-use anyhow::{anyhow, Result};
+use anyhow::{anyhow, Context, Result};
+use chrono::DateTime;
+use chrono_tz::Tz;
 use reqwest::{
     header::{self, HeaderMap, HeaderValue},
     Client,
 };
 use serde_json::{json, to_string_pretty, Value};
-use tokio::time::sleep;
 
-use crate::utils::{read_file, replace_placeholder_values};
-
-const FROM_NAME: &'static str = "meleemajors.gg";
-const FROM_EMAIL: &'static str = "hello@meleemajors.gg";
-const DEV_GROUP_ID: &'static str = "e3Ow7r";
-
+/// Holds all the state and methods needed to interact with a third-party email
+/// provider API for scheduling tournament reminder emails.
 pub struct MailingListService {
+    /// a `reqwest` HTTP client instance configured for the email provider API
     client: Client,
+
+    /// must be provided in each individual request for Kit API V3
     api_secret: String,
+
+    /// cached result of `list_broadcasts` API call to avoid redundant requests
     broadcasts: Vec<Value>,
 }
 
 impl MailingListService {
+    /// Read API token from env and initialize the HTTP client
     pub fn new() -> Self {
         let api_secret = get_kit_api_secret();
         let mut headers = HeaderMap::new();
         headers.insert(header::ACCEPT, HeaderValue::from_static("application/json"));
 
-        // Note: v4 API will use standard Auth/bearer token,
-        // but v3 uses a custom query param for api secret (??)
+        // Note: Kit v4 API will use standard Auth/bearer token,
+        // but v3 uses a custom query/body param for api secret (??)
 
         // headers.insert(
         //     header::AUTHORIZATION,
@@ -44,10 +46,11 @@ impl MailingListService {
         }
     }
 
+    /// Main entrypoint: Schedules both a tournament reminder email and a Top 8 email for the given tournament.
     pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) {
         // Check for existing broadcast
         let tournament_name = tournament_data["name"].as_str().unwrap();
-        let subject = get_subject_for_tournament(tournament_name);
+        let subject = format!("Tournament reminder: {}", tournament_name);
         let existing_broadcast = self.get_broadcast_by_subject(&subject).await;
         if existing_broadcast.is_some() {
             println!("{}", Green.paint("- Broadcast already scheduled"));
@@ -55,12 +58,11 @@ impl MailingListService {
         }
 
         // Create broadcast
-        let broadcast_id: String;
         let res_create = self.create_broadcast_v3(&subject, &tournament_data).await;
         match res_create {
-            Ok(json) => {
+            Ok(_json) => {
                 println!("{}", Green.paint("- Created broadcast"));
-                broadcast_id = json["broadcast"]["id"].as_number().unwrap().to_string();
+                // let broadcast_id = _json["broadcast"]["id"].as_number().unwrap().to_string();
             }
             Err(err) => {
                 println!("{}", Red.paint("- Failed to create broadcast"));
@@ -70,11 +72,13 @@ impl MailingListService {
         }
 
         // todo: update broadcast if needed
+
+        // todo: repeat all of the above for Top 8
     }
 
     /// - V3: https://developers.kit.com/v3#list-broadcasts
     /// - V4: https://developers.kit.com/v4?shell#list-broadcasts
-    pub async fn list_broadcasts(&mut self) -> Result<&Vec<Value>> {
+    async fn list_broadcasts(&mut self) -> Result<&Vec<Value>> {
         if self.broadcasts.is_empty() {
             let response = self
                 .client
@@ -100,24 +104,54 @@ impl MailingListService {
             .find(|campaign| campaign["subject"].as_str().unwrap() == subject)
     }
 
-    /// https://developers.kit.com/v3#list-broadcasts
+    /// https://developers.kit.com/v3#create-a-broadcast
     async fn create_broadcast_v3(&self, subject: &str, tournament_data: &Value) -> Result<Value> {
+        // Determine send time (5 days before tournament start)
+        let unix_start_time = tournament_data["start-unix-timestamp"]
+            .as_i64()
+            .context("Missing start time")?;
+        let timezone: Tz = tournament_data["timezone"]
+            .as_str()
+            .context("Missing timezone")?
+            .parse()?;
+        let start_time = DateTime::from_timestamp(unix_start_time, 0)
+            .context(format!("invalid start time: {}", unix_start_time))?
+            .with_timezone(&timezone);
+        let send_time = start_time - chrono::Duration::days(1);
+        let mut send_time_iso8601 = Some(send_time.to_rfc3339());
+        let now = chrono::Utc::now();
+        if send_time < now {
+            send_time_iso8601 = None;
+            println!("{}", Yellow.paint("Warning: Already past send time"));
+            println!(
+                "{}",
+                Yellow.paint("This broadcast will be created as a draft")
+            );
+            println!(
+                "{}",
+                Yellow.paint("You can send it manually from the web interface")
+            );
+        }
+
+        // Construct content
         let content_template = r#"
-            <b>{{name}}</b> is this weekend, {{date}}.<br>
-            feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
-            <a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a><br>
+            <b>{{name}}</b> is this weekend, {{date}}.
+            <br>feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
+            <br><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a>
         "#;
         let content = replace_placeholder_values(tournament_data, content_template);
-        let html = read_file("html/email.html")
-            .replace("{{name}}", &subject)
-            .replace("{{content}}", &content);
+
+        // Send API request
         let req = self
             .client
             .post("https://api.convertkit.com/v3/broadcasts")
             .json(&json!({
                 "api_secret": &self.api_secret,
-                "email_layout_template": Value::Null, // todo
-                "content": content,
+                "email_layout_template": Value::Null, // use default template
+                "content": &content,
+                "subject": &subject,
+                "send_at": &send_time_iso8601,
+                "public": true, // false == draft
             }));
         let res = req.send().await?;
         let status = res.status();
@@ -140,9 +174,6 @@ impl MailingListService {
             <a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a><br>
         "#;
         let content = replace_placeholder_values(tournament_data, content_template);
-        let html = read_file("html/email.html")
-            .replace("{{name}}", &subject)
-            .replace("{{content}}", &content);
         let req = self
             .client
             .post("https://api.kit.com/v4/broadcasts")
@@ -186,12 +217,4 @@ fn get_kit_api_secret() -> String {
     println!("{}", Yellow.paint("Then add it to .env or run.sh"));
     println!("{}", Yellow.paint(format!("{}=your-api-secret", env_key)));
     panic!("Missing API Secret env var");
-}
-
-fn get_subject_for_tournament(tournament_name: &str) -> String {
-    format!("Tournament reminder: {}", tournament_name)
-}
-
-fn get_subject_for_top8(tournament_name: &str) -> String {
-    format!("Top 8 starting soon: {}", tournament_name)
 }

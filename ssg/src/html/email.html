@@ -1,44 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{subject}}</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            background-color: transparent;
-        }
+<!-- Custom HTML email template for use in Kit -->
+<!-- https://app.kit.com/account/email_layout_templates/3723338/edit -->
+<!-- It appears that Kit already injects the <head> contents -->
+<style type="text/css">
+    .body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+    }
 
-        .logo {
-            width: 150px;
-            max-width: 150px;
-            height: auto;
-        }
+    .logo {
+        width: 150px;
+        max-width: 150px;
+        height: auto;
+    }
 
-        .button {
-            background-color: rgb(255, 140, 130);
-            border-radius: 0px;
-            border: 2px solid rgb(0, 0, 0);
-            color: rgb(0, 0, 0);
-            display: block;
-            font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
-            font-size: 16px;
-            padding: 16px 28px;
-            text-align: center;
-            direction: ltr;
-        }
-    </style>
-</head>
-<body>
+    .button {
+        background-color: rgb(255, 140, 130);
+        border-radius: 0px;
+        border: 2px solid rgb(0, 0, 0);
+        color: rgb(0, 0, 0);
+        display: block;
+        font-size: 16px;
+        padding: 16px 28px;
+        text-align: center;
+        direction: ltr;
+    }
+</style>
+<div class="body">
     <img class="logo" src="https://meleemajors.gg/assets/favicon/favicon.webp" alt="">
-    {{content}}
+    {{ message_content }}
     <a href="https://meleemajors.gg" class="button"
     target="blank">meleemajors.gg</a>
-    <a href="{$unsubscribe_link}">{$unsubscribe_text}</a>
-</body>
-</html>
+    {{ unsubscribe_link }}
+    {{ address }}
+</div>
