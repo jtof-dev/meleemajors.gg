@@ -24,3 +24,53 @@ pub fn replace_placeholder_values(data: &Value, template: &str) -> String {
             )
         })
 }
+
+// Pretty logging
+use ansi_term::{
+    Color::{Cyan, RGB},
+    Style,
+};
+
+pub fn log_heading(heading: &str) {
+    let style = Style::new().on(Cyan);
+    println!("\n{}", style.paint(format!(" {} ", heading)));
+}
+
+pub fn log_error(label: &str, msg: &str) {
+    eprint!("{}", "❌");
+    if !label.is_empty() {
+        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+    }
+    eprint!(" {}\n", msg);
+}
+
+pub fn log_warn(label: &str, msg: &str) {
+    print!("{}", "⚠️ ");
+    if !label.is_empty() {
+        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+    }
+    print!(" {}\n", msg);
+}
+
+pub fn log_skip(label: &str, msg: &str) {
+    print!("{}", "➖");
+    if !label.is_empty() {
+        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+    }
+    print!(" {}\n", msg);
+}
+
+pub fn log_success(label: &str, msg: &str) {
+    print!("{}", "✅");
+    if !label.is_empty() {
+        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+    }
+    print!(" {}\n", msg);
+}
+
+pub fn log_info(label: &str, msg: &str) {
+    if !label.is_empty() {
+        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+    }
+    print!(" {}\n", RGB(128, 128, 128).paint(msg));
+}

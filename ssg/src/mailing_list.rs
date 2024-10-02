@@ -1,7 +1,6 @@
-use crate::utils::replace_placeholder_values;
-use ansi_term::Color::{Green, Red, Yellow};
+use crate::utils::{log_error, log_skip, log_success, log_warn, replace_placeholder_values};
 use anyhow::{anyhow, Context, Result};
-use chrono::DateTime;
+use chrono::{DateTime, NaiveDateTime};
 use chrono_tz::Tz;
 use reqwest::{
     header::{self, HeaderMap, HeaderValue},
@@ -29,8 +28,8 @@ impl MailingListService {
         let mut headers = HeaderMap::new();
         headers.insert(header::ACCEPT, HeaderValue::from_static("application/json"));
 
-        // Note: Kit v4 API will use standard Auth/bearer token,
-        // but v3 uses a custom query/body param for api secret (??)
+        // Note: Kit V4 API will use standard Auth/bearer token,
+        // but V3 uses a custom query/body param for api secret (??)
 
         // headers.insert(
         //     header::AUTHORIZATION,
@@ -38,7 +37,8 @@ impl MailingListService {
         // );
 
         let client = Client::builder().default_headers(headers).build()?;
-        let broadcasts = Vec::new();
+        let broadcasts = Vec::new(); // todo: should broadcasts be fetched immediately?
+
         Ok(Self {
             client,
             api_secret,
@@ -46,37 +46,116 @@ impl MailingListService {
         })
     }
 
-    /// Main entrypoint: Schedules both a tournament reminder email and a Top 8 email for the given tournament.
-    pub async fn schedule_tournament_emails(&mut self, tournament_data: &Value) -> Result<()> {
-        // Check for existing broadcast
+    /// Schedule a reminder email for 5 days before the tournament starts, if needed
+    pub async fn schedule_reminder_broadcast(&mut self, tournament_data: &Value) -> Result<()> {
+        // Determine send time (5 days before tournament start)
+        let unix_start_time = tournament_data["start-unix-timestamp"]
+            .as_i64()
+            .context("Missing start time")?;
+        let timezone: Tz = tournament_data["timezone"]
+            .as_str()
+            .context("Missing timezone")?
+            .parse()?;
+        let start_time = DateTime::from_timestamp(unix_start_time, 0)
+            .context(format!("invalid start time: {}", unix_start_time))?
+            .with_timezone(&timezone);
+        let send_time = start_time - chrono::Duration::days(1);
+
+        // Email subject
         let tournament_name = tournament_data["name"]
             .as_str()
             .context("Missing tournament name")?;
         let subject = format!("Tournament reminder: {}", tournament_name);
+
+        // Generate content
+        let content_template = r#"
+            <h1>{{name}}</h1>
+            <br>This weekend, {{date}}.
+            <br>feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
+            <br><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a>
+        "#;
+        let content = replace_placeholder_values(tournament_data, content_template);
+
+        // Check for existing broadcast
         let existing_broadcast = self.get_broadcast_by_subject(&subject).await;
         if existing_broadcast.is_some() {
-            println!("{}", Green.paint("- Broadcast already scheduled"));
+            log_skip("email", "reminder broadcast already scheduled");
             return Ok(());
         }
 
         // Create broadcast
-        self.create_broadcast_v3(&subject, &tournament_data)
+        self.create_broadcast(&send_time, &subject, &content)
             .await
             .inspect_err(|e| {
-                println!("{}", Red.paint("- Failed to create broadcast"));
+                log_error("email", "reminder broadcast scheduling failed");
                 println!("{:?}", e);
             })?;
-        println!("{}", Green.paint("- Created broadcast"));
-        // let broadcast_id = res_create["broadcast"]["id"].to_string();
-
-        // todo: update broadcast if needed
-        // todo: repeat all of the above for Top 8
+        log_success("email", "reminder broadcast scheduled");
 
         Ok(())
     }
 
-    /// - V3: https://developers.kit.com/v3#list-broadcasts
-    /// - V4: https://developers.kit.com/v4?shell#list-broadcasts
+    /// Schedule a reminder email for the start of Top 8, if needed
+    pub async fn schedule_top8_broadcast(&mut self, tournament_data: &Value) -> Result<()> {
+        // Parse top 8 start time
+        let top8_start_time_str = tournament_data["top8-start-time"].as_str().unwrap_or("");
+        if top8_start_time_str.is_empty() {
+            log_warn("email", "Missing top 8 start time");
+            return Ok(());
+        }
+        let top8_datetime_format = "%Y-%m-%d %I:%M%P"; // e.g. "2024-10-06 3:00PM"
+        let timezone: Tz = tournament_data["timezone"]
+            .as_str()
+            .context("Missing timezone")?
+            .parse()?;
+        let top8_start_time =
+            NaiveDateTime::parse_from_str(top8_start_time_str, top8_datetime_format)?
+                .and_local_timezone(timezone)
+                .single()
+                .context("Invalid top8-start-time")?;
+
+        // Email subject
+        let tournament_name = tournament_data["name"]
+            .as_str()
+            .context("Missing tournament name")?;
+        let subject = format!("Top 8 starting now: {}", tournament_name);
+
+        // Generate content
+        let mut content_template = r#"
+            <h1>{{name}}</h1>
+            <br>Live now! Top 8 starts soon.
+            <br><a href="{{start.gg-url}}" target="blank">Bracket</a>
+        "#
+        .to_string();
+        let has_stream = !tournament_data["stream-url"]
+            .as_str()
+            .unwrap_or("")
+            .is_empty();
+        if has_stream {
+            content_template.push_str(r#"<br><a href="{{stream-url}}" target="blank">Stream</a>"#);
+        }
+        let content = replace_placeholder_values(tournament_data, &content_template);
+
+        // Check for existing broadcast
+        let existing_broadcast = self.get_broadcast_by_subject(&subject).await;
+        if existing_broadcast.is_some() {
+            log_skip("email", "top 8 broadcast already scheduled");
+            return Ok(());
+        }
+
+        // Create broadcast
+        self.create_broadcast(&top8_start_time, &subject, &content)
+            .await
+            .inspect_err(|e| {
+                log_error("email", "top 8 broadcast scheduling failed");
+                println!("{:?}", e);
+            })?;
+        log_success("email", "top 8 broadcast scheduled");
+
+        Ok(())
+    }
+
+    /// https://developers.kit.com/v3#list-broadcasts
     async fn list_broadcasts(&mut self) -> Result<&Vec<Value>> {
         if self.broadcasts.is_empty() {
             let response = self
@@ -104,41 +183,21 @@ impl MailingListService {
     }
 
     /// https://developers.kit.com/v3#create-a-broadcast
-    async fn create_broadcast_v3(&self, subject: &str, tournament_data: &Value) -> Result<Value> {
-        // Determine send time (5 days before tournament start)
-        let unix_start_time = tournament_data["start-unix-timestamp"]
-            .as_i64()
-            .context("Missing start time")?;
-        let timezone: Tz = tournament_data["timezone"]
-            .as_str()
-            .context("Missing timezone")?
-            .parse()?;
-        let start_time = DateTime::from_timestamp(unix_start_time, 0)
-            .context(format!("invalid start time: {}", unix_start_time))?
-            .with_timezone(&timezone);
-        let send_time = start_time - chrono::Duration::days(1);
+    async fn create_broadcast(
+        &self,
+        send_time: &DateTime<Tz>,
+        subject: &str,
+        content: &str,
+    ) -> Result<Value> {
+        // Validate send time
         let mut send_time_iso8601 = Some(send_time.to_rfc3339());
         let now = chrono::Utc::now();
-        if send_time < now {
+        if send_time < &now {
             send_time_iso8601 = None;
-            println!("{}", Yellow.paint("Warning: Already past send time"));
-            println!(
-                "{}",
-                Yellow.paint("This broadcast will be created as a draft")
-            );
-            println!(
-                "{}",
-                Yellow.paint("You can send it manually from the web interface")
-            );
+            log_warn("email", "Already past send time");
+            log_warn("email", "This broadcast will be created as a draft");
+            log_warn("email", "You can send it manually from the web interface");
         }
-
-        // Construct content
-        let content_template = r#"
-            <b>{{name}}</b> is this weekend, {{date}}.
-            <br>feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
-            <br><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a>
-        "#;
-        let content = replace_placeholder_values(tournament_data, content_template);
 
         // Send API request
         let req = self
@@ -159,45 +218,8 @@ impl MailingListService {
             Ok(json)
         } else {
             let response_code_str = format!("Response code {}", status.as_str());
-            eprintln!("{}", Red.paint(&response_code_str));
-            eprintln!("{}", Red.paint(to_string_pretty(&json)?));
-            Err(anyhow!(response_code_str).context(json))
-        }
-    }
-
-    /// https://developers.kit.com/v4?shell#create-a-broadcast
-    async fn _create_broadcast_v4(&self, subject: &str, tournament_data: &Value) -> Result<Value> {
-        let content_template = r#"
-            <b>{{name}}</b> is this weekend, {{date}}.<br>
-            feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
-            <a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a><br>
-        "#;
-        let content = replace_placeholder_values(tournament_data, content_template);
-        let req = self
-            .client
-            .post("https://api.kit.com/v4/broadcasts")
-            .json(&json!({
-                "email_template_id": Value::Null, // todo: create template
-                "broadcast_id": Value::Null,
-                "content": content,
-                "description": Value::Null,
-                "public": false, // false == draft
-                "published_at": Value::Null,
-                "send_at": Value::Null, // The scheduled send time for this broadcast in ISO8601 format
-                "thumbnail_alt": Value::Null,
-                "preview_text": "This weekend...", // todo
-                "subject": subject,
-                "subscriber_filter": Value::Null, // todo: dev vs all
-            }));
-        let res = req.send().await?;
-        let status = res.status();
-        let json = res.json::<Value>().await?;
-        if status.is_success() {
-            Ok(json)
-        } else {
-            let response_code_str = format!("Response code {}", status.as_str());
-            eprintln!("{}", Red.paint(&response_code_str));
-            eprintln!("{}", Red.paint(to_string_pretty(&json)?));
+            log_error("email", &response_code_str);
+            log_error("email", &to_string_pretty(&json)?);
             Err(anyhow!(response_code_str).context(json))
         }
     }
@@ -209,11 +231,11 @@ fn get_kit_api_secret() -> Option<String> {
         Some(api_token)
     } else {
         let api_url = "https://app.kit.com/account_settings/developer_settings";
-        eprintln!("{}", Red.paint("Missing API secret for Kit"));
-        println!("{}", Yellow.paint("Generate one here:"));
-        println!("{}", Yellow.paint(api_url));
-        println!("{}", Yellow.paint("Then add it to .env or run.sh"));
-        println!("{}", Yellow.paint(format!("{}=your-api-secret", env_key)));
+        log_error("", "Missing API secret for Kit");
+        log_warn("", "Generate one here:");
+        log_warn("", api_url);
+        log_warn("", "Then add it to .env or run.sh");
+        log_warn("", &format!("{}=your-api-secret", env_key));
         None
     }
 }

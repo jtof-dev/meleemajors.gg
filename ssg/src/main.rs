@@ -18,7 +18,10 @@ use std::time::Duration;
 use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
-use utils::{read_file, replace_placeholder_values};
+use utils::{
+    log_error, log_heading, log_info, log_skip, log_success, log_warn, read_file,
+    replace_placeholder_values,
+};
 
 mod generate_gql;
 mod mailing_list;
@@ -61,7 +64,7 @@ async fn main() {
     let mut all_images: HashSet<String> = HashSet::new();
 
     let mut mailing_list = mailing_list::MailingListService::new()
-        .map_err(|e| {
+        .inspect_err(|e| {
             println!("{}", Yellow.paint("Mailing list service init failed"));
             println!("{}", Yellow.paint(format!("{:?}", e)));
         })
@@ -85,15 +88,18 @@ async fn main() {
                     &tournament_data,
                     &template_card,
                 ));
+
                 calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
+                log_success("calendar", "generated ICS event");
 
                 if let Some(ref mut service) = mailing_list {
                     service
-                        .schedule_tournament_emails(&tournament_data)
+                        .schedule_reminder_broadcast(&tournament_data)
                         .await
                         .ok();
+                    service.schedule_top8_broadcast(&tournament_data).await.ok();
                 } else {
-                    println!("{}", Yellow.paint("- Skipping email scheduling"));
+                    log_warn("email", "Skipping email scheduling");
                 }
 
                 if bail {
@@ -140,7 +146,9 @@ async fn scrape_data(
     let tournament_info = &result_tournament_info["tournament"];
 
     let tournament_name = tournament_info["name"].as_str().unwrap(); // ---> result
-    println!("successfully scraped data for {}", tournament_name);
+
+    log_heading(tournament_name);
+    log_success("start.gg", "scraped tournaments");
 
     let tournament_entrants_var = json!({
       "eventId": result_tournament_info["event"].get("id").unwrap().to_string(),
@@ -151,7 +159,7 @@ async fn scrape_data(
         tournament_entrants_var,
     )
     .await;
-    println!("successfully scraped entrants for {}", tournament_name);
+    log_success("start.gg", "scraped entrants");
 
     let featured_players_vars = json!({
         "slug_event": event_slug
@@ -160,10 +168,7 @@ async fn scrape_data(
         graphql_query(query_client, query_featured_players, featured_players_vars)
             .await
             .to_string();
-    println!(
-        "successfully scraped top eight players for {}",
-        tournament_name
-    );
+    log_success("start.gg", "scraped top 8 players");
 
     let featured_players_top_eight = featured_players_json
         .as_array()
@@ -241,8 +246,8 @@ async fn scrape_data(
         "stream-url": stream_url,
         "schedule-url": schedule_url,
         "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
-        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""}
-
+        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""},
+        "top8-start-time": tournament["top8-start-time"],
     })
 }
 
@@ -280,7 +285,7 @@ fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<Str
     image_data.insert(format!("{name}.webp"));
 
     if fs::metadata(&image_path).is_ok() {
-        println!("{name}.webp already exists! skipping...");
+        log_skip("ffmpeg", &format!("{name}.webp already exists"));
     } else {
         println!("[ffmpeg] downloading {url}");
         FfmpegCommand::new()
@@ -294,11 +299,14 @@ fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<Str
             .unwrap()
             .for_each(|event| match event {
                 FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
-                    eprintln!("[ffmpeg] {:?}", msg)
+                    log_error("ffmpeg", &format!("{:?}", msg));
                 }
-                FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
-                FfmpegEvent::Done => println!("[ffmpeg] downloaded {url}"),
-                // e => println!("{:?}", e),
+                FfmpegEvent::Progress(progress) => {
+                    log_info("ffmpeg", &format!("{:?}", progress));
+                }
+                FfmpegEvent::Done => {
+                    log_success("ffmpeg", &format!("{name}.webp downloaded"));
+                }
                 _ => {}
             });
     }

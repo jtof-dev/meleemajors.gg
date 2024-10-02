@@ -5,31 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20240914T171455Z
+DTSTAMP:20241002T210329Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
- gles\n\nattendees: 256\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
+ gles\n\nattendees: 330\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
  \nMang0\nAklo\nSalt\nJoshman\n
 DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:173ec3e3-c775-4d4b-b599-07bfc7b159ef
+UID:632afc6b-74ea-433e-a756-2c1fb63e98fd
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240914T171455Z
+DTSTAMP:20241002T210329Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
- elee-singles\n\nattendees: 55\n\nnotable entrants:\n\nZain\nmoky\nAklo\nJun
- ebug\nTBD\nTBD\nTBD\nTBD\n
+ elee-singles\n\nattendees: 68\n\nnotable entrants:\n\nZain\nmoky\nAklo\nFic
+ tion\nJunebug\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20241021
 DTSTART;VALUE=DATE:20241019
 LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
 SUMMARY:Pataka Esports Festival
-UID:d76f4325-6ff3-4b54-88a6-009114313acc
+UID:9a25c67c-2b79-4691-9315-f16a289d63d3
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240914T171455Z
+DTSTAMP:20241002T210329Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -38,18 +38,18 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:29328b10-22da-4b16-809e-19e07a5b9ea1
+UID:11b21fe8-d0eb-4561-9004-82dc7568fefd
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20240914T171455Z
+DTSTAMP:20241002T210329Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 771\n\nnotable entrants:\n\nCody Schwab\nZa
+ ent/melee-singles\n\nattendees: 890\n\nnotable entrants:\n\nCody Schwab\nZa
  in\nJmook\nmoky\nPlup\nLeffen\naMSa\nHungrybox\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:ea2f597d-b05c-46f2-806a-50e4a213fc00
+UID:f8ba1a25-8d02-400e-b314-5e24e5b0b88e
 END:VEVENT
 END:VCALENDAR
