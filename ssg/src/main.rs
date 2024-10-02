@@ -1,6 +1,5 @@
 extern crate dotenv;
 
-use ansi_term::Color::Yellow;
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use chrono_tz::Tz;
@@ -19,8 +18,8 @@ use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
 use utils::{
-    log_error, log_heading, log_info, log_skip, log_success, log_warn, read_file,
-    replace_placeholder_values,
+    log_error, log_green, log_grey, log_heading, log_info, log_skip, log_success, log_warn,
+    read_file, replace_placeholder_values,
 };
 
 mod generate_gql;
@@ -65,8 +64,9 @@ async fn main() {
 
     let mut mailing_list = mailing_list::MailingListService::new()
         .inspect_err(|e| {
-            println!("{}", Yellow.paint("Mailing list service init failed"));
-            println!("{}", Yellow.paint(format!("{:?}", e)));
+            log_warn("email", "Mailing list service init failed");
+            log_warn("email", "Mailing list service init failed");
+            log_warn("email", &format!("{:?}", e));
         })
         .ok();
 
@@ -113,6 +113,7 @@ async fn main() {
     make_site(&index_html);
     make_calendar(calendar_ics);
     cleanup_images(all_images);
+    next_steps();
 }
 
 async fn scrape_data(
@@ -383,4 +384,11 @@ fn cleanup_images(data: HashSet<String>) {
             fs::remove_file(format!("cards/{image_str}")).unwrap();
         };
     })
+}
+
+fn next_steps() {
+    log_green("\n🎉 Finished 🎉\n");
+    log_grey("Next steps:");
+    log_grey("1. git commit & push to main to deploy site");
+    log_grey("2. Review scheduled emails: https://app.kit.com/campaigns");
 }

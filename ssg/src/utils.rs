@@ -27,7 +27,7 @@ pub fn replace_placeholder_values(data: &Value, template: &str) -> String {
 
 // Pretty logging
 use ansi_term::{
-    Color::{Cyan, RGB},
+    Color::{Cyan, Green, Red, Yellow, RGB},
     Style,
 };
 
@@ -39,7 +39,7 @@ pub fn log_heading(heading: &str) {
 pub fn log_error(label: &str, msg: &str) {
     eprint!("{}", "❌");
     if !label.is_empty() {
-        print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
+        eprint!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
     }
     eprint!(" {}\n", msg);
 }
@@ -73,4 +73,20 @@ pub fn log_info(label: &str, msg: &str) {
         print!(" {}", RGB(128, 128, 128).paint(format!("[{}]", label)));
     }
     print!(" {}\n", RGB(128, 128, 128).paint(msg));
+}
+
+pub fn log_red(msg: &str) {
+    eprintln!("{}", Red.paint(msg));
+}
+
+pub fn log_yellow(msg: &str) {
+    println!("{}", Yellow.paint(msg));
+}
+
+pub fn log_green(msg: &str) {
+    println!("{}", Green.paint(msg));
+}
+
+pub fn log_grey(msg: &str) {
+    println!("{}", RGB(128, 128, 128).paint(msg));
 }
