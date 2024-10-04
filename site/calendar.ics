@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241002T215656Z
+DTSTAMP:20241004T213122Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
  gles\n\nattendees: 330\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
@@ -14,22 +14,22 @@ DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:3b9bdbee-1354-4b4f-905a-b4e3c0016ea0
+UID:e0fb6c29-d6bf-4b45-9977-f63805c17bbf
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241002T215656Z
+DTSTAMP:20241004T213122Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
- elee-singles\n\nattendees: 68\n\nnotable entrants:\n\nZain\nmoky\nAklo\nFic
+ elee-singles\n\nattendees: 69\n\nnotable entrants:\n\nZain\nmoky\nAklo\nFic
  tion\nJunebug\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20241021
 DTSTART;VALUE=DATE:20241019
 LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
 SUMMARY:Pataka Esports Festival
-UID:78e22869-b77d-49d0-89fa-e3654cae40c8
+UID:14d94c53-e999-4036-a158-7f7368717ce6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241002T215656Z
+DTSTAMP:20241004T213122Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:a04ec6cb-54fc-4feb-ade8-6110d046050f
+UID:5b6a9276-7bc6-46f9-a929-7ee1ad6a5547
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241002T215656Z
+DTSTAMP:20241004T213122Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
  ent/melee-singles\n\nattendees: 890\n\nnotable entrants:\n\nCody Schwab\nZa
@@ -50,6 +50,6 @@ DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:834964f6-ee95-4e38-ae4d-f6656682866a
+UID:1f5c24c2-e576-4f2d-a7ec-ce71f77296c5
 END:VEVENT
 END:VCALENDAR

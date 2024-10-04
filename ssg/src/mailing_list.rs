@@ -69,14 +69,30 @@ impl MailingListService {
             .context("missing tournament name")?;
         let subject = format!("Tournament reminder: {}", tournament_name);
 
+        // Player names
+        let mut player_names: Vec<&str> = Vec::new();
+        for i in 0..8 {
+            let player_key = format!("player{}", i);
+            if let Some(player_name) = tournament_data[player_key].as_str() {
+                if !player_name.eq("TBD") {
+                    player_names.push(player_name);
+                }
+            }
+        }
+        let mut player_names_str = "".to_string();
+        if !player_names.is_empty() {
+            player_names_str = format!("Featuring {}, and more.", player_names.join(", "));
+        }
+
         // Generate content
         let content_template = r#"
-            <h1>{{name}}</h1>
-            This weekend, {{date}}.
-            <br>feat. {{player0}}, {{player1}}, {{player2}}, {{player3}}, {{player4}}, {{player5}}, {{player6}}, {{player7}}, and more.<br>
-            <br><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a>
-        "#;
-        let content = replace_placeholder_values(tournament_data, content_template);
+            <h1 style="text-align: center; width: 100%; margin-bottom: 24px">{{name}}</h1>
+            <div>This weekend, {{date}}.</div>
+            {{player_names_str}}
+            <div style="display: flex; justify-content: center; align-items: center; margin: 24px 0"><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a></div>
+        "#.replace("{{player_names_str}}", &player_names_str);
+
+        let content = replace_placeholder_values(tournament_data, &content_template);
 
         // Check for existing broadcast
         let existing_broadcast = self
@@ -133,17 +149,17 @@ impl MailingListService {
 
         // Generate content
         let mut content_template = r#"
-            <h1>{{name}}</h1>
-            Live now! Top 8 starts soon.
-            <br><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a>
-        "#
-        .to_string();
+            <h1 style="text-align: center; width: 100%; margin-bottom: 24px">{{name}}</h1>
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center">Live now! Top 8 starts soon.</div>
+            <div style="display: flex; justify-content: center; align-items: center; margin: 24px 0"><a href="{{start.gg-url}}" target="blank">View bracket on Start.gg</a></div>
+        "#.to_string();
+
         let has_stream = !tournament_data["stream-url"]
             .as_str()
             .unwrap_or("")
             .is_empty();
         if has_stream {
-            content_template.push_str(r#"<br><a href="{{stream-url}}" target="blank">Stream</a>"#);
+            content_template.push_str(r#"<div style="display: flex; justify-content: center; align-items: center; margin: 24px 0"><a href="{{stream-url}}" target="blank">Stream</a></div>"#);
         }
         let content = replace_placeholder_values(tournament_data, &content_template);
 
@@ -240,7 +256,6 @@ impl MailingListService {
         let send_time_iso8601 = Some(send_time.to_rfc3339());
         let now = chrono::Utc::now();
         if send_time < &now {
-            // log_yellow("Already past send time");
             bail!("Already past send time");
         }
 
