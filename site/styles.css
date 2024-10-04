@@ -614,3 +614,10 @@ input:focus {
     font-size: 15px;
   }
 }
+
+/* Styling for Kit email signup form */
+.formkit-fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

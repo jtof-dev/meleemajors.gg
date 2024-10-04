@@ -1,6 +1,9 @@
+extern crate dotenv;
+
 use case_converter::kebab_to_camel;
 use chrono::DateTime;
 use chrono_tz::Tz;
+use dotenv::dotenv;
 use ffmpeg_sidecar::command::FfmpegCommand;
 use ffmpeg_sidecar::event::{FfmpegEvent, LogLevel};
 use fs_extra::{copy_items, dir};
@@ -10,23 +13,33 @@ use itertools::Itertools;
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::{HashMap, HashSet};
-use std::fs::File;
 use std::time::Duration;
 use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
+use utils::{
+    log_error, log_green, log_grey, log_heading, log_info, log_skip, log_success, log_warn,
+    read_file, replace_placeholder_values,
+};
 
 mod generate_gql;
+mod mailing_list;
+mod utils;
 
 #[tokio::main]
 async fn main() {
-    let args: Vec<String> = std::env::args().collect();
+    dotenv().ok(); // Read vars from .env file if present
+    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
 
+    let args: Vec<String> = std::env::args().collect();
     if args.contains(&String::from("--generate")) {
         generate_gql::main();
         return;
     }
-    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
+
+    // Whether to exit early for debug after a single iteration without writing
+    // Usage: `cargo run -- --bail`
+    let bail = args.contains(&String::from("--bail"));
 
     let mut query_headers = HashMap::new();
     query_headers.insert("authorization".to_string(), format!("Bearer {}", api_token));
@@ -49,6 +62,14 @@ async fn main() {
     let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
     let mut all_images: HashSet<String> = HashSet::new();
 
+    let mut mailing_list = mailing_list::MailingListService::new()
+        .inspect_err(|e| {
+            log_warn("email", "Mailing list service init failed");
+            log_warn("email", "Mailing list service init failed");
+            log_warn("email", &format!("{:?}", e));
+        })
+        .ok();
+
     match json_tournaments {
         Value::Array(vec) => {
             for tournament in vec {
@@ -67,7 +88,23 @@ async fn main() {
                     &tournament_data,
                     &template_card,
                 ));
-                calendar_ics = generate_calendar(tournament_data, &mut calendar_ics);
+
+                calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
+                log_success("calendar", "generated ICS event");
+
+                if let Some(ref mut service) = mailing_list {
+                    service
+                        .schedule_reminder_broadcast(&tournament_data)
+                        .await
+                        .ok();
+                    service.schedule_top8_broadcast(&tournament_data).await.ok();
+                } else {
+                    log_warn("email", "Skipping email scheduling");
+                }
+
+                if bail {
+                    std::process::exit(0)
+                }
             }
         }
         _ => panic!("root must be an array"),
@@ -76,11 +113,7 @@ async fn main() {
     make_site(&index_html);
     make_calendar(calendar_ics);
     cleanup_images(all_images);
-}
-
-pub fn read_file(path: &str) -> String {
-    let file = File::open(path).unwrap();
-    std::io::read_to_string(file).unwrap()
+    next_steps();
 }
 
 async fn scrape_data(
@@ -114,7 +147,9 @@ async fn scrape_data(
     let tournament_info = &result_tournament_info["tournament"];
 
     let tournament_name = tournament_info["name"].as_str().unwrap(); // ---> result
-    println!("successfully scraped data for {}", tournament_name);
+
+    log_heading(tournament_name);
+    log_success("start.gg", "scraped tournaments");
 
     let tournament_entrants_var = json!({
       "eventId": result_tournament_info["event"].get("id").unwrap().to_string(),
@@ -125,7 +160,7 @@ async fn scrape_data(
         tournament_entrants_var,
     )
     .await;
-    println!("successfully scraped entrants for {}", tournament_name);
+    log_success("start.gg", "scraped entrants");
 
     let featured_players_vars = json!({
         "slug_event": event_slug
@@ -134,10 +169,7 @@ async fn scrape_data(
         graphql_query(query_client, query_featured_players, featured_players_vars)
             .await
             .to_string();
-    println!(
-        "successfully scraped top eight players for {}",
-        tournament_name
-    );
+    log_success("start.gg", "scraped top 8 players");
 
     let featured_players_top_eight = featured_players_json
         .as_array()
@@ -198,6 +230,7 @@ async fn scrape_data(
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
         "end-unix-timestamp": tournament_info["endAt"],
+        "timezone": tournament_info["timezone"],
         "player0": featured_players_top_eight[0],
         "player1": featured_players_top_eight[1],
         "player2": featured_players_top_eight[2],
@@ -214,8 +247,8 @@ async fn scrape_data(
         "stream-url": stream_url,
         "schedule-url": schedule_url,
         "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
-        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""}
-
+        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""},
+        "top8-start-time": tournament["top8-start-time"],
     })
 }
 
@@ -253,7 +286,7 @@ fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<Str
     image_data.insert(format!("{name}.webp"));
 
     if fs::metadata(&image_path).is_ok() {
-        println!("{name}.webp already exists! skipping...");
+        log_skip("ffmpeg", &format!("{name}.webp already exists"));
     } else {
         println!("[ffmpeg] downloading {url}");
         FfmpegCommand::new()
@@ -267,11 +300,14 @@ fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<Str
             .unwrap()
             .for_each(|event| match event {
                 FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
-                    eprintln!("[ffmpeg] {:?}", msg)
+                    log_error("ffmpeg", &format!("{:?}", msg));
                 }
-                FfmpegEvent::Progress(progress) => println!("[ffmpeg] {:?}", progress),
-                FfmpegEvent::Done => println!("[ffmpeg] downloaded {url}"),
-                // e => println!("{:?}", e),
+                FfmpegEvent::Progress(progress) => {
+                    log_info("ffmpeg", &format!("{:?}", progress));
+                }
+                FfmpegEvent::Done => {
+                    log_success("ffmpeg", &format!("{name}.webp downloaded"));
+                }
                 _ => {}
             });
     }
@@ -317,22 +353,6 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
         .done();
 }
 
-fn replace_placeholder_values(data: &Value, template_file: &str) -> String {
-    data.as_object()
-        .unwrap()
-        .into_iter()
-        .fold(template_file.to_string(), |acc, (key, value)| {
-            acc.replace(
-                &format!("{{{{{key}}}}}"), // 🤮
-                &match value {
-                    Value::String(file_type_string) => file_type_string.to_owned(),
-                    Value::Number(file_type_number) => file_type_number.to_string(),
-                    _ => panic!(),
-                },
-            )
-        })
-}
-
 fn make_site(index_html: &str) {
     fs::write("../../site/index.html", index_html).unwrap();
     fs::remove_dir_all("../../site/assets/cards").unwrap();
@@ -364,4 +384,11 @@ fn cleanup_images(data: HashSet<String>) {
             fs::remove_file(format!("cards/{image_str}")).unwrap();
         };
     })
+}
+
+fn next_steps() {
+    log_green("\n🎉 Finished 🎉\n");
+    log_grey("Next steps:");
+    log_grey("1. git commit & push to main to deploy site");
+    log_grey("2. Review scheduled emails: https://app.kit.com/campaigns");
 }
