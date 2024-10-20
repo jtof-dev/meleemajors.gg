@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241020T231258Z
+DTSTAMP:20241020T232346Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
  gles\n\nattendees: 330\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:754583ff-6e2e-429d-abea-09eea99d1d39
+UID:b9e69eba-84ed-4465-a7cb-145ed2ee611b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241020T231258Z
+DTSTAMP:20241020T232346Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
  elee-singles\n\nattendees: 85\n\nnotable entrants:\n\nmoky\nFiction\nMOF\nT
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20241021
 DTSTART;VALUE=DATE:20241019
 LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
 SUMMARY:Pataka Esports Festival
-UID:91c5c806-4e59-404c-bb11-557509d4097e
+UID:ebef7b6c-6012-4018-b95f-47c79bed1b59
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241020T231258Z
+DTSTAMP:20241020T232346Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:70bb06c8-80bf-44e9-97ff-b0b599c48431
+UID:56f58f7e-0d9f-4013-b3f0-9e03d2b38b73
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241020T231258Z
+DTSTAMP:20241020T232346Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
  ent/melee-singles\n\nattendees: 891\n\nnotable entrants:\n\nCody Schwab\nZa
@@ -50,6 +50,6 @@ DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:f58d94c7-0504-4243-94e1-561da595219a
+UID:a3027392-ce7d-4ac8-a407-53566fefdc8b
 END:VEVENT
 END:VCALENDAR
