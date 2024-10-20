@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241004T213122Z
+DTSTAMP:20241020T231258Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
  gles\n\nattendees: 330\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
@@ -14,22 +14,22 @@ DTEND;VALUE=DATE:20241007
 DTSTART;VALUE=DATE:20241005
 LOCATION:219 Littleton Rd, Westford, MA 01886, USA
 SUMMARY:Wavelength 2024
-UID:e0fb6c29-d6bf-4b45-9977-f63805c17bbf
+UID:754583ff-6e2e-429d-abea-09eea99d1d39
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241004T213122Z
+DTSTAMP:20241020T231258Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
- elee-singles\n\nattendees: 69\n\nnotable entrants:\n\nZain\nmoky\nAklo\nFic
- tion\nJunebug\nTBD\nTBD\nTBD\n
+ elee-singles\n\nattendees: 85\n\nnotable entrants:\n\nmoky\nFiction\nMOF\nT
+ BD\nTBD\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20241021
 DTSTART;VALUE=DATE:20241019
 LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
 SUMMARY:Pataka Esports Festival
-UID:14d94c53-e999-4036-a158-7f7368717ce6
+UID:91c5c806-4e59-404c-bb11-557509d4097e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241004T213122Z
+DTSTAMP:20241020T231258Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -38,18 +38,18 @@ DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:5b6a9276-7bc6-46f9-a929-7ee1ad6a5547
+UID:70bb06c8-80bf-44e9-97ff-b0b599c48431
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241004T213122Z
+DTSTAMP:20241020T231258Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 890\n\nnotable entrants:\n\nCody Schwab\nZa
+ ent/melee-singles\n\nattendees: 891\n\nnotable entrants:\n\nCody Schwab\nZa
  in\nJmook\nmoky\nPlup\nLeffen\naMSa\nHungrybox\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:1f5c24c2-e576-4f2d-a7ec-ce71f77296c5
+UID:f58d94c7-0504-4243-94e1-561da595219a
 END:VEVENT
 END:VCALENDAR
