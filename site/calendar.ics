@@ -5,51 +5,75 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241020T232346Z
+DTSTAMP:20241026T204155Z
 CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/wavelength-2024/event/melee-sin
- gles\n\nattendees: 330\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox
- \nMang0\nAklo\nSalt\nJoshman\n
-DTEND;VALUE=DATE:20241007
-DTSTART;VALUE=DATE:20241005
-LOCATION:219 Littleton Rd, Westford, MA 01886, USA
-SUMMARY:Wavelength 2024
-UID:b9e69eba-84ed-4465-a7cb-145ed2ee611b
+DESCRIPTION:https://www.start.gg/tournament/the-function-4-brooklan/event/m
+ elee-singles\n\nattendees: 259\n\nnotable entrants:\n\nZain\nAklo\nKoDoRiN\
+ nJoshman\nChem\nSFOP\nSDJ\nJunebug\n
+DTEND;VALUE=DATE:20241027
+DTSTART;VALUE=DATE:20241026
+LOCATION:339 Troutman St, Brooklyn, NY 11237, USA
+SUMMARY:The Function 4 @ BrookLAN
+UID:4fcbfbde-d37e-407b-a1f7-6ea72b899fd5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241020T232346Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/pataka-esports-festival/event/m
- elee-singles\n\nattendees: 85\n\nnotable entrants:\n\nmoky\nFiction\nMOF\nT
- BD\nTBD\nTBD\nTBD\nTBD\n
-DTEND;VALUE=DATE:20241021
-DTSTART;VALUE=DATE:20241019
-LOCATION:12025 Nordel Way Unit 201, Surrey, BC V3W 1W1, Canada
-SUMMARY:Pataka Esports Festival
-UID:ebef7b6c-6012-4018-b95f-47c79bed1b59
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20241020T232346Z
+DTSTAMP:20241026T204155Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
- 24/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
- TBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+ 24/event/melee-singles\n\nattendees: 168\n\nnotable entrants:\n\nZain\nJmoo
+ k\nHungrybox\nMang0\nWizzrobe\nAklo\nSalt\nJoshman\n
 DTEND;VALUE=DATE:20241104
 DTSTART;VALUE=DATE:20241101
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2024
-UID:56f58f7e-0d9f-4013-b3f0-9e03d2b38b73
+UID:4ec524a0-0d82-43d2-ba4f-9cbaa9287afb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241020T232346Z
+DTSTAMP:20241026T204155Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2024/event/mele
+ e-singles\n\nattendees: 8\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
+ nmoky\nPlup\naMSa\nMang0\nSoonsay\n
+DTEND;VALUE=DATE:20241209
+DTSTART;VALUE=DATE:20241207
+LOCATION:339 Troutman St, Brooklyn, NY 11237, USA
+SUMMARY:Nounsvitational 2024
+UID:c60ea535-a0db-4c63-bece-becf8168044d
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20241026T204155Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/platfight-gaming-championships/
+ event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD
+ \nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20241216
+DTSTART;VALUE=DATE:20241213
+LOCATION:3011 Maingate Ln, Kissimmee, FL 34747, USA
+SUMMARY:Platfight Gaming Championships
+UID:971b0dd0-39af-4898-8679-efb377c0d1b5
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20241026T204155Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 891\n\nnotable entrants:\n\nCody Schwab\nZa
+ ent/melee-singles\n\nattendees: 892\n\nnotable entrants:\n\nCody Schwab\nZa
  in\nJmook\nmoky\nPlup\nLeffen\naMSa\nHungrybox\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:a3027392-ce7d-4ac8-a407-53566fefdc8b
+UID:1063ea8b-34ce-4491-9316-064f8d40ede7
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20241026T204155Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
+ n\nattendees: 318\n\nnotable entrants:\n\nMagi\nAxe\nFiction\nCPU0\nStiv\nZ
+ eo\nUmarth\nTBD\n
+DTEND;VALUE=DATE:20250217
+DTSTART;VALUE=DATE:20250214
+LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
+SUMMARY:Genesis X2
+UID:3bead4e3-b965-409b-8e10-c80ebb31d306
 END:VEVENT
 END:VCALENDAR

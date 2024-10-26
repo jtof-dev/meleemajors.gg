@@ -146,7 +146,7 @@ body {
 
 /* add the background image using an empty div */
 .fixed-position {
-  background-image: url("assets/backgrounds/4.webp");
+  background-image: url("assets/backgrounds/3.webp");
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
@@ -617,7 +617,7 @@ input:focus {
 
 /* Styling for Kit email signup form */
 .formkit-fields {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

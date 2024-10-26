@@ -1,15 +1,9 @@
 [
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/wavelength-2024/event/melee-singles",
-    "top8-start-time": "2024-10-06 3:00PM",
-    "schedule-url": "https://i.postimg.cc/15YZbvPs/20240922-125049.jpg",
-    "stream-url": ""
-  },
-  {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/pataka-esports-festival/event/melee-singles",
-    "top8-start-time": "2024-10-20 5:00PM",
-    "schedule-url": "https://images.start.gg/images/profileWidgetPageLayout/2672668/image-a6a8f573952112780a147eb836930bda-optimized.png",
-    "stream-url": "https://www.twitch.tv/galintgaming"
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/the-function-4-brooklan/event/melee-singles",
+    "top8-start-time": "2024-10-26 7:30PM",
+    "schedule-url": "assets/schedules/theFunction4Schedule.png",
+    "stream-url": "https://twitch.tv/nycmelee"
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/luminosity-makes-moves-miami-2024/event/melee-singles",
@@ -18,7 +12,25 @@
     "stream-url": ""
   },
   {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/nounsvitational-2024/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/platfight-gaming-championships/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/don-t-park-on-the-grass-2024/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/genesis-x2/event/melee-singles",
     "top8-start-time": "",
     "schedule-url": "",
     "stream-url": ""
