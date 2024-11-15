@@ -5,43 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241102T183430Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
- 24/event/melee-singles\n\nattendees: 168\n\nnotable entrants:\n\nZain\nJmoo
- k\nHungrybox\nMang0\nWizzrobe\nAklo\nSalt\nJoshman\n
-DTEND;VALUE=DATE:20241104
-DTSTART;VALUE=DATE:20241101
-LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
-SUMMARY:Luminosity Makes Moves Miami 2024
-UID:8aec81d1-d937-4e83-864f-533ed15412d2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20241102T183430Z
+DTSTAMP:20241115T034725Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
- ent/melee-singles\n\nattendees: 892\n\nnotable entrants:\n\nCody Schwab\nZa
+ ent/melee-singles\n\nattendees: 888\n\nnotable entrants:\n\nCody Schwab\nZa
  in\nJmook\nmoky\nPlup\nLeffen\naMSa\nHungrybox\n
 DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:8704b7bf-06bb-4fdb-8550-7f2f352a3be1
+UID:d100c4d0-029c-4b7e-92ec-d78e0b041833
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241102T183430Z
+DTSTAMP:20241115T034725Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2024/event/mele
- e-singles\n\nattendees: 9\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\
- nmoky\nPlup\naMSa\nMang0\nSoonsay\n
+ e-singles\n\nattendees: 13\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook
+ \nmoky\nPlup\naMSa\nMang0\nAklo\n
 DTEND;VALUE=DATE:20241209
 DTSTART;VALUE=DATE:20241207
 LOCATION:339 Troutman St, Brooklyn, NY 11237, USA
 SUMMARY:Nounsvitational 2024
-UID:b9260044-d452-45ee-af68-36c833977224
+UID:10b0cdf9-a115-4cf4-93cb-29e9aa2add7c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241102T183430Z
+DTSTAMP:20241115T034725Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/platfight-gaming-championships/
  event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD
@@ -50,18 +38,30 @@ DTEND;VALUE=DATE:20241216
 DTSTART;VALUE=DATE:20241213
 LOCATION:3011 Maingate Ln, Kissimmee, FL 34747, USA
 SUMMARY:Platfight Gaming Championships
-UID:a6181ea1-d4ec-44d5-adca-b24f3157f12b
+UID:61c0c028-92d9-4660-952f-6f594076502f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241102T183430Z
+DTSTAMP:20241115T034725Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/tango-a-doubles-major/event/mel
+ ee-doubles\n\nattendees: 9\n\nnotable entrants:\n\nJmook\nHungrybox\nAklo\n
+ Axe\nKrudo\nAzel\nLucky\nMot$\n
+DTEND;VALUE=DATE:20250203
+DTSTART;VALUE=DATE:20250201
+LOCATION:N Hornet Dr, Marietta, GA 30060, USA
+SUMMARY:Tango: A Doubles Major
+UID:455077eb-5cb3-456f-8710-969e18c3cd56
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20241115T034725Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
- n\nattendees: 343\n\nnotable entrants:\n\nMagi\nAxe\nFiction\nCPU0\nStiv\nS
+ n\nattendees: 363\n\nnotable entrants:\n\nMagi\nAxe\nFiction\nCPU0\nStiv\nS
  quid\nZeo\nUmarth\n
 DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:b7b2619c-7fec-4901-918b-31babf1ff7de
+UID:c8416d8d-f38b-41a1-bdb2-8db4dec253ea
 END:VEVENT
 END:VCALENDAR
