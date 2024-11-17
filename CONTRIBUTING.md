@@ -7,9 +7,10 @@
 
 - `tournaments.json` contains an array of tournament entries, each looking like the template one below
 
-```
+```jsonc
 {
     "start.gg-melee-singles-url": "url to melee singles",
+    "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
     "schedule-url": "either empty quotes or url or path to image",
     "stream-url": "either empty quotes or url to stream"
 }
@@ -20,7 +21,7 @@
 - for both `schedule-url` and `stream-url`, just leave the value blank (`""`) if there is no information about either yet
 - finally, don't forget to add commas between tournament entries, like this:
 
-```
+```json
 [
     {
         ...
