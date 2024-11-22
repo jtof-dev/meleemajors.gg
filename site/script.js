@@ -1,6 +1,7 @@
 function initialSetup() {
   setTheme()
   setCurrentlyLive()
+  hidePastTournaments()
 }
 
 // calls initialSetup() as soon as possible on page load
@@ -32,6 +33,18 @@ function setCurrentlyLive() {
       div.className = "live-badge"
       div.innerText = "LIVE NOW"
       card.appendChild(div)
+    }
+  }
+}
+
+function hidePastTournaments() {
+  const cards = document.querySelectorAll(".card")
+  for (const card of cards) {
+    const startTime = parseInt(card.getAttribute("data-start-time"))
+    const endTime = parseInt(card.getAttribute("data-end-time"))
+    const now = new Date().getTime() / 1000
+    if (now > endTime) {
+      card.remove()
     }
   }
 }

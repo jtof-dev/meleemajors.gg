@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241117T172340Z
+DTSTAMP:20241122T220302Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/don-t-park-on-the-grass-2024/ev
  ent/melee-singles\n\nattendees: 888\n\nnotable entrants:\n\nCody Schwab\nZa
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20241118
 DTSTART;VALUE=DATE:20241116
 LOCATION:4001 E Stevens Way NE, Seattle, WA 98195, USA
 SUMMARY:Don't Park on the Grass 2024
-UID:91d589d6-96c8-4b6a-b7b2-86e166345e25
+UID:735621dc-2e75-4e72-91a1-2b79cb5d5871
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241117T172340Z
+DTSTAMP:20241122T220302Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2024/event/mele
  e-singles\n\nattendees: 13\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20241209
 DTSTART;VALUE=DATE:20241207
 LOCATION:339 Troutman St, Brooklyn, NY 11237, USA
 SUMMARY:Nounsvitational 2024
-UID:6575a5a8-7bcb-4d44-b3d0-5faf8d939cdf
+UID:accc6c52-c60c-43de-8445-86563288edcf
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241117T172340Z
+DTSTAMP:20241122T220302Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/platfight-gaming-championships/
  event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20241216
 DTSTART;VALUE=DATE:20241213
 LOCATION:3011 Maingate Ln, Kissimmee, FL 34747, USA
 SUMMARY:Platfight Gaming Championships
-UID:0b773c8f-4706-4368-90ea-a8f1218ef5af
+UID:5eb0fe1a-7fbf-4828-b69f-9975045f7b59
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241117T172340Z
+DTSTAMP:20241122T220302Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tango-a-doubles-major/event/mel
  ee-doubles\n\nattendees: 9\n\nnotable entrants:\n\nJmook\nHungrybox\nAklo\n
@@ -50,18 +50,18 @@ DTEND;VALUE=DATE:20250203
 DTSTART;VALUE=DATE:20250201
 LOCATION:N Hornet Dr, Marietta, GA 30060, USA
 SUMMARY:Tango: A Doubles Major
-UID:927aad1e-a0e5-4e1f-92a6-b3aeea55ed7f
+UID:26e86e86-eac5-4721-b29a-b9281ac0935b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20241117T172340Z
+DTSTAMP:20241122T220302Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
- n\nattendees: 368\n\nnotable entrants:\n\nMagi\nAxe\nFiction\nCPU0\nStiv\nS
- quid\nZeo\nUmarth\n
+ n\nattendees: 398\n\nnotable entrants:\n\nlloD\nMagi\nAxe\nFiction\nCPU0\nS
+ tiv\nSquid\nZeo\n
 DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:7bf83e31-d0e6-4414-ad6a-efc7e00829da
+UID:3114aaf2-5752-4993-84d5-f7474e4ccfe7
 END:VEVENT
 END:VCALENDAR
