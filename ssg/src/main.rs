@@ -84,6 +84,8 @@ async fn main() {
                 )
                 .await;
 
+                // println!("{}", tournament_data);
+
                 index_html.push_str(&replace_placeholder_values(
                     &tournament_data,
                     &template_card,
@@ -145,6 +147,7 @@ async fn scrape_data(
     .await;
 
     let tournament_info = &result_tournament_info["tournament"];
+    // println!("{tournament_info}");
 
     let tournament_name = tournament_info["name"].as_str().unwrap(); // ---> result
 
@@ -201,8 +204,10 @@ async fn scrape_data(
 
     let date = format!("{start_date} - {end_date}"); // ---> result
 
-    let city = tournament_info["city"].as_str().unwrap();
+    // let city = tournament_info["city"].as_str().unwrap();
+    let city = tournament_info["city"].as_str().unwrap_or("Unknown");
     let state = tournament_info["addrState"].as_str().unwrap();
+
     let city_and_state = format!("{}, {}", city, state); // ---> result
 
     let address = tournament_info["venueAddress"].as_str().unwrap();

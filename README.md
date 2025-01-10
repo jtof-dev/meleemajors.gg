@@ -114,7 +114,6 @@ cargo run -- --generate
 
 - a sample copy of `meleemajors.com` scraped from the wayback machine can be found [here](https://github.com/jtof-dev/meleemajors.gg/tree/meleemajors.com), taken from [the wayback machine](https://web.archive.org/web/20221202045414/https://www.meleemajors.com/)
 
-## todo
+## license
 
-- [ ] add automatic mailchimp email generation
-- [ ] add emails to mailchimp calendar using their api
+- [agpl v3](https://www.gnu.org/licenses/agpl-3.0.html)
