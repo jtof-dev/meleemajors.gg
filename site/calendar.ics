@@ -5,51 +5,15 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20241207T231431Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2024/event/mele
- e-singles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook
- \nmoky\nPlup\naMSa\nMang0\nAklo\n
-DTEND;VALUE=DATE:20241209
-DTSTART;VALUE=DATE:20241207
-LOCATION:339 Troutman St, Brooklyn, NY 11237, USA
-SUMMARY:Nounsvitational 2024
-UID:a83f12ca-a556-406b-944d-9a566daca017
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20241207T231431Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/platfight-gaming-championships/
- event/melee-singles\n\nattendees: 75\n\nnotable entrants:\n\nCody Schwab\nJ
- mook\nHungrybox\nWizzrobe\nSalt\nAxe\nFiction\nBen\n
-DTEND;VALUE=DATE:20241216
-DTSTART;VALUE=DATE:20241213
-LOCATION:3011 Maingate Ln, Kissimmee, FL 34747, USA
-SUMMARY:Platfight Gaming Championships
-UID:728b875e-dc10-45fe-83de-71d9a2c2ee70
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20241207T231431Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/tango-a-doubles-major/event/mel
- ee-doubles\n\nattendees: 14\n\nnotable entrants:\n\nJmook\nHungrybox\nAklo\
- nAxe\nKrudo\nKhalid\nAzel\nLucky\n
-DTEND;VALUE=DATE:20250203
-DTSTART;VALUE=DATE:20250201
-LOCATION:N Hornet Dr, Marietta, GA 30060, USA
-SUMMARY:Tango: A Doubles Major
-UID:52085e47-c10a-4305-88aa-584017de988c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20241207T231431Z
+DTSTAMP:20250110T053412Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
- n\nattendees: 460\n\nnotable entrants:\n\nAklo\nlloD\nMagi\nAxe\nFiction\nK
- halid\nCPU0\nGahtzu\n
+ n\nattendees: 791\n\nnotable entrants:\n\nmoky\nPlup\naMSa\nHungrybox\nWizz
+ robe\nAklo\nlloD\nS2J\n
 DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:bad24e5b-7538-4d37-a7f5-34387df68e24
+UID:73896163-272a-4cec-90fa-21d9c28bca86
 END:VEVENT
 END:VCALENDAR
