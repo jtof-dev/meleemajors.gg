@@ -5,39 +5,51 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250117T011858Z
+DTSTAMP:20250213T220613Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
- n\nattendees: 849\n\nnotable entrants:\n\nmoky\nPlup\naMSa\nHungrybox\nWizz
- robe\nAklo\nlloD\nSalt\n
+ n\nattendees: 1074\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\n
+ Plup\naMSa\nHungrybox\nMang0\n
 DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:167978e9-4fcb-4d8c-956f-1782b992515b
+UID:0b6c5f2a-1c41-4295-8f5f-b5225127fd32
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250117T011858Z
+DTSTAMP:20250213T220613Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-7-6/event/main-eve
- nt-melee-singles\n\nattendees: 173\n\nnotable entrants:\n\nCody Schwab\nZai
- n\nJmook\nmoky\nLeffen\naMSa\nKoDoRiN\nAxe\n
+ nt-melee-singles\n\nattendees: 217\n\nnotable entrants:\n\nCody Schwab\nZai
+ n\nJmook\nmoky\nLeffen\naMSa\nWizzrobe\nKoDoRiN\n
 DTEND;VALUE=DATE:20250331
 DTSTART;VALUE=DATE:20250328
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 7
-UID:b5073c2f-d5df-48be-95bb-28ab5cf3ba55
+UID:96f6feb9-ea67-4392-86e4-34cb0964042b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250117T011858Z
+DTSTAMP:20250213T220613Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-bloom-2025/event/melee-sin
- gles\n\nattendees: 209\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
+ gles\n\nattendees: 278\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
  ky\nMang0\nWizzrobe\nAklo\nJoshman\n
 DTEND;VALUE=DATE:20250407
 DTSTART;VALUE=DATE:20250405
 LOCATION:900 E 7th St, Bloomington, IN 47405, USA
 SUMMARY:Full Bloom 2025
-UID:ee5b4ae5-3757-444c-85eb-5ab26a986e36
+UID:c8c9992e-b8ac-4258-ac14-a0960dc94b59
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250213T220613Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
+ nattendees: 48\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
+ BD\n
+DTEND;VALUE=DATE:20250720
+DTSTART;VALUE=DATE:20250719
+LOCATION:25 S Halsted St, Chicago, IL 60661, USA
+SUMMARY:Unranked
+UID:dccedddd-07b4-4d79-afa6-8af6225976b3
 END:VEVENT
 END:VCALENDAR
