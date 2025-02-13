@@ -1,6 +1,4 @@
-use crate::utils::{
-    log_error, log_red, log_success, log_warn, log_yellow, replace_placeholder_values,
-};
+use crate::utils::{log_red, log_success, log_warn, log_yellow, replace_placeholder_values};
 use anyhow::{anyhow, bail, Context, Result};
 use chrono::{DateTime, NaiveDateTime};
 use chrono_tz::Tz;
@@ -103,20 +101,12 @@ impl MailingListService {
             // Update broadcast
             let broadcast_id = existing["id"].to_string();
             self.update_broadcast(&broadcast_id, &send_time, &subject, &content)
-                .await
-                .inspect_err(|e| {
-                    log_error("email", "reminder broadcast update failed");
-                    log_red(&format!("{:?}", e));
-                })?;
+                .await?;
             log_success("email", "reminder broadcast updated");
         } else {
             // Create broadcast
             self.create_broadcast(&send_time, &subject, &content)
-                .await
-                .inspect_err(|e| {
-                    log_error("email", "reminder broadcast creation failed");
-                    log_red(&format!("{:?}", e));
-                })?;
+                .await?;
             log_success("email", "reminder broadcast created");
         }
         Ok(())
@@ -172,20 +162,12 @@ impl MailingListService {
             // Update broadcast
             let broadcast_id = existing["id"].to_string();
             self.update_broadcast(&broadcast_id, &top8_start_time, &subject, &content)
-                .await
-                .inspect_err(|e| {
-                    log_error("email", "top 8 broadcast update failed");
-                    log_red(&format!("{:?}", e));
-                })?;
+                .await?;
             log_success("email", "top 8 broadcast updated");
         } else {
             // Create broadcast
             self.create_broadcast(&top8_start_time, &subject, &content)
-                .await
-                .inspect_err(|e| {
-                    log_error("email", "top 8 broadcast creation failed");
-                    log_red(&format!("{:?}", e));
-                })?;
+                .await?;
             log_success("email", "top 8 broadcast created");
         }
         Ok(())

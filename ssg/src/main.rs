@@ -18,8 +18,8 @@ use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
 use utils::{
-    log_error, log_green, log_grey, log_heading, log_info, log_skip, log_success, log_warn,
-    read_file, replace_placeholder_values,
+    log_error, log_green, log_grey, log_heading, log_info, log_red, log_skip, log_success,
+    log_warn, read_file, replace_placeholder_values,
 };
 
 mod generate_gql;
@@ -98,8 +98,21 @@ async fn main() {
                     service
                         .schedule_reminder_broadcast(&tournament_data)
                         .await
+                        .or_else(|e| {
+                            log_error("email", "Failed to schedule reminder broadcast");
+                            log_red(&e.to_string());
+                            Err(e)
+                        })
                         .ok();
-                    service.schedule_top8_broadcast(&tournament_data).await.ok();
+                    service
+                        .schedule_top8_broadcast(&tournament_data)
+                        .await
+                        .or_else(|e| {
+                            log_error("email", "Failed to schedule top-8 broadcast");
+                            log_red(&e.to_string());
+                            Err(e)
+                        })
+                        .ok();
                 } else {
                     log_warn("email", "Skipping email scheduling");
                 }
@@ -394,6 +407,7 @@ fn cleanup_images(data: HashSet<String>) {
 fn next_steps() {
     log_green("\n🎉 Finished 🎉\n");
     log_grey("Next steps:");
-    log_grey("1. git commit & push to main to deploy site");
-    log_grey("2. Review scheduled emails: https://app.kit.com/campaigns");
+    log_grey("1. preview locally w/ e.g. \"live-server site\"");
+    log_grey("2. git commit & push to main to deploy site");
+    log_grey("3. Review scheduled emails: https://app.kit.com/campaigns");
 }
