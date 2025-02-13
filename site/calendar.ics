@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250213T224237Z
+DTSTAMP:20250213T225814Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
  n\nattendees: 1074\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\n
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:9f9d838a-bcc0-4404-9290-b93ce2e0c3d4
+UID:9d5be534-4168-4ab1-99ce-d05a8da6dba7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T224237Z
+DTSTAMP:20250213T225814Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-7-6/event/main-eve
  nt-melee-singles\n\nattendees: 217\n\nnotable entrants:\n\nCody Schwab\nZai
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20250331
 DTSTART;VALUE=DATE:20250328
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 7
-UID:bf58aa5f-868e-4745-9d91-221e6b471865
+UID:58ca758e-e97c-4d60-a38d-c64dac51752e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T224237Z
+DTSTAMP:20250213T225814Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-bloom-2025/event/melee-sin
  gles\n\nattendees: 278\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20250407
 DTSTART;VALUE=DATE:20250405
 LOCATION:900 E 7th St, Bloomington, IN 47405, USA
 SUMMARY:Full Bloom 2025
-UID:e9922ae2-e8ac-4a83-8865-5dc023c8841d
+UID:8f710d56-9594-4780-9277-9a60218e752c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T224237Z
+DTSTAMP:20250213T225814Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
  nattendees: 48\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
@@ -50,6 +50,6 @@ DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:bcab7f4b-bc8e-4a1c-96a6-612411357cd8
+UID:3afc0038-e96c-459f-9a8e-d753431b13b0
 END:VEVENT
 END:VCALENDAR

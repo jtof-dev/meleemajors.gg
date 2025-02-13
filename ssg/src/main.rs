@@ -18,8 +18,8 @@ use std::{env, fs};
 use tokio::time::sleep;
 use urlencoding::encode;
 use utils::{
-    log_error, log_green, log_grey, log_heading, log_info, log_red, log_skip, log_success,
-    log_warn, read_file, replace_placeholder_values,
+    absolute_path, log_error, log_green, log_grey, log_heading, log_info, log_red, log_skip,
+    log_success, log_warn, read_file, replace_placeholder_values,
 };
 
 mod generate_gql;
@@ -299,7 +299,7 @@ fn unix_timestamp_to_readable_date(date: &Value, timezone: Tz) -> String {
 fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
 
-    let image_path = format!("cards/{name}.webp");
+    let image_path = absolute_path(&format!("cards/{name}.webp"));
 
     image_data.insert(format!("{name}.webp"));
 
@@ -372,23 +372,27 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
 }
 
 fn make_site(index_html: &str) {
-    fs::write("../../site/index.html", index_html).unwrap();
-    fs::remove_dir_all("../../site/assets/cards").unwrap();
+    fs::write(absolute_path("../../site/index.html"), index_html).unwrap();
+    fs::remove_dir_all(absolute_path("../../site/assets/cards")).unwrap();
 
     copy_items(
-        &["cards"],
-        "../../site/assets/",
+        &[absolute_path("cards")],
+        absolute_path("../../site/assets/"),
         &dir::CopyOptions::new().overwrite(true),
     )
     .unwrap();
 }
 
 fn make_calendar(calendar_ics: Calendar) {
-    fs::write("../../site/calendar.ics", calendar_ics.to_string()).unwrap();
+    fs::write(
+        absolute_path("../../site/calendar.ics"),
+        calendar_ics.to_string(),
+    )
+    .unwrap();
 }
 
 fn cleanup_images(data: HashSet<String>) {
-    let images = fs::read_dir("../../site/assets/cards").unwrap();
+    let images = fs::read_dir(absolute_path("../../site/assets/cards")).unwrap();
     images.for_each(|image| {
         let image_str = image
             .unwrap()

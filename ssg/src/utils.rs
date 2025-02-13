@@ -1,10 +1,19 @@
 use serde_json::Value;
 
+/// Make all paths relative to `/ssg/src`, regardless of where the binary is run from.
+pub fn absolute_path(path: &str) -> String {
+    let source_file = file!();
+    let source_dir = std::path::Path::new(source_file).parent().unwrap();
+    let absolute_path = source_dir.join(path);
+    absolute_path.to_str().unwrap().to_string()
+}
+
 pub fn read_file(path: &str) -> String {
-    if let Ok(file) = std::fs::File::open(path) {
+    let abs_path = absolute_path(path);
+    if let Ok(file) = std::fs::File::open(&abs_path) {
         std::io::read_to_string(file).unwrap()
     } else {
-        panic!("File not found: {}", path);
+        panic!("File not found: {}", &abs_path);
     }
 }
 
