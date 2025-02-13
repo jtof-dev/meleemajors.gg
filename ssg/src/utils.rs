@@ -1,10 +1,21 @@
 use serde_json::Value;
 
-/// Make all paths relative to `/ssg/src`, regardless of where the binary is run from.
+/// Make all paths relative to `/ssg/src`, regardless of where `cargo run` is called from.
 pub fn absolute_path(path: &str) -> String {
-    let source_file = file!();
-    let source_dir = std::path::Path::new(source_file).parent().unwrap();
-    let absolute_path = source_dir.join(path);
+    // current_exe is in /target/debug when invoked with cargo run
+    let current_exe = std::env::current_exe().unwrap();
+
+    // from there, resolve relative path to /ssg/src
+    let absolute_path = current_exe
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join("src")
+        .join(path);
+
     absolute_path.to_str().unwrap().to_string()
 }
 
