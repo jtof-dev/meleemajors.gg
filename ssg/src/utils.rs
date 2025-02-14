@@ -1,10 +1,30 @@
 use serde_json::Value;
 
+/// Make all paths relative to `/ssg/src`, regardless of where `cargo run` is called from.
+pub fn absolute_path(path: &str) -> String {
+    // current_exe is in /target/debug when invoked with cargo run
+    let current_exe = std::env::current_exe().unwrap();
+
+    // from there, resolve relative path to /ssg/src
+    let absolute_path = current_exe
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join("src")
+        .join(path);
+
+    absolute_path.to_str().unwrap().to_string()
+}
+
 pub fn read_file(path: &str) -> String {
-    if let Ok(file) = std::fs::File::open(path) {
+    let abs_path = absolute_path(path);
+    if let Ok(file) = std::fs::File::open(&abs_path) {
         std::io::read_to_string(file).unwrap()
     } else {
-        panic!("File not found: {}", path);
+        panic!("File not found: {}", &abs_path);
     }
 }
 
