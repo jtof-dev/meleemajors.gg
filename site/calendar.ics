@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250213T231044Z
+DTSTAMP:20250216T230702Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
  n\nattendees: 1074\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\n
@@ -14,42 +14,42 @@ DTEND;VALUE=DATE:20250217
 DTSTART;VALUE=DATE:20250214
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X2
-UID:f7a55cb1-b312-4a02-ae45-285e2f8bcf2f
+UID:6830947c-5b12-491a-b30d-a8d3bd82a981
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T231044Z
+DTSTAMP:20250216T230702Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-7-6/event/main-eve
- nt-melee-singles\n\nattendees: 217\n\nnotable entrants:\n\nCody Schwab\nZai
+ nt-melee-singles\n\nattendees: 222\n\nnotable entrants:\n\nCody Schwab\nZai
  n\nJmook\nmoky\nLeffen\naMSa\nWizzrobe\nKoDoRiN\n
 DTEND;VALUE=DATE:20250331
 DTSTART;VALUE=DATE:20250328
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 7
-UID:315de67b-75ca-4698-b92f-cac54501b1be
+UID:ef5332a9-d54e-444a-b51a-aed086dc4f69
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T231044Z
+DTSTAMP:20250216T230702Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-bloom-2025/event/melee-sin
- gles\n\nattendees: 279\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
- ky\nMang0\nWizzrobe\nAklo\nJoshman\n
+ gles\n\nattendees: 304\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
+ ky\nHungrybox\nMang0\nWizzrobe\nAklo\n
 DTEND;VALUE=DATE:20250407
 DTSTART;VALUE=DATE:20250405
 LOCATION:900 E 7th St, Bloomington, IN 47405, USA
 SUMMARY:Full Bloom 2025
-UID:097ba174-348d-4165-beff-c681428bb5a4
+UID:142ee0a8-244a-4805-86d8-c771f78e52ed
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250213T231044Z
+DTSTAMP:20250216T230702Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 49\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
+ nattendees: 56\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
  BD\n
 DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:b1df8aab-3fe3-4fb3-a26d-34e8e3ed1283
+UID:14381c09-c15f-447f-8040-85dab3609e0d
 END:VEVENT
 END:VCALENDAR
