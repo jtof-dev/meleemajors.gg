@@ -11,6 +11,8 @@
 
 > the successor to meleemajors.com
 
+a big thanks to [smash calendar](https://docs.google.com/spreadsheets/d/1rkmvlCvjjrugbbAd_28hOIrFQOxn6EAVuc93Ws-0cA0/edit?usp=sharing), which we pull most of our tournament info from!
+
 ## contributing
 
 - are we missing a tournament, or have incorrect information? you can either open an [issue](https://github.com/jtof-dev/meleemajors.gg/issues) with what we are missing, or make a [pull request](https://github.com/jtof-dev/meleemajors.gg/pulls) with an updated [tournaments.json](ssg/src/tournaments.json)
@@ -66,12 +68,10 @@
   └────────────────────────────────┘
 ```
 
-flowchart made using [asciiflow](https://asciiflow.com)
-
 ### running locally
 
 - in `ssg/src`, you can just `cargo run`, but you first need to export your start.gg api key as an environmental variable
-- to simplify this, I normally run the backend using [run.sh](ssg/src/sampleRun.sh), which does the following:
+- to simplify this, I normally run the backend using this script:
 
 ```
 export STARTGGAPI=<TOKEN>
@@ -113,7 +113,3 @@ cargo run -- --generate
 ## meleemajors.com
 
 - a sample copy of `meleemajors.com` scraped from the wayback machine can be found [here](https://github.com/jtof-dev/meleemajors.gg/tree/meleemajors.com), taken from [the wayback machine](https://web.archive.org/web/20221202045414/https://www.meleemajors.com/)
-
-## license
-
-- [agpl v3](https://www.gnu.org/licenses/agpl-3.0.html)

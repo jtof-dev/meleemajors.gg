@@ -5,51 +5,147 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250216T230702Z
+DTSTAMP:20250314T195402Z
 CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/genesis-x2/event/melee-singles\
- n\nattendees: 1074\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\n
- Plup\naMSa\nHungrybox\nMang0\n
-DTEND;VALUE=DATE:20250217
-DTSTART;VALUE=DATE:20250214
-LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
-SUMMARY:Genesis X2
-UID:6830947c-5b12-491a-b30d-a8d3bd82a981
+DESCRIPTION:https://www.start.gg/tournament/eugenebound-3/event/melee-singl
+ es\n\nattendees: 95\n\nnotable entrants:\n\nJoshman\nStiv\nTBD\nTBD\nTBD\nT
+ BD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250316
+DTSTART;VALUE=DATE:20250315
+LOCATION:796 W 13th Ave, Eugene, OR 97402, USA
+SUMMARY:EugeneBound 3
+UID:b64e91c1-c26a-4701-a628-0755613facc6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250216T230702Z
+DTSTAMP:20250314T195402Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-7-6/event/main-eve
- nt-melee-singles\n\nattendees: 222\n\nnotable entrants:\n\nCody Schwab\nZai
- n\nJmook\nmoky\nLeffen\naMSa\nWizzrobe\nKoDoRiN\n
+ nt-melee-singles\n\nattendees: 323\n\nnotable entrants:\n\nCody Schwab\nZai
+ n\nJmook\nmoky\nLeffen\naMSa\nHungrybox\nMang0\n
 DTEND;VALUE=DATE:20250331
 DTSTART;VALUE=DATE:20250328
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 7
-UID:ef5332a9-d54e-444a-b51a-aed086dc4f69
+UID:e073f87e-ab21-4895-9584-e7fe8047a584
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250216T230702Z
+DTSTAMP:20250314T195402Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-bloom-2025/event/melee-sin
- gles\n\nattendees: 304\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
+ gles\n\nattendees: 422\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
  ky\nHungrybox\nMang0\nWizzrobe\nAklo\n
 DTEND;VALUE=DATE:20250407
 DTSTART;VALUE=DATE:20250405
 LOCATION:900 E 7th St, Bloomington, IN 47405, USA
 SUMMARY:Full Bloom 2025
-UID:142ee0a8-244a-4805-86d8-c771f78e52ed
+UID:a8e67055-75f5-4df2-8bff-02ca5a1b7b4b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250216T230702Z
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/smash-camp-2025/event/melee-sin
+ gles\n\nattendees: 192\n\nnotable entrants:\n\nJmook\nJoshman\nPolish\nAxe\
+ nSoonsay\nSpark\nFiction\nBbatts\n
+DTEND;VALUE=DATE:20250421
+DTSTART;VALUE=DATE:20250419
+LOCATION:933 E Friendly Pines Rd, Prescott, AZ 86303, USA
+SUMMARY:Smash Camp 2025
+UID:22548e52-b575-492c-93bb-9b4e699907d3
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/nouns-bowl-2025/event/melee-sin
+ gles\n\nattendees: 100\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmo
+ ky\nPlup\nHungrybox\nMang0\nAklo\n
+DTEND;VALUE=DATE:20250428
+DTSTART;VALUE=DATE:20250426
+LOCATION:1835 Harrison Ave NW, Canton, OH 44708, USA
+SUMMARY:Nouns Bowl 2025
+UID:5a907de6-ad96-4391-b265-d1d1a6ae4d9c
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/combo-breaker-2025/event/super-
+ smash-bros-melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nT
+ BD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250526
+DTSTART;VALUE=DATE:20250523
+LOCATION:1551 Thoreau Dr N, Schaumburg, IL 60173, USA
+SUMMARY:COMBO BREAKER 2025
+UID:a7590e75-d6bd-4944-8c89-42ce2d6204f4
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/tipped-off-16-safari/event/mele
+ e-singles\n\nattendees: 141\n\nnotable entrants:\n\nCody Schwab\nZain\nJmoo
+ k\nmoky\nPlup\naMSa\nHungrybox\nMang0\n
+DTEND;VALUE=DATE:20250609
+DTSTART;VALUE=DATE:20250607
+LOCATION:Cherokee Ave SE, Atlanta, GA 30315, USA
+SUMMARY:Tipped Off 16: Safari
+UID:54d84adf-7a26-4bfb-a938-078b8a9c4667
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/ceo-2025-6/event/super-smash-br
+ os-melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\
+ nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250616
+DTSTART;VALUE=DATE:20250613
+LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
+SUMMARY:CEO 2025
+UID:a2a27266-19d9-4557-bc92-5683475e4220
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
+ n-fighting-game-championships/event/super-smash-bros-melee-singles\n\natten
+ dees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250707
+DTSTART;VALUE=DATE:20250704
+LOCATION:123 Queen St W, Toronto, ON M5H 3M9, Canada
+SUMMARY:Get On My Level: Forever - Canadian Fighting Game Championships
+UID:5cfe3629-8627-4e58-bb39-5081b739ba07
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 56\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
+ nattendees: 64\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
  BD\n
 DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:14381c09-c15f-447f-8040-85dab3609e0d
+UID:0013e05c-97e0-4ad6-94c1-ef2759d501a4
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
+ ngles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTB
+ D\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250825
+DTSTART;VALUE=DATE:20250822
+LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
+SUMMARY:Collision 2025
+UID:44612497-73f5-41da-ae12-b0fe06e9ed6f
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250314T195402Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
+ les\n\nattendees: 28\n\nnotable entrants:\n\nFree Palestine\nTBD\nTBD\nTBD\
+ nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20250908
+DTSTART;VALUE=DATE:20250905
+LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
+SUMMARY:Riptide 2025
+UID:33093ca2-76a6-4471-bdf5-f8d8fed9c84d
 END:VEVENT
 END:VCALENDAR
