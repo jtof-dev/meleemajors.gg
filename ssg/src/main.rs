@@ -403,7 +403,7 @@ fn cleanup_images(data: HashSet<String>) {
             .unwrap()
             .to_string();
         if !data.contains(&image_str) {
-            fs::remove_file(format!("cards/{image_str}")).unwrap();
+            fs::remove_file(format!("cards/{image_str}")).ok();
         };
     })
 }
