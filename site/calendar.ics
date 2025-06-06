@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tipped-off-16-safari/event/mele
  e-singles\n\nattendees: 469\n\nnotable entrants:\n\nCody Schwab\nZain\nJmoo
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20250609
 DTSTART;VALUE=DATE:20250607
 LOCATION:Cherokee Ave SE, Atlanta, GA 30315, USA
 SUMMARY:Tipped Off 16: Safari
-UID:9ad21eff-ffa4-43ef-98f4-e83e7548b7ff
+UID:36d385c8-10b4-4986-a0c3-cc48870fae68
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2025-6/event/super-smash-br
  os-melee\n\nattendees: 187\n\nnotable entrants:\n\nHungrybox\nWizzrobe\nllo
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20250616
 DTSTART;VALUE=DATE:20250613
 LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
 SUMMARY:CEO 2025
-UID:c89a9ca3-ea68-44c8-9ae8-1139c5749221
+UID:4df11694-efee-4f4b-a43a-7e569dbb3894
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
  n-fighting-game-championships/event/super-smash-bros-melee-singles\n\natten
@@ -37,23 +37,23 @@ DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
 DTEND;VALUE=DATE:20250707
 DTSTART;VALUE=DATE:20250704
 LOCATION:123 Queen St W, Toronto, ON M5H 3M9, Canada
-SUMMARY:Get On My Level: Forever - Canadian Fighting Game Championships
-UID:c40fa6fc-766b-477e-a655-031d9401779e
+SUMMARY:Get On My Level: Forever
+UID:9e34d9ad-6ca2-42ef-a63f-8b247fbb72b1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 103\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
- TBD\n
+ nattendees: 103\n\nnotable entrants:\n\nSchlag\nFluid\nEasy\nregEx\nMajersk
+ \nHOBORG\nIkana\nSeal\n
 DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:6be4791d-56a7-417e-ba0c-805401b0fa85
+UID:667e214e-a429-4c24-a75a-0a522badc5f8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
  ngles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTB
@@ -62,10 +62,10 @@ DTEND;VALUE=DATE:20250825
 DTSTART;VALUE=DATE:20250822
 LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
 SUMMARY:Collision 2025
-UID:2b7f91e9-4d27-48a0-a775-6fdaa57967e6
+UID:9307ae93-4e61-4142-a7cb-1c6eae2aeb74
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250606T012041Z
+DTSTAMP:20250606T024414Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
  les\n\nattendees: 145\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD
@@ -74,6 +74,6 @@ DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:4ff87acc-7113-4d3d-8ae2-0707f90371f7
+UID:4ab810d6-03ae-48be-a416-a44158c06ec5
 END:VEVENT
 END:VCALENDAR

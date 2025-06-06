@@ -1,9 +1,9 @@
 [
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/tipped-off-16-safari/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
+    "top8-start-time": "2025-06-08 5:00pm",
+    "schedule-url": "https://images.start.gg/images/profileWidgetPageLayout/3454875/image-1a40fd0ea306ff203f5da126651dee44.png",
+    "stream-url": "https://twitch.tv/mang0"
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/ceo-2025-6/event/super-smash-bros-melee",
@@ -15,13 +15,23 @@
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/get-on-my-level-forever-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
     "top8-start-time": "",
     "schedule-url": "",
-    "stream-url": ""
+    "stream-url": "",
+    "name": "Get On My Level: Forever"
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/unranked/event/melee-singles",
-    "top8-start-time": "",
+    "top8-start-time": "2025-07-19 9:00pm",
     "schedule-url": "https://images.start.gg/images/profileWidgetPageLayout/2286808/image-4cce23cfa7e6029b37862b6bd3f79180-optimized.png",
-    "stream-url": ""
+    "stream-url": "",
+    "player0": "Schlag",
+    "player1": "Fluid",
+    "player2": "Easy",
+    "player3": "regEx",
+    "player4": "Majersk",
+    "player5": "HOBORG",
+    "player6": "Ikana",
+    "player7": "Seal"
+
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/collision-2025-8/event/melee-singles",

@@ -168,9 +168,9 @@ async fn scrape_data(
     let tournament_info = &result_tournament_info["tournament"];
     // println!("{tournament_info}");
 
-    let tournament_name = tournament_info["name"].as_str().unwrap(); // ---> result
+    let name = tournament_info["name"].as_str().unwrap(); // ---> result
 
-    log_heading(tournament_name);
+    log_heading(name);
     log_success("start.gg", "scraped tournaments");
 
     let tournament_entrants_var = json!({
@@ -250,21 +250,21 @@ async fn scrape_data(
 
     json!({
         "start.gg-tournament-name": name_camel,
-        "name": tournament_name,
+        "name": check_override(tournament, name.to_string(), "name"),
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
         "end-unix-timestamp": tournament_info["endAt"],
         "timezone": tournament_info["timezone"],
-        "player0": featured_players_top_eight[0],
-        "player1": featured_players_top_eight[1],
-        "player2": featured_players_top_eight[2],
-        "player3": featured_players_top_eight[3],
-        "player4": featured_players_top_eight[4],
-        "player5": featured_players_top_eight[5],
-        "player6": featured_players_top_eight[6],
-        "player7": featured_players_top_eight[7],
+        "player0": check_override(tournament, featured_players_top_eight[0].to_string(), "player0"),
+        "player1": check_override(tournament, featured_players_top_eight[1].to_string(), "player1"),
+        "player2": check_override(tournament, featured_players_top_eight[2].to_string(), "player2"),
+        "player3": check_override(tournament, featured_players_top_eight[3].to_string(), "player3"),
+        "player4": check_override(tournament, featured_players_top_eight[4].to_string(), "player4"),
+        "player5": check_override(tournament, featured_players_top_eight[5].to_string(), "player5"),
+        "player6": check_override(tournament, featured_players_top_eight[6].to_string(), "player6"),
+        "player7": check_override(tournament, featured_players_top_eight[7].to_string(), "player7"),
         "entrants": entrant_count_string,
-        "city-and-state": city_and_state,
+        "city-and-state": check_override(tournament, city_and_state.to_string(), "city-and-state"),
         "maps-link": format!("https://www.google.com/maps/search/?api=1&query={}", encode(address)),
         "full-address": address,
         "start.gg-url": melee_singles_url,
@@ -274,6 +274,14 @@ async fn scrape_data(
         "stream-link-class": if stream_url.is_empty() {" hidden"} else {""},
         "top8-start-time": tournament["top8-start-time"],
     })
+}
+
+fn check_override(tournament: &Value, default_value: String, default_key: &str) -> String {
+    let obj_tournament = tournament.as_object().unwrap();
+    if obj_tournament.contains_key(default_key) {
+        return format!("{}", obj_tournament[default_key].as_str().unwrap());
+    }
+    return format!("{}", default_value);
 }
 
 async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
