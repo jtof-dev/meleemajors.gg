@@ -54,7 +54,8 @@ async fn main() {
     let query_tournament_entrants = read_file("graphql/getTournamentEntrants.gql");
     let query_featured_players = read_file("graphql/getFeaturedPlayers.gql");
     let json_featured_players: Value = serde_json::from_str(&read_file("topPlayers.json")).unwrap();
-    let mut index_html = read_file("html/header.html");
+    let template_header_html = read_file("html/header.html");
+    let mut index_html: String = "".to_string();
     let template_card = read_file("html/templateCard.html");
     let index_footer_html = read_file("html/footer.html");
     let mut calendar_ics = Calendar::new().name("upcoming melee majors").done();
@@ -72,9 +73,9 @@ async fn main() {
 
     match json_tournaments {
         Value::Array(vec) => {
-            for tournament in vec {
+            for tournament in vec.iter().enumerate() {
                 let tournament_data = scrape_data(
-                    tournament,
+                    tournament.1,
                     query_client.clone(),
                     &query_tournament_info,
                     &query_tournament_entrants,
@@ -85,6 +86,11 @@ async fn main() {
                 .await;
 
                 // println!("{}", tournament_data);
+
+                if tournament.0 == 0 {
+                index_html =
+                    replace_placeholder_values(&tournament_data, &template_header_html);
+                }
 
                 index_html.push_str(&replace_placeholder_values(
                     &tournament_data,
@@ -132,7 +138,7 @@ async fn main() {
 }
 
 async fn scrape_data(
-    tournament: Value,
+    tournament: &Value,
     query_client: Client,
     query_tournament_info: &str,
     query_tournament_entrants: &str,

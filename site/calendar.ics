@@ -5,55 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/full-house-2025/event/melee-sin
- gles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmok
- y\nHungrybox\nMang0\nAklo\nTrif\n
-DTEND;VALUE=DATE:20250519
-DTSTART;VALUE=DATE:20250516
-LOCATION:Pocono Mountains, Pennsylvania, USA
-SUMMARY:Full House 2025
-UID:bbe3e4a9-74c0-4ed1-88ca-c8d042c0b397
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/combo-breaker-2025/event/super-
- smash-bros-melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nT
- BD\nTBD\nTBD\nTBD\nTBD\n
-DTEND;VALUE=DATE:20250526
-DTSTART;VALUE=DATE:20250523
-LOCATION:1551 Thoreau Dr N, Schaumburg, IL 60173, USA
-SUMMARY:COMBO BREAKER 2025
-UID:453f25e4-6926-4bf7-b807-d6da29a9db61
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tipped-off-16-safari/event/mele
- e-singles\n\nattendees: 303\n\nnotable entrants:\n\nCody Schwab\nZain\nJmoo
+ e-singles\n\nattendees: 469\n\nnotable entrants:\n\nCody Schwab\nZain\nJmoo
  k\nmoky\nPlup\naMSa\nHungrybox\nMang0\n
 DTEND;VALUE=DATE:20250609
 DTSTART;VALUE=DATE:20250607
 LOCATION:Cherokee Ave SE, Atlanta, GA 30315, USA
 SUMMARY:Tipped Off 16: Safari
-UID:d77622dd-60cf-46d0-86b4-b57584b16998
+UID:9ad21eff-ffa4-43ef-98f4-e83e7548b7ff
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2025-6/event/super-smash-br
- os-melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\
- nTBD\nTBD\nTBD\n
+ os-melee\n\nattendees: 187\n\nnotable entrants:\n\nHungrybox\nWizzrobe\nllo
+ D\nKrudo\nPanda\nMOF\nGahtzu\nDawson\n
 DTEND;VALUE=DATE:20250616
 DTSTART;VALUE=DATE:20250613
 LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
 SUMMARY:CEO 2025
-UID:39975e11-64b5-403e-992c-695b3b994c23
+UID:c89a9ca3-ea68-44c8-9ae8-1139c5749221
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
  n-fighting-game-championships/event/super-smash-bros-melee-singles\n\natten
@@ -62,22 +38,22 @@ DTEND;VALUE=DATE:20250707
 DTSTART;VALUE=DATE:20250704
 LOCATION:123 Queen St W, Toronto, ON M5H 3M9, Canada
 SUMMARY:Get On My Level: Forever - Canadian Fighting Game Championships
-UID:1141d122-e33e-49ec-b9cd-299cbbb161ea
+UID:c40fa6fc-766b-477e-a655-031d9401779e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 85\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nT
- BD\n
+ nattendees: 103\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+ TBD\n
 DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:b055fe70-d981-4d22-a003-e98bafb128a1
+UID:6be4791d-56a7-417e-ba0c-805401b0fa85
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
  ngles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTB
@@ -86,18 +62,18 @@ DTEND;VALUE=DATE:20250825
 DTSTART;VALUE=DATE:20250822
 LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
 SUMMARY:Collision 2025
-UID:317aa097-62ae-4e18-b2f8-74b5bd6ffe96
+UID:2b7f91e9-4d27-48a0-a775-6fdaa57967e6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250504T135743Z
+DTSTAMP:20250606T012041Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
- les\n\nattendees: 84\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD\
- nTBD\nTBD\nTBD\nTBD\nTBD\n
+ les\n\nattendees: 145\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD
+ \nTBD\nTBD\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:71af0d34-6bf1-4964-9996-f3d5af36826b
+UID:4ff87acc-7113-4d3d-8ae2-0707f90371f7
 END:VEVENT
 END:VCALENDAR
