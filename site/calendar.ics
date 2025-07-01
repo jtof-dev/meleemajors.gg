@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250626T231453Z
+DTSTAMP:20250701T195653Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
  n-fighting-game-championships/event/super-smash-bros-melee-singles\n\natten
@@ -15,22 +15,22 @@ DTEND;VALUE=DATE:20250707
 DTSTART;VALUE=DATE:20250704
 LOCATION:123 Queen St W, Toronto, ON M5H 3M9, Canada
 SUMMARY:Get On My Level: Forever
-UID:0fe87be2-2065-4795-a70c-219278a60c81
+UID:d64487a4-10b6-4124-aae3-35f48b6eb824
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250626T231453Z
+DTSTAMP:20250701T195653Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 122\n\nnotable entrants:\n\nSchlag\nFluid\nEasy\nregEx\nMajersk
+ nattendees: 130\n\nnotable entrants:\n\nSchlag\nFluid\nEasy\nregEx\nMajersk
  \nHOBORG\nIkana\nSeal\n
 DTEND;VALUE=DATE:20250720
 DTSTART;VALUE=DATE:20250719
 LOCATION:25 S Halsted St, Chicago, IL 60661, USA
 SUMMARY:Unranked
-UID:aeac9de3-29d9-4b11-b392-edb095a11537
+UID:233f6233-82e5-44ef-b5cc-ac795c16dd07
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250626T231453Z
+DTSTAMP:20250701T195653Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2025/event/melee-1v1-
  singles-free-to-enter-wr-merch-included\n\nattendees: TBD\n\nnotable entran
@@ -39,10 +39,10 @@ DTEND;VALUE=DATE:20250811
 DTSTART;VALUE=DATE:20250807
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2025
-UID:4f699b89-01e0-4eb7-82f0-7b93c6a4ea6b
+UID:e7a63be1-93da-41d8-a07a-6d11c9c34ded
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250626T231453Z
+DTSTAMP:20250701T195653Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
  ngles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTB
@@ -51,18 +51,18 @@ DTEND;VALUE=DATE:20250825
 DTSTART;VALUE=DATE:20250822
 LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
 SUMMARY:Collision 2025
-UID:2c5d1968-186e-4890-913b-1256d262e19c
+UID:3eb21271-e90d-4415-b702-18d0e4e3b948
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250626T231453Z
+DTSTAMP:20250701T195653Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
- les\n\nattendees: 163\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD
+ les\n\nattendees: 176\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD
  \nTBD\nTBD\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:578aa4f2-a0f4-4e7c-a511-174d12c9fd41
+UID:a65b456b-2e7f-4166-8065-2db2ac8999dd
 END:VEVENT
 END:VCALENDAR
