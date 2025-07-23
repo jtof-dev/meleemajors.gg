@@ -5,32 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250701T195653Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-forever-canadia
- n-fighting-game-championships/event/super-smash-bros-melee-singles\n\natten
- dees: 775\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\naMSa\nHun
- grybox\nWizzrobe\nAklo\n
-DTEND;VALUE=DATE:20250707
-DTSTART;VALUE=DATE:20250704
-LOCATION:123 Queen St W, Toronto, ON M5H 3M9, Canada
-SUMMARY:Get On My Level: Forever
-UID:d64487a4-10b6-4124-aae3-35f48b6eb824
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250701T195653Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/unranked/event/melee-singles\n\
- nattendees: 130\n\nnotable entrants:\n\nSchlag\nFluid\nEasy\nregEx\nMajersk
- \nHOBORG\nIkana\nSeal\n
-DTEND;VALUE=DATE:20250720
-DTSTART;VALUE=DATE:20250719
-LOCATION:25 S Halsted St, Chicago, IL 60661, USA
-SUMMARY:Unranked
-UID:233f6233-82e5-44ef-b5cc-ac795c16dd07
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250701T195653Z
+DTSTAMP:20250723T214849Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2025/event/melee-1v1-
  singles-free-to-enter-wr-merch-included\n\nattendees: TBD\n\nnotable entran
@@ -39,30 +14,42 @@ DTEND;VALUE=DATE:20250811
 DTSTART;VALUE=DATE:20250807
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2025
-UID:e7a63be1-93da-41d8-a07a-6d11c9c34ded
+UID:39a912f0-d624-45c9-b3bf-b71304d36b9f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250701T195653Z
+DTSTAMP:20250723T214849Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
- ngles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTB
- D\nTBD\nTBD\n
+ ngles\n\nattendees: 333\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybo
+ x\nWizzrobe\nAklo\nKoDoRiN\nlloD\n
 DTEND;VALUE=DATE:20250825
 DTSTART;VALUE=DATE:20250822
 LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
 SUMMARY:Collision 2025
-UID:3eb21271-e90d-4415-b702-18d0e4e3b948
+UID:0ed3d473-6d80-4678-aea3-5a69bca13995
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250701T195653Z
+DTSTAMP:20250723T214849Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
- les\n\nattendees: 176\n\nnotable entrants:\n\nSirmeris\nFree Palestine\nTBD
- \nTBD\nTBD\nTBD\nTBD\nTBD\n
+ les\n\nattendees: 222\n\nnotable entrants:\n\nMOF\nSirmeris\nDrephen\nFree 
+ Palestine\nTBD\nTBD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:a65b456b-2e7f-4166-8065-2db2ac8999dd
+UID:f648ee41-4e1c-4a50-877a-80f511174829
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250723T214849Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
+ les\n\nattendees: 28\n\nnotable entrants:\n\nZain\nCody Schwab\nMoky\nAklo\
+ nNicki\nWizzrobe\nJunebug\nMagi\n
+DTEND;VALUE=DATE:20251110
+DTSTART;VALUE=DATE:20251108
+LOCATION:310 4th St, Niagara Falls, NY 14303, USA
+SUMMARY:FAST FALL$ 2025
+UID:a94ff3a7-f9f3-48c1-8318-3b0a40f5c49d
 END:VEVENT
 END:VCALENDAR
