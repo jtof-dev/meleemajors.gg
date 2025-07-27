@@ -88,8 +88,8 @@ async fn main() {
                 // println!("{}", tournament_data);
 
                 if tournament.0 == 0 {
-                index_html =
-                    replace_placeholder_values(&tournament_data, &template_header_html);
+                    index_html =
+                        replace_placeholder_values(&tournament_data, &template_header_html);
                 }
 
                 index_html.push_str(&replace_placeholder_values(
@@ -425,7 +425,7 @@ fn cleanup_images(data: HashSet<String>) {
 fn next_steps() {
     log_green("\n🎉 Finished 🎉\n");
     log_grey("Next steps:");
-    log_grey("1. preview locally w/ e.g. \"live-server site\"");
+    log_grey("1. preview locally w/ e.g. \"live-server ../site\"");
     log_grey("2. git commit & push to main to deploy site");
     log_grey("3. Review scheduled emails: https://app.kit.com/campaigns");
 }
