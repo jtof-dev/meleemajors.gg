@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250807T162043Z
+DTSTAMP:20250904T220113Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/supernova-2025/event/melee-1v1-
  singles-free-to-enter-wr-merch-included\n\nattendees: 2422\n\nnotable entra
@@ -14,54 +14,54 @@ DTEND;VALUE=DATE:20250811
 DTSTART;VALUE=DATE:20250807
 LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
 SUMMARY:Supernova 2025
-UID:1c38ee2d-b9c4-4d3d-8319-77e729d8f90d
+UID:1fadf65e-0727-4f65-94b3-4007382e6f6b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250807T162043Z
+DTSTAMP:20250904T220113Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
- ngles\n\nattendees: 366\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybo
- x\nWizzrobe\nAklo\nKoDoRiN\nlloD\n
+ ngles\n\nattendees: 407\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybo
+ x\nWizzrobe\nAklo\nlloD\nTrif\n
 DTEND;VALUE=DATE:20250825
 DTSTART;VALUE=DATE:20250822
 LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
 SUMMARY:Collision 2025
-UID:d36cd028-335b-4a03-82e3-a582c4f29d0d
+UID:ee198065-9e57-48e8-a559-f2319e041647
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250807T162043Z
+DTSTAMP:20250904T220113Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
- les\n\nattendees: 306\n\nnotable entrants:\n\nSkerzo\nMOF\nSirmeris\nDrephe
- n\nGrab\nFree Palestine\nDawson\nChango\n
+ les\n\nattendees: 489\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nLef
+ fen\nHungrybox\nWizzrobe\nAklo\nMorsecode762\n
 DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:1fa66af0-6239-420a-9006-561fc052021e
+UID:17aca6cb-6f38-4bfe-a79c-f55648ff3f36
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250807T162043Z
+DTSTAMP:20250904T220113Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 125\n\nnotable entrants:\n\nCody Schwab\nHungrybox\nSalt\n
+ es\n\nattendees: 155\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
  Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
 DTEND;VALUE=DATE:20251005
 DTSTART;VALUE=DATE:20251004
 LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
 SUMMARY:Québecup 2025
-UID:fac2538e-0da2-41f1-bc6c-b86d0d906b32
+UID:ac6bcc26-98f1-485d-b56e-0b40652c4958
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250807T162043Z
+DTSTAMP:20250904T220113Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
- les\n\nattendees: 43\n\nnotable entrants:\n\nZain\nCody Schwab\nMoky\nAklo\
+ les\n\nattendees: 49\n\nnotable entrants:\n\nZain\nCody Schwab\nMoky\nAklo\
  nNicki\nWizzrobe\nJunebug\nMagi\n
 DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:e9eb1e58-c4dc-4321-a4c3-5d2f6aa64932
+UID:881ae14f-379d-4066-b445-d524042e7a46
 END:VEVENT
 END:VCALENDAR
