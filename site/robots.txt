@@ -55,7 +55,6 @@
 #                                     +===========================                                    
 
 User-agent: *
-Disallow: /assets/
 Disallow: /styles.css
 Disallow: /script.js
 Disallow: /calendar.ics

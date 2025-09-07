@@ -5,31 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250904T220113Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/supernova-2025/event/melee-1v1-
- singles-free-to-enter-wr-merch-included\n\nattendees: 2422\n\nnotable entra
- nts:\n\nCody Schwab\nZain\nJmook\nmoky\nLeffen\nHungrybox\nWizzrobe\nAklo\n
-DTEND;VALUE=DATE:20250811
-DTSTART;VALUE=DATE:20250807
-LOCATION:4320 Chantilly Shopping Center, Chantilly, VA 20151, USA
-SUMMARY:Supernova 2025
-UID:1fadf65e-0727-4f65-94b3-4007382e6f6b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250904T220113Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/collision-2025-8/event/melee-si
- ngles\n\nattendees: 407\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybo
- x\nWizzrobe\nAklo\nlloD\nTrif\n
-DTEND;VALUE=DATE:20250825
-DTSTART;VALUE=DATE:20250822
-LOCATION:355 Plaza Dr, Secaucus, NJ 07094, USA
-SUMMARY:Collision 2025
-UID:ee198065-9e57-48e8-a559-f2319e041647
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250904T220113Z
+DTSTAMP:20250907T184727Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
  les\n\nattendees: 489\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nLef
@@ -38,22 +14,22 @@ DTEND;VALUE=DATE:20250908
 DTSTART;VALUE=DATE:20250905
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2025
-UID:17aca6cb-6f38-4bfe-a79c-f55648ff3f36
+UID:888b9cd9-4a38-4f55-9fc9-fd680fef9feb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250904T220113Z
+DTSTAMP:20250907T184727Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 155\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
+ es\n\nattendees: 158\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
  Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
 DTEND;VALUE=DATE:20251005
 DTSTART;VALUE=DATE:20251004
 LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
 SUMMARY:Québecup 2025
-UID:ac6bcc26-98f1-485d-b56e-0b40652c4958
+UID:7d93c9cd-f641-465b-b0a2-27b9f681de9f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250904T220113Z
+DTSTAMP:20250907T184727Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
  les\n\nattendees: 49\n\nnotable entrants:\n\nZain\nCody Schwab\nMoky\nAklo\
@@ -62,6 +38,6 @@ DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:881ae14f-379d-4066-b445-d524042e7a46
+UID:7b09c936-5722-4af3-8d75-e1205b484da2
 END:VEVENT
 END:VCALENDAR
