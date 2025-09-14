@@ -1,28 +1,20 @@
 [
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/riptide-2025-4/event/melee-singles",
-    "top8-start-time": "2025-09-07 3:00PM",
-    "schedule-url": "https://i.imgur.com/gHsE3L7.jpeg",
-    "stream-url": "https://www.twitch.tv/btssmash"
-  },
-  {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/qu-becup-2025/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
+    "top8-start-time": "2025-10-04 07:30PM",
+    "schedule-url": "https://imgur.com/eWLXO3x",
     "stream-url": ""
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/fast-fall-2025/event/melee-singles",
     "top8-start-time": "",
     "schedule-url": "",
-    "stream-url": "",
-    "player0": "Zain",
-    "player1": "Cody Schwab",
-    "player2": "Moky",
-    "player3": "Aklo",
-    "player4": "Nicki",
-    "player5": "Wizzrobe",
-    "player6": "Junebug",
-    "player7": "Magi"
+    "stream-url": ""
+  },
+  {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/luminosity-makes-moves-miami-2025-1/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
   }
 ]

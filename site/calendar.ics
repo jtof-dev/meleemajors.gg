@@ -5,39 +5,39 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250907T184727Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/riptide-2025-4/event/melee-sing
- les\n\nattendees: 489\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nLef
- fen\nHungrybox\nWizzrobe\nAklo\nMorsecode762\n
-DTEND;VALUE=DATE:20250908
-DTSTART;VALUE=DATE:20250905
-LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
-SUMMARY:Riptide 2025
-UID:888b9cd9-4a38-4f55-9fc9-fd680fef9feb
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250907T184727Z
+DTSTAMP:20250914T212259Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 158\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
+ es\n\nattendees: 160\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
  Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
 DTEND;VALUE=DATE:20251005
 DTSTART;VALUE=DATE:20251004
 LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
 SUMMARY:Québecup 2025
-UID:7d93c9cd-f641-465b-b0a2-27b9f681de9f
+UID:8f3c6345-bcca-45a1-8a49-d8dd57796c14
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250907T184727Z
+DTSTAMP:20250914T212259Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
- les\n\nattendees: 49\n\nnotable entrants:\n\nZain\nCody Schwab\nMoky\nAklo\
- nNicki\nWizzrobe\nJunebug\nMagi\n
+ les\n\nattendees: 50\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\nWizzr
+ obe\nAklo\nMagi\nJunebug\nMOF\n
 DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:7b09c936-5722-4af3-8d75-e1205b484da2
+UID:01c254f9-d3d2-4979-a579-10922eeea190
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250914T212259Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
+ 25-1/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD
+ \nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20251013
+DTSTART;VALUE=DATE:20251010
+LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
+SUMMARY:Luminosity Makes Moves Miami 2025
+UID:ce319481-e6b3-4d72-aa21-e6ce90d6442d
 END:VEVENT
 END:VCALENDAR

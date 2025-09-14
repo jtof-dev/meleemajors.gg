@@ -1,6 +1,6 @@
 # Contributing to meleemajors.gg
 
-- first off, thanks for taking the time to contribute! ❤️
+- thanks for taking the time to contribute! ❤️
 - since this is a small project, contributing is pretty casual. if you find a bug or want to contribute to the website, just open an issue or a pull request and we can talk about it there. but, for adding tournaments and tournament info, the easiest way would be to add / edit to [tournaments.json](ssg/src/tournaments.json)
 
 ## tournaments.json
@@ -9,10 +9,10 @@
 
 ```jsonc
 {
-    "start.gg-melee-singles-url": "url to melee singles",
-    "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
-    "schedule-url": "either empty quotes or url or path to image",
-    "stream-url": "either empty quotes or url to stream"
+  "start.gg-melee-singles-url": "url to melee singles",
+  "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
+  "schedule-url": "either empty quotes or url or path to image",
+  "stream-url": "either empty quotes or url to stream",
 }
 ```
 
