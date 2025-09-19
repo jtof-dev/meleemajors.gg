@@ -1,7 +1,7 @@
 # Contributing to meleemajors.gg
 
 - thanks for taking the time to contribute! ❤️
-- since this is a small project, contributing is pretty casual. if you find a bug or want to contribute to the website, just open an issue or a pull request and we can talk about it there. but, for adding tournaments and tournament info, the easiest way would be to add / edit to [tournaments.json](ssg/src/tournaments.json)
+- since this is a small project, contributing is casual. if you find a bug or want to contribute to the website, just open an issue or a pull request and we can talk about it there. but, for adding tournaments and tournament info, the easiest way would be to add / edit to [tournaments.json](ssg/src/tournaments.json)
 
 ## tournaments.json
 
@@ -19,7 +19,7 @@
 - the `start.gg-melee-singles-url` field is for the start.gg url to melee singles (like [https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles](https://www.start.gg/tournament/tipped-off-15-connected-1/event/melee-singles))
 - the schedule url can either be a link to a website, or a relative link to an image starting from `site` - for example, `assets/schedules/tipped-off-15-schedule.webp`
 - for both `schedule-url` and `stream-url`, just leave the value blank (`""`) if there is no information about either yet
-- finally, don't forget to add commas between tournament entries, like this:
+- don't forget to add commas between tournament entries, like this:
 
 ```json
 [
@@ -34,3 +34,24 @@
     }
 ]
 ```
+
+- when the start.gg api doesn't correctly scrape some info from the tournament listing, there are some manual value overrides you can add to a tournament's listing in `tournametns.json`:
+
+```json
+[
+  {
+    "name": "name override",
+    "player0": "player0 override",
+    "player1": "player1 override",
+    "player2": "player2 override",
+    "player3": "player3 override",
+    "player4": "player4 override",
+    "player5": "player5 override",
+    "player6": "player6 override",
+    "player7": "player7 override",
+    "city-and-state": "city-and-state override"
+  }
+]
+```
+
+- also, you can copy and paste from [sampleTournaments.jsonc](ssg/src/sampleTournaments.jsonc)

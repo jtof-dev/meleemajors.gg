@@ -5,19 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250914T212259Z
+DTSTAMP:20250919T184646Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 160\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
+ es\n\nattendees: 163\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
  Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
 DTEND;VALUE=DATE:20251005
 DTSTART;VALUE=DATE:20251004
 LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
 SUMMARY:Québecup 2025
-UID:8f3c6345-bcca-45a1-8a49-d8dd57796c14
+UID:ee23ec9b-b11f-4551-a9e9-932c71b7787c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250914T212259Z
+DTSTAMP:20250919T184646Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/kill-roy-volume-9/event/melee-s
+ ingles\n\nattendees: 65\n\nnotable entrants:\n\nDrephan\nGrab\nMedz\nSyrox\
+ nBlue\ncoffee\nSchlag\nHoliday\n
+DTEND;VALUE=DATE:20251012
+DTSTART;VALUE=DATE:20251011
+LOCATION:150 N Rose Ave, Bloomington, IN 47406, USA
+SUMMARY:Kill Roy: Volume 9
+UID:dc3b0d95-3095-4753-96ff-3824d314e2c8
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250919T184646Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
  les\n\nattendees: 50\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\nWizzr
@@ -26,10 +38,10 @@ DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:01c254f9-d3d2-4979-a579-10922eeea190
+UID:98b55cb5-56d1-4e17-994f-6c8dd4b2bc56
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250914T212259Z
+DTSTAMP:20250919T184646Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  25-1/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD
@@ -38,6 +50,6 @@ DTEND;VALUE=DATE:20251013
 DTSTART;VALUE=DATE:20251010
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2025
-UID:ce319481-e6b3-4d72-aa21-e6ce90d6442d
+UID:4f15015d-c2f6-418f-8a95-9af348797009
 END:VEVENT
 END:VCALENDAR
