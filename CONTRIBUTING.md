@@ -54,4 +54,4 @@
 ]
 ```
 
-- also, you can copy and paste from [sampleTournaments.jsonc](ssg/src/sampleTournaments.jsonc)
+- you can also reference [sampleTournaments.jsonc](ssg/src/sampleTournaments.jsonc) for help with formatting
