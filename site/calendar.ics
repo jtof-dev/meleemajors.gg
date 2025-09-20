@@ -5,31 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250919T184646Z
+DTSTAMP:20250920T214428Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 163\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
+ es\n\nattendees: 169\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
  Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
 DTEND;VALUE=DATE:20251005
 DTSTART;VALUE=DATE:20251004
 LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
 SUMMARY:Québecup 2025
-UID:ee23ec9b-b11f-4551-a9e9-932c71b7787c
+UID:0606ad5a-8ba0-4716-958f-1d9b05d809c7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250919T184646Z
+DTSTAMP:20250920T214428Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/kill-roy-volume-9/event/melee-s
- ingles\n\nattendees: 65\n\nnotable entrants:\n\nDrephan\nGrab\nMedz\nSyrox\
+ ingles\n\nattendees: 72\n\nnotable entrants:\n\nDrephen\nGrab\nMedz\nSyrox\
  nBlue\ncoffee\nSchlag\nHoliday\n
 DTEND;VALUE=DATE:20251012
 DTSTART;VALUE=DATE:20251011
 LOCATION:150 N Rose Ave, Bloomington, IN 47406, USA
 SUMMARY:Kill Roy: Volume 9
-UID:dc3b0d95-3095-4753-96ff-3824d314e2c8
+UID:cbe517a7-def3-4a19-8e16-73e06046edbf
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250919T184646Z
+DTSTAMP:20250920T214428Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
  les\n\nattendees: 50\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\nWizzr
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:98b55cb5-56d1-4e17-994f-6c8dd4b2bc56
+UID:e8c30dbd-9c9a-4e8e-b3d7-9007b1333c82
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250919T184646Z
+DTSTAMP:20250920T214428Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
  25-1/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD
@@ -50,6 +50,6 @@ DTEND;VALUE=DATE:20251013
 DTSTART;VALUE=DATE:20251010
 LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
 SUMMARY:Luminosity Makes Moves Miami 2025
-UID:4f15015d-c2f6-418f-8a95-9af348797009
+UID:4e1207ad-df15-401a-821c-1da9bd63d1ea
 END:VEVENT
 END:VCALENDAR
