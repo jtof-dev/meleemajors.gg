@@ -5,51 +5,27 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20250920T214428Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/qu-becup-2025/event/melee-singl
- es\n\nattendees: 169\n\nnotable entrants:\n\nCody Schwab\nZain\nHungrybox\n
- Zamu\nFaust\nMOF\nLunar Dusk\nKalvar\n
-DTEND;VALUE=DATE:20251005
-DTSTART;VALUE=DATE:20251004
-LOCATION:5000 R. Sherbrooke E, Montréal, QC H1V 1A1, Canada
-SUMMARY:Québecup 2025
-UID:0606ad5a-8ba0-4716-958f-1d9b05d809c7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250920T214428Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/kill-roy-volume-9/event/melee-s
- ingles\n\nattendees: 72\n\nnotable entrants:\n\nDrephen\nGrab\nMedz\nSyrox\
- nBlue\ncoffee\nSchlag\nHoliday\n
-DTEND;VALUE=DATE:20251012
-DTSTART;VALUE=DATE:20251011
-LOCATION:150 N Rose Ave, Bloomington, IN 47406, USA
-SUMMARY:Kill Roy: Volume 9
-UID:cbe517a7-def3-4a19-8e16-73e06046edbf
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250920T214428Z
+DTSTAMP:20251102T233721Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
- les\n\nattendees: 50\n\nnotable entrants:\n\nCody Schwab\nZain\nmoky\nWizzr
- obe\nAklo\nMagi\nJunebug\nMOF\n
+ les\n\nattendees: 83\n\nnotable entrants:\n\nZain\nAklo\nTrif\nJoshman\nGin
+ ger\nSDJ\nBen\nPanda\n
 DTEND;VALUE=DATE:20251110
 DTSTART;VALUE=DATE:20251108
 LOCATION:310 4th St, Niagara Falls, NY 14303, USA
 SUMMARY:FAST FALL$ 2025
-UID:e8c30dbd-9c9a-4e8e-b3d7-9007b1333c82
+UID:47448eae-992d-4f5c-83e4-ecf8a7a1d2ac
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250920T214428Z
+DTSTAMP:20251102T233721Z
 CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/luminosity-makes-moves-miami-20
- 25-1/event/melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD
- \nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
-DTEND;VALUE=DATE:20251013
-DTSTART;VALUE=DATE:20251010
-LOCATION:16701 Collins Ave, Sunny Isles Beach, FL 33160, USA
-SUMMARY:Luminosity Makes Moves Miami 2025
-UID:4e1207ad-df15-401a-821c-1da9bd63d1ea
+DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
+ n\nattendees: 340\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nGahtzu
+ \nmvlvchi\nChango\nSquid\n
+DTEND;VALUE=DATE:20260216
+DTSTART;VALUE=DATE:20260213
+LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
+SUMMARY:Genesis X3
+UID:91865171-2b40-4605-a3f2-5aec496651b4
 END:VEVENT
 END:VCALENDAR
