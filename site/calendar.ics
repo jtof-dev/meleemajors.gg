@@ -5,27 +5,15 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20251102T233721Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/fast-fall-2025/event/melee-sing
- les\n\nattendees: 83\n\nnotable entrants:\n\nZain\nAklo\nTrif\nJoshman\nGin
- ger\nSDJ\nBen\nPanda\n
-DTEND;VALUE=DATE:20251110
-DTSTART;VALUE=DATE:20251108
-LOCATION:310 4th St, Niagara Falls, NY 14303, USA
-SUMMARY:FAST FALL$ 2025
-UID:47448eae-992d-4f5c-83e4-ecf8a7a1d2ac
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20251102T233721Z
+DTSTAMP:20251110T202344Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
- n\nattendees: 340\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nGahtzu
+ n\nattendees: 367\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nGahtzu
  \nmvlvchi\nChango\nSquid\n
 DTEND;VALUE=DATE:20260216
 DTSTART;VALUE=DATE:20260213
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X3
-UID:91865171-2b40-4605-a3f2-5aec496651b4
+UID:63304b85-d1af-4d6e-8cdd-5900ca50319d
 END:VEVENT
 END:VCALENDAR
