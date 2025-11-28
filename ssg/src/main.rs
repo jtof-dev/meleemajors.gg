@@ -134,7 +134,7 @@ async fn main() {
     make_site(&index_html);
     make_calendar(calendar_ics);
     cleanup_images(all_images);
-    next_steps();
+    open_in_browser();
 }
 
 async fn scrape_data(
@@ -426,10 +426,19 @@ fn cleanup_images(data: HashSet<String>) {
     })
 }
 
-fn next_steps() {
+fn open_in_browser() {
     log_green("\n🎉 Finished 🎉\n");
     log_grey("Next steps:");
-    log_grey("1. preview locally w/ e.g. \"live-server ../site\"");
-    log_grey("2. git commit & push to main to deploy site");
-    log_grey("3. Review scheduled emails: https://app.kit.com/campaigns");
+    log_grey("1. git commit & push to main to deploy site");
+    log_grey("2. Review scheduled emails: https://app.kit.com/campaigns");
+
+    let index_path = absolute_path("../../site/index.html");
+    let file_url = format!("file://{}", index_path);
+
+    log_grey("3. Preview in web browser");
+
+    if let Err(e) = webbrowser::open(&file_url) {
+        log_warn("browser", &format!("Failed to open browser: {}", e));
+        log_grey(&format!("Please manually open: {}", index_path));
+    }
 }
