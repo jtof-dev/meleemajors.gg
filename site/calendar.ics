@@ -5,15 +5,27 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20251110T202344Z
+DTSTAMP:20251128T033239Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2025-tokyo/even
+ t/melee-singles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\
+ nJmook\nmoky\naMSa\nHungrybox\nAklo\nlloD\n
+DTEND;VALUE=DATE:20251207
+DTSTART;VALUE=DATE:20251206
+LOCATION:Area 51, NV, USA
+SUMMARY:Nounsvitational 2025 Tokyo
+UID:67cc9348-af65-4392-902c-7c937e25003e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20251128T033239Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
- n\nattendees: 367\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nGahtzu
- \nmvlvchi\nChango\nSquid\n
+ n\nattendees: 402\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nBbatts
+ \nCPU0\nGahtzu\nmvlvchi\n
 DTEND;VALUE=DATE:20260216
 DTSTART;VALUE=DATE:20260213
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X3
-UID:63304b85-d1af-4d6e-8cdd-5900ca50319d
+UID:6bc6b896-0542-46ab-96db-0b2e1d120bbe
 END:VEVENT
 END:VCALENDAR

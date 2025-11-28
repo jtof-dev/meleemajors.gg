@@ -265,7 +265,11 @@ async fn scrape_data(
         "player7": check_override(tournament, featured_players_top_eight[7].to_string(), "player7"),
         "entrants": entrant_count_string,
         "city-and-state": check_override(tournament, city_and_state.to_string(), "city-and-state"),
-        "maps-link": format!("https://www.google.com/maps/search/?api=1&query={}", encode(address)),
+        "maps-link": check_override(
+          tournament,
+          format!("https://www.google.com/maps/search/?api=1&query={}", encode(address)),
+          "maps-link"
+        ),
         "full-address": address,
         "start.gg-url": melee_singles_url,
         "stream-url": stream_url,
