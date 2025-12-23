@@ -5,27 +5,27 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20251128T040055Z
-CLASS:PUBLIC
-DESCRIPTION:https://www.start.gg/tournament/nounsvitational-2025-tokyo/even
- t/melee-singles\n\nattendees: 16\n\nnotable entrants:\n\nCody Schwab\nZain\
- nJmook\nmoky\naMSa\nHungrybox\nAklo\nlloD\n
-DTEND;VALUE=DATE:20251207
-DTSTART;VALUE=DATE:20251206
-LOCATION:Area 51, NV, USA
-SUMMARY:Nounsvitational 2025 Tokyo
-UID:9c65245d-6c54-40e1-94f3-07bd9e6a43a4
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20251128T040055Z
+DTSTAMP:20251223T020849Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
- n\nattendees: 402\n\nnotable entrants:\n\nJmook\nSalt\nAxe\nFiction\nBbatts
- \nCPU0\nGahtzu\nmvlvchi\n
+ n\nattendees: 619\n\nnotable entrants:\n\nCody Schwab\nJmook\nmoky\nHungryb
+ ox\nAklo\nSalt\nAxe\nGinger\n
 DTEND;VALUE=DATE:20260216
 DTSTART;VALUE=DATE:20260213
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X3
-UID:d6183a45-dcc6-4ea4-ba5d-29d1f14b4cf3
+UID:d12d1617-ef32-4148-93c9-f3e7c2afe422
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20251223T020849Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
+ ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
+ s: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20260803
+DTSTART;VALUE=DATE:20260731
+LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
+SUMMARY:Get On My Level 2026 - Canadian Fighting Game Championships
+UID:e1332d92-d166-450d-809e-50cc856b28c4
 END:VEVENT
 END:VCALENDAR
