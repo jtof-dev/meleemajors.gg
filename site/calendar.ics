@@ -5,19 +5,43 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20251223T020849Z
+DTSTAMP:20260204T030807Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
- n\nattendees: 619\n\nnotable entrants:\n\nCody Schwab\nJmook\nmoky\nHungryb
- ox\nAklo\nSalt\nAxe\nGinger\n
+ n\nattendees: 977\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\nH
+ ungrybox\nWizzrobe\nAklo\nKoDoRiN\n
 DTEND;VALUE=DATE:20260216
 DTSTART;VALUE=DATE:20260213
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X3
-UID:d12d1617-ef32-4148-93c9-f3e7c2afe422
+UID:6b803161-e69f-423a-90ba-515aa2e5550b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20251223T020849Z
+DTSTAMP:20260204T030807Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/pat-s-house-5/event/melee-singl
+ es\n\nattendees: 138\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox\n
+ KoDoRiN\nJoshman\nAxe\nSpark\n
+DTEND;VALUE=DATE:20260504
+DTSTART;VALUE=DATE:20260502
+LOCATION:Price Center, La Jolla, CA 92093, USA
+SUMMARY:Pat's House 5
+UID:c13c8cdb-6ec2-4450-bf21-ac878452bc82
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260204T030807Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/smash-camp-heartlands/event/mel
+ ee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nSalt\nGinger\nBen\nPre
+ eminent\nLowercase hero\nSlowking\nTBD\nTBD\n
+DTEND;VALUE=DATE:20260601
+DTSTART;VALUE=DATE:20260529
+LOCATION:N1875 21st Ave, Wautoma, WI 54982, USA
+SUMMARY:Smash Camp: Heartlands
+UID:3649520c-e9f2-4c94-8660-1b5b991bae5f
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260204T030807Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
  ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
@@ -26,6 +50,6 @@ DTEND;VALUE=DATE:20260803
 DTSTART;VALUE=DATE:20260731
 LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
 SUMMARY:Get On My Level 2026 - Canadian Fighting Game Championships
-UID:e1332d92-d166-450d-809e-50cc856b28c4
+UID:2548960d-0273-41f5-a086-0760e7ed3e1e
 END:VEVENT
 END:VCALENDAR
