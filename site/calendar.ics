@@ -5,31 +5,43 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20260211T022720Z
+DTSTAMP:20260214T164615Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/genesis-x3/event/melee-singles\
- n\nattendees: 980\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\nH
+ n\nattendees: 981\n\nnotable entrants:\n\nCody Schwab\nZain\nJmook\nmoky\nH
  ungrybox\nWizzrobe\nAklo\nKoDoRiN\n
 DTEND;VALUE=DATE:20260216
 DTSTART;VALUE=DATE:20260213
 LOCATION:150 W San Carlos St, San Jose, CA 95113, USA
 SUMMARY:Genesis X3
-UID:ed14ed4e-8914-4457-aa1e-082d0170bc13
+UID:1332825d-7e3c-4652-9739-7140d0f69099
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260211T022720Z
+DTSTAMP:20260214T164615Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/out-of-the-blue-5/event/melee-s
+ ingles\n\nattendees: 109\n\nnotable entrants:\n\nJmook\nJoshman\nZamu\nGing
+ er\nBen\nKrudo\nOssify\nPreeminent\n
+DTEND;VALUE=DATE:20260329
+DTSTART;VALUE=DATE:20260328
+LOCATION:3205 W Foster Ave, Chicago, IL 60612, USA
+SUMMARY:Out of the Blue 5
+UID:22359e96-2751-4d0c-b986-e66f14294eef
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260214T164615Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pat-s-house-5/event/melee-singl
- es\n\nattendees: 140\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox\n
+ es\n\nattendees: 141\n\nnotable entrants:\n\nZain\nJmook\nmoky\nHungrybox\n
  KoDoRiN\nJoshman\nAxe\nSpark\n
 DTEND;VALUE=DATE:20260504
 DTSTART;VALUE=DATE:20260502
 LOCATION:Price Center, La Jolla, CA 92093, USA
 SUMMARY:Pat's House 5
-UID:45a9981b-ec8c-425e-9cd7-939546c3e19a
+UID:e8b6a6d6-c2cc-4708-93ea-1dadfa447970
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260211T022720Z
+DTSTAMP:20260214T164615Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/smash-camp-heartlands/event/mel
  ee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
@@ -38,10 +50,22 @@ DTEND;VALUE=DATE:20260601
 DTSTART;VALUE=DATE:20260529
 LOCATION:N1875 21st Ave, Wautoma, WI 54982, USA
 SUMMARY:Smash Camp: Heartlands
-UID:afbd12a0-e9f6-43ec-b592-35efd4090499
+UID:45a66500-39f3-4fe3-b7e6-149d25002839
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260211T022720Z
+DTSTAMP:20260214T164615Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-8-7/event/super-sm
+ ash-bros-melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
+ TBD\nTBD\nTBD\nTBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20260608
+DTSTART;VALUE=DATE:20260605
+LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
+SUMMARY:Battle of BC 8
+UID:8dd0c9c7-02a2-453c-80e1-b701961b3c83
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260214T164615Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
  ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
@@ -50,6 +74,6 @@ DTEND;VALUE=DATE:20260803
 DTSTART;VALUE=DATE:20260731
 LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
 SUMMARY:Get On My Level 2026 - Canadian Fighting Game Championships
-UID:63764fc0-0e51-4067-b490-73acbf75ec86
+UID:4e23b16e-6818-44c3-be00-9c62a9678a9f
 END:VEVENT
 END:VCALENDAR
