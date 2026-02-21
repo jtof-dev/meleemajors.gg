@@ -30,5 +30,9 @@ pub fn main() {
 
     get_featured_players_query.push_str(get_featured_players_footer);
 
-    fs::write("graphql/getFeaturedPlayers.gql", get_featured_players_query).unwrap();
+    fs::write(
+        "src/graphql/getFeaturedPlayers.gql",
+        get_featured_players_query,
+    )
+    .unwrap();
 }
