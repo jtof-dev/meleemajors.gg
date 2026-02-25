@@ -1,18 +1,24 @@
 [
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/genesis-x3/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
-  },
-  {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/out-of-the-blue-5/event/melee-singles",
     "top8-start-time": "",
     "schedule-url": "https://images.start.gg/images/profileWidgetPageLayout/3881822/image-ca7824f0216aced14dd90f7bf44763c4.png",
     "stream-url": ""
   },
   {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/sapf-2/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/pat-s-house-5/event/melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/altitude-sickness-3/event/melee-singles",
     "top8-start-time": "",
     "schedule-url": "",
     "stream-url": ""
@@ -39,6 +45,12 @@
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
+    "top8-start-time": "",
+    "schedule-url": "",
+    "stream-url": ""
+  },
+  {
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee",
     "top8-start-time": "",
     "schedule-url": "",
     "stream-url": ""
