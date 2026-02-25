@@ -24,6 +24,7 @@ use utils::{
 
 mod generate_gql;
 mod mailing_list;
+mod update_rankings;
 mod utils;
 
 #[tokio::main]
@@ -37,6 +38,10 @@ async fn main() {
         return;
     }
 
+    if args.contains(&String::from("--update-rankings")) {
+        update_rankings::main().await.expect("Failed to update rankings");
+        return;
+    }
     // Whether to exit early for debug after a single iteration without writing
     // Usage: `cargo run -- --bail`
     let bail = args.contains(&String::from("--bail"));
