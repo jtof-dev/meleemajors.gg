@@ -1,97 +1,97 @@
 query getFeaturedPlayers($slug_event: String!) {
     event(slug: $slug_event) {
-        _0: entrants(query: { page: 0, filter: { name: "Cody Schwab" } }) {
+        _0: entrants(query: { page: 0, filter: { name: "Zain" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _1: entrants(query: { page: 0, filter: { name: "Zain" } }) {
+        _1: entrants(query: { page: 0, filter: { name: "Cody Schwab" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _2: entrants(query: { page: 0, filter: { name: "Jmook" } }) {
+        _2: entrants(query: { page: 0, filter: { name: "Hungrybox" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _3: entrants(query: { page: 0, filter: { name: "moky" } }) {
+        _3: entrants(query: { page: 0, filter: { name: "Joshman" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _4: entrants(query: { page: 0, filter: { name: "Plup" } }) {
+        _4: entrants(query: { page: 0, filter: { name: "moky" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _5: entrants(query: { page: 0, filter: { name: "Leffen" } }) {
+        _5: entrants(query: { page: 0, filter: { name: "Axe" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _6: entrants(query: { page: 0, filter: { name: "aMSa" } }) {
+        _6: entrants(query: { page: 0, filter: { name: "Jmook" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _7: entrants(query: { page: 0, filter: { name: "Hungrybox" } }) {
+        _7: entrants(query: { page: 0, filter: { name: "SDJ" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _8: entrants(query: { page: 0, filter: { name: "Mang0" } }) {
+        _8: entrants(query: { page: 0, filter: { name: "Wizzrobe" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _9: entrants(query: { page: 0, filter: { name: "Wizzrobe" } }) {
+        _9: entrants(query: { page: 0, filter: { name: "lloD" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _10: entrants(query: { page: 0, filter: { name: "Aklo" } }) {
+        _10: entrants(query: { page: 0, filter: { name: "Trif" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _11: entrants(query: { page: 0, filter: { name: "KoDoRiN" } }) {
+        _11: entrants(query: { page: 0, filter: { name: "Nicki" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _12: entrants(query: { page: 0, filter: { name: "lloD" } }) {
+        _12: entrants(query: { page: 0, filter: { name: "Soonsay" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _13: entrants(query: { page: 0, filter: { name: "Trif" } }) {
+        _13: entrants(query: { page: 0, filter: { name: "Aklo" } }) {
             nodes {
                 name
             }
@@ -105,609 +105,700 @@ query getFeaturedPlayers($slug_event: String!) {
         }
     }
     event(slug: $slug_event) {
-        _15: entrants(query: { page: 0, filter: { name: "Zuppy" } }) {
+        _15: entrants(query: { page: 0, filter: { name: "Krudo" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _16: entrants(query: { page: 0, filter: { name: "S2J" } }) {
+        _16: entrants(query: { page: 0, filter: { name: "Aura" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _17: entrants(query: { page: 0, filter: { name: "Magi" } }) {
+        _17: entrants(query: { page: 0, filter: { name: "Ginger" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _18: entrants(query: { page: 0, filter: { name: "Morsecode762" } }) {
+        _18: entrants(query: { page: 0, filter: { name: "Junebug" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _19: entrants(query: { page: 0, filter: { name: "Joshman" } }) {
+        _19: entrants(query: { page: 0, filter: { name: "Ossify" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _20: entrants(query: { page: 0, filter: { name: "Polish" } }) {
+        _20: entrants(query: { page: 0, filter: { name: "Magi" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _21: entrants(query: { page: 0, filter: { name: "Axe" } }) {
+        _21: entrants(query: { page: 0, filter: { name: "MOF" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _22: entrants(query: { page: 0, filter: { name: "Zamu" } }) {
+        _22: entrants(query: { page: 0, filter: { name: "aMSa" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _23: entrants(query: { page: 0, filter: { name: "Soonsay" } }) {
+        _23: entrants(query: { page: 0, filter: { name: "Panda" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _24: entrants(query: { page: 0, filter: { name: "Spark" } }) {
+        _24: entrants(query: { page: 0, filter: { name: "Zamu" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _25: entrants(query: { page: 0, filter: { name: "Chem" } }) {
+        _25: entrants(query: { page: 0, filter: { name: "n0ne" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _26: entrants(query: { page: 0, filter: { name: "Ginger" } }) {
+        _26: entrants(query: { page: 0, filter: { name: "SluG" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _27: entrants(query: { page: 0, filter: { name: "SFOP" } }) {
+        _27: entrants(query: { page: 0, filter: { name: "RapMonster" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _28: entrants(query: { page: 0, filter: { name: "Fiction" } }) {
+        _28: entrants(query: { page: 0, filter: { name: "Khryke" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _29: entrants(query: { page: 0, filter: { name: "SDJ" } }) {
+        _29: entrants(query: { page: 0, filter: { name: "404Cray" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _30: entrants(query: { page: 0, filter: { name: "Ben" } }) {
+        _30: entrants(query: { page: 0, filter: { name: "JChu" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _31: entrants(query: { page: 0, filter: { name: "Krudo" } }) {
+        _31: entrants(query: { page: 0, filter: { name: "Ben" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _32: entrants(query: { page: 0, filter: { name: "Panda" } }) {
+        _32: entrants(query: { page: 0, filter: { name: "Daytripper" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _33: entrants(query: { page: 0, filter: { name: "Swift" } }) {
+        _33: entrants(query: { page: 0, filter: { name: "Chem" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _34: entrants(query: { page: 0, filter: { name: "KJH" } }) {
+        _34: entrants(query: { page: 0, filter: { name: "Spark" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _35: entrants(query: { page: 0, filter: { name: "Ossify" } }) {
+        _35: entrants(query: { page: 0, filter: { name: "Zuppy" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _36: entrants(query: { page: 0, filter: { name: "Bbatts" } }) {
+        _36: entrants(query: { page: 0, filter: { name: "OkayP." } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _37: entrants(query: { page: 0, filter: { name: "n0ne" } }) {
+        _37: entrants(query: { page: 0, filter: { name: "Medz" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _38: entrants(query: { page: 0, filter: { name: "Faust" } }) {
+        _38: entrants(query: { page: 0, filter: { name: "Morsecode762" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _39: entrants(query: { page: 0, filter: { name: "Khalid" } }) {
+        _39: entrants(query: { page: 0, filter: { name: "Sirmeris" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _40: entrants(query: { page: 0, filter: { name: "Junebug" } }) {
+        _40: entrants(query: { page: 0, filter: { name: "Epoodle" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _41: entrants(query: { page: 0, filter: { name: "Skerzo" } }) {
+        _41: entrants(query: { page: 0, filter: { name: "Preeminent" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _42: entrants(query: { page: 0, filter: { name: "MOF" } }) {
+        _42: entrants(query: { page: 0, filter: { name: "Maelstrom" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _43: entrants(query: { page: 0, filter: { name: "Flash" } }) {
+        _43: entrants(query: { page: 0, filter: { name: "Zanya" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _44: entrants(query: { page: 0, filter: { name: "Mekk" } }) {
+        _44: entrants(query: { page: 0, filter: { name: "Smash Papi" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _45: entrants(query: { page: 0, filter: { name: "Shroomed" } }) {
+        _45: entrants(query: { page: 0, filter: { name: "Kevbot" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _46: entrants(query: { page: 0, filter: { name: "CPU0" } }) {
+        _46: entrants(query: { page: 0, filter: { name: "Chickenman400" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _47: entrants(query: { page: 0, filter: { name: "Frenzy" } }) {
+        _47: entrants(query: { page: 0, filter: { name: "Dawson" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _48: entrants(query: { page: 0, filter: { name: "Sirmeris" } }) {
+        _48: entrants(query: { page: 0, filter: { name: "Faust" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _49: entrants(query: { page: 0, filter: { name: "Khryke" } }) {
+        _49: entrants(query: { page: 0, filter: { name: "Slowking" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _50: entrants(query: { page: 0, filter: { name: "Gahtzu" } }) {
+        _50: entrants(query: { page: 0, filter: { name: "Plup" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _51: entrants(query: { page: 0, filter: { name: "Matteo" } }) {
+        _51: entrants(query: { page: 0, filter: { name: "Leffen" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _52: entrants(query: { page: 0, filter: { name: "Colbol" } }) {
+        _52: entrants(query: { page: 0, filter: { name: "Mang0" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _53: entrants(query: { page: 0, filter: { name: "Drephen" } }) {
+        _53: entrants(query: { page: 0, filter: { name: "KoDoRiN" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _54: entrants(query: { page: 0, filter: { name: "Eddy Mexico" } }) {
+        _54: entrants(query: { page: 0, filter: { name: "S2J" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _55: entrants(query: { page: 0, filter: { name: "TheRealThing" } }) {
+        _55: entrants(query: { page: 0, filter: { name: "Polish" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _56: entrants(query: { page: 0, filter: { name: "Azel" } }) {
+        _56: entrants(query: { page: 0, filter: { name: "SFOP" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _57: entrants(query: { page: 0, filter: { name: "billybopeep" } }) {
+        _57: entrants(query: { page: 0, filter: { name: "Fiction" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _58: entrants(query: { page: 0, filter: { name: "KoopaTroopa895" } }) {
+        _58: entrants(query: { page: 0, filter: { name: "Swift" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _59: entrants(query: { page: 0, filter: { name: "Lunar Dusk" } }) {
+        _59: entrants(query: { page: 0, filter: { name: "KJH" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _60: entrants(query: { page: 0, filter: { name: "Smash Papi" } }) {
+        _60: entrants(query: { page: 0, filter: { name: "Bbatts" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _61: entrants(query: { page: 0, filter: { name: "Palpa" } }) {
+        _61: entrants(query: { page: 0, filter: { name: "Khalid" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _62: entrants(query: { page: 0, filter: { name: "Jflex" } }) {
+        _62: entrants(query: { page: 0, filter: { name: "Skerzo" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _63: entrants(query: { page: 0, filter: { name: "Lucky" } }) {
+        _63: entrants(query: { page: 0, filter: { name: "Flash" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _64: entrants(query: { page: 0, filter: { name: "Grab" } }) {
+        _64: entrants(query: { page: 0, filter: { name: "Mekk" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _65: entrants(query: { page: 0, filter: { name: "Kevin Maples" } }) {
+        _65: entrants(query: { page: 0, filter: { name: "Shroomed" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _66: entrants(query: { page: 0, filter: { name: "shabo" } }) {
+        _66: entrants(query: { page: 0, filter: { name: "CPU0" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _67: entrants(query: { page: 0, filter: { name: "JOJI" } }) {
+        _67: entrants(query: { page: 0, filter: { name: "Frenzy" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _68: entrants(query: { page: 0, filter: { name: "Panko" } }) {
+        _68: entrants(query: { page: 0, filter: { name: "Gahtzu" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _69: entrants(query: { page: 0, filter: { name: "Kürv" } }) {
+        _69: entrants(query: { page: 0, filter: { name: "Matteo" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _70: entrants(query: { page: 0, filter: { name: "Free Palestine" } }) {
+        _70: entrants(query: { page: 0, filter: { name: "Colbol" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _71: entrants(query: { page: 0, filter: { name: "TheSWOOPER" } }) {
+        _71: entrants(query: { page: 0, filter: { name: "Drephen" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _72: entrants(query: { page: 0, filter: { name: "Professor Pro" } }) {
+        _72: entrants(query: { page: 0, filter: { name: "Eddy Mexico" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _73: entrants(query: { page: 0, filter: { name: "mvlvchi" } }) {
+        _73: entrants(query: { page: 0, filter: { name: "TheRealThing" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _74: entrants(query: { page: 0, filter: { name: "Kalvar" } }) {
+        _74: entrants(query: { page: 0, filter: { name: "Azel" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _75: entrants(query: { page: 0, filter: { name: "Mot$" } }) {
+        _75: entrants(query: { page: 0, filter: { name: "billybopeep" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _76: entrants(query: { page: 0, filter: { name: "Voo" } }) {
+        _76: entrants(query: { page: 0, filter: { name: "KoopaTroopa895" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _77: entrants(query: { page: 0, filter: { name: "ckyulmiqnudaetr" } }) {
+        _77: entrants(query: { page: 0, filter: { name: "Lunar Dusk" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _78: entrants(query: { page: 0, filter: { name: "null" } }) {
+        _78: entrants(query: { page: 0, filter: { name: "Palpa" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _79: entrants(query: { page: 0, filter: { name: "essy" } }) {
+        _79: entrants(query: { page: 0, filter: { name: "Jflex" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _80: entrants(query: { page: 0, filter: { name: "Asashi" } }) {
+        _80: entrants(query: { page: 0, filter: { name: "Lucky" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _81: entrants(query: { page: 0, filter: { name: "Preeminent" } }) {
+        _81: entrants(query: { page: 0, filter: { name: "Grab" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _82: entrants(query: { page: 0, filter: { name: "Dawson" } }) {
+        _82: entrants(query: { page: 0, filter: { name: "Kevin Maples" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _83: entrants(query: { page: 0, filter: { name: "Stiv" } }) {
+        _83: entrants(query: { page: 0, filter: { name: "shabo" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _84: entrants(query: { page: 0, filter: { name: "Chango" } }) {
+        _84: entrants(query: { page: 0, filter: { name: "JOJI" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _85: entrants(query: { page: 0, filter: { name: "prof" } }) {
+        _85: entrants(query: { page: 0, filter: { name: "Panko" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _86: entrants(query: { page: 0, filter: { name: "Wevans" } }) {
+        _86: entrants(query: { page: 0, filter: { name: "Kürv" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _87: entrants(query: { page: 0, filter: { name: "Lowercase hero" } }) {
+        _87: entrants(query: { page: 0, filter: { name: "Free Palestine" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _88: entrants(query: { page: 0, filter: { name: "Slowking" } }) {
+        _88: entrants(query: { page: 0, filter: { name: "TheSWOOPER" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _89: entrants(query: { page: 0, filter: { name: "Fishbait" } }) {
+        _89: entrants(query: { page: 0, filter: { name: "Professor Pro" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _90: entrants(query: { page: 0, filter: { name: "Akir" } }) {
+        _90: entrants(query: { page: 0, filter: { name: "mvlvchi" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _91: entrants(query: { page: 0, filter: { name: "Squid" } }) {
+        _91: entrants(query: { page: 0, filter: { name: "Kalvar" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _92: entrants(query: { page: 0, filter: { name: "404Cray" } }) {
+        _92: entrants(query: { page: 0, filter: { name: "Mot$" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _93: entrants(query: { page: 0, filter: { name: "Franz" } }) {
+        _93: entrants(query: { page: 0, filter: { name: "Voo" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _94: entrants(query: { page: 0, filter: { name: "Jah Ridin'" } }) {
+        _94: entrants(query: { page: 0, filter: { name: "ckyulmiqnudaetr" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _95: entrants(query: { page: 0, filter: { name: "Egg$" } }) {
+        _95: entrants(query: { page: 0, filter: { name: "null" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _96: entrants(query: { page: 0, filter: { name: "nut" } }) {
+        _96: entrants(query: { page: 0, filter: { name: "essy" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _97: entrants(query: { page: 0, filter: { name: "Zeo" } }) {
+        _97: entrants(query: { page: 0, filter: { name: "Asashi" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _98: entrants(query: { page: 0, filter: { name: "Umarth" } }) {
+        _98: entrants(query: { page: 0, filter: { name: "Stiv" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _99: entrants(query: { page: 0, filter: { name: "Ralph" } }) {
+        _99: entrants(query: { page: 0, filter: { name: "Chango" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _100: entrants(query: { page: 0, filter: { name: "K8A" } }) {
+        _100: entrants(query: { page: 0, filter: { name: "prof" } }) {
             nodes {
                 name
             }
         }
     }
     event(slug: $slug_event) {
-        _101: entrants(query: { page: 0, filter: { name: "Justus" } }) {
+        _101: entrants(query: { page: 0, filter: { name: "Wevans" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _102: entrants(query: { page: 0, filter: { name: "Lowercase hero" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _103: entrants(query: { page: 0, filter: { name: "Fishbait" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _104: entrants(query: { page: 0, filter: { name: "Akir" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _105: entrants(query: { page: 0, filter: { name: "Squid" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _106: entrants(query: { page: 0, filter: { name: "Franz" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _107: entrants(query: { page: 0, filter: { name: "Jah Ridin'" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _108: entrants(query: { page: 0, filter: { name: "Egg$" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _109: entrants(query: { page: 0, filter: { name: "nut" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _110: entrants(query: { page: 0, filter: { name: "Zeo" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _111: entrants(query: { page: 0, filter: { name: "Umarth" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _112: entrants(query: { page: 0, filter: { name: "Ralph" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _113: entrants(query: { page: 0, filter: { name: "K8A" } }) {
+            nodes {
+                name
+            }
+        }
+    }
+    event(slug: $slug_event) {
+        _114: entrants(query: { page: 0, filter: { name: "Justus" } }) {
             nodes {
                 name
             }

@@ -85,6 +85,21 @@ cargo run
 cargo run -- --generate
 ```
 
+### updating player rankings
+
+- the top player list in [topPlayers.json](ssg/src/topPlayers.json) is used to determine which entrants are featured on tournament cards
+- to update this list with the latest SSBMRank from Liquipedia:
+
+```
+cargo run -- --update-rankings
+```
+
+- this will:
+  1. scrape the latest SSBMRank from Liquipedia
+  2. merge the top 50 with existing "legacy" players (those no longer in top 50)
+  3. update [topPlayers.json](ssg/src/topPlayers.json)
+- after updating rankings, regenerate the GraphQL query with `cargo run -- --generate`
+
 ## hosting
 
 - we use [github pages](https://pages.github.com) to do all the work for us, as long as our website stays static
