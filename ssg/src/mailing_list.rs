@@ -1,12 +1,13 @@
 use crate::utils::{
-    log_red, log_success, log_warn, log_yellow, read_file, replace_placeholder_values,
+    log_heading, log_red, log_success, log_warn, log_yellow, read_file,
+    replace_placeholder_values,
 };
 use anyhow::{anyhow, bail, Context, Result};
 use chrono::{DateTime, NaiveDateTime};
 use chrono_tz::Tz;
 use reqwest::{
     header::{self, HeaderMap, HeaderValue},
-    Client, Method,
+    Client,
 };
 use serde_json::{json, to_string_pretty, Value};
 
@@ -18,9 +19,6 @@ pub struct MailingListService {
 
     /// must be provided in each individual request for Kit API V3
     api_secret: String,
-
-    /// cached result of `list_broadcasts` API call to avoid redundant requests
-    broadcasts: Vec<Value>,
 }
 
 impl MailingListService {
@@ -39,17 +37,15 @@ impl MailingListService {
         // );
 
         let client = Client::builder().default_headers(headers).build()?;
-        let broadcasts = Vec::new();
 
         Ok(Self {
             client,
             api_secret,
-            broadcasts,
         })
     }
 
-    /// Schedule a reminder email for 5 days before the tournament starts, if needed
-    pub async fn schedule_reminder_broadcast(&mut self, tournament_data: &Value) -> Result<()> {
+    /// Schedule a reminder email for 5 days before the tournament starts
+    pub async fn schedule_reminder_broadcast(&self, tournament_data: &Value) -> Result<()> {
         // Determine send time (5 days before tournament start)
         let unix_start_time = tournament_data["start-unix-timestamp"]
             .as_i64()
@@ -74,28 +70,14 @@ impl MailingListService {
             read_file("html/emailMessage.html").replace("{{email-intro-text}}", "This weekend:");
         let content = replace_placeholder_values(tournament_data, &content_template);
 
-        // Check for existing broadcast
-        let existing_broadcast = self
-            .get_broadcast_by_subject(&subject)
-            .await
-            .map(Clone::clone);
-        if let Some(existing) = existing_broadcast {
-            // Update broadcast
-            let broadcast_id = existing["id"].to_string();
-            self.update_broadcast(&broadcast_id, &send_time, &subject, &content)
-                .await?;
-            log_success("email", "reminder broadcast updated");
-        } else {
-            // Create broadcast
-            self.create_broadcast(&send_time, &subject, &content)
-                .await?;
-            log_success("email", "reminder broadcast created");
-        }
+        self.create_broadcast(&send_time, &subject, &content)
+            .await?;
+        log_success("email", "reminder broadcast created");
         Ok(())
     }
 
-    /// Schedule a reminder email for the start of Top 8, if needed
-    pub async fn schedule_top8_broadcast(&mut self, tournament_data: &Value) -> Result<()> {
+    /// Schedule a reminder email for the start of Top 8
+    pub async fn schedule_top8_broadcast(&self, tournament_data: &Value) -> Result<()> {
         // Parse top 8 start time
         let top8_start_time_str = tournament_data["top8-start-time"].as_str().unwrap_or("");
         if top8_start_time_str.is_empty() {
@@ -124,83 +106,88 @@ impl MailingListService {
             .replace("{{email-intro-text}}", "Top 8 starting now:");
         let content = replace_placeholder_values(tournament_data, &content_template);
 
-        // Check for existing broadcast
-        let existing_broadcast = self
-            .get_broadcast_by_subject(&subject)
-            .await
-            .map(Clone::clone);
-        if let Some(existing) = existing_broadcast {
-            // Update broadcast
-            let broadcast_id = existing["id"].to_string();
-            self.update_broadcast(&broadcast_id, &top8_start_time, &subject, &content)
-                .await?;
-            log_success("email", "top 8 broadcast updated");
-        } else {
-            // Create broadcast
-            self.create_broadcast(&top8_start_time, &subject, &content)
-                .await?;
-            log_success("email", "top 8 broadcast created");
-        }
+        self.create_broadcast(&top8_start_time, &subject, &content)
+            .await?;
+        log_success("email", "top 8 broadcast created");
         Ok(())
     }
 
+    /// Delete all scheduled (unsent) broadcasts, paginating through all results.
+    /// Broadcasts that were already sent return 422 and are skipped.
     /// https://developers.kit.com/v3#list-broadcasts
-    async fn list_broadcasts(&mut self) -> Result<&Vec<Value>> {
-        if self.broadcasts.is_empty() {
+    /// https://developers.kit.com/v3#destroy-a-broadcast
+    pub async fn delete_scheduled_broadcasts(&self) -> Result<()> {
+        log_heading("Cleaning up scheduled broadcasts");
+
+        // Page through broadcasts newest-first, deleting each one.
+        // Stop as soon as we hit one that's already sent (422),
+        // since everything older is also sent.
+        let mut deleted = 0;
+        let page = 1;
+        'outer: loop {
             let response = self
                 .client
                 .get("https://api.convertkit.com/v3/broadcasts")
-                .query(&[("api_secret", &self.api_secret)])
+                .query(&[
+                    ("api_secret", &self.api_secret),
+                    ("page", &page.to_string()),
+                    ("sort_order", &"desc".to_string()),
+                ])
                 .send()
                 .await?
                 .error_for_status()?;
-            let json = response.json::<Value>().await?["broadcasts"]
+            let broadcasts = response.json::<Value>().await?["broadcasts"]
                 .as_array()
                 .context("missing broadcasts field")?
                 .to_vec();
-            self.broadcasts = json;
+            if broadcasts.is_empty() {
+                break;
+            }
+            for broadcast in &broadcasts {
+                let id = broadcast["id"].as_i64().context("missing broadcast id")?;
+                let subject = broadcast["subject"].as_str().unwrap_or("(no subject)");
+                match self.delete_broadcast(id).await {
+                    Ok(true) => {
+                        deleted += 1;
+                        log_success("email", &format!("deleted: {}", subject));
+                    }
+                    Ok(false) => {
+                        // Hit a sent broadcast — everything older is also sent
+                        break 'outer;
+                    }
+                    Err(e) => {
+                        log_warn("email", &format!("failed to delete broadcast {}: {}", id, e));
+                    }
+                }
+            }
+            // Don't increment page — deletions shift results forward,
+            // so page 1 always has the next batch
         }
-        Result::Ok(&self.broadcasts)
+        log_success("email", &format!("deleted {} scheduled broadcasts", deleted));
+        Ok(())
     }
 
-    async fn get_broadcast_by_subject(&mut self, subject: &str) -> Option<&Value> {
-        self.list_broadcasts()
-            .await
-            .ok()?
-            .iter()
-            .find(|campaign| campaign["subject"].as_str().unwrap_or("") == subject)
+    /// Returns Ok(true) if deleted, Ok(false) if already sent (422), Err otherwise.
+    async fn delete_broadcast(&self, broadcast_id: i64) -> Result<bool> {
+        let response = self
+            .client
+            .delete(format!(
+                "https://api.convertkit.com/v3/broadcasts/{}",
+                broadcast_id
+            ))
+            .query(&[("api_secret", &self.api_secret)])
+            .send()
+            .await?;
+        match response.status().as_u16() {
+            200..=299 => Ok(true),
+            422 => Ok(false), // already sent/sending
+            code => bail!("Failed to delete broadcast {}: HTTP {}", broadcast_id, code),
+        }
     }
 
-    /// - https://developers.kit.com/v3#create-a-broadcast
+    /// https://developers.kit.com/v3#create-a-broadcast
     async fn create_broadcast(
         &self,
-        send_time: &DateTime<Tz>,
-        subject: &str,
-        content: &str,
-    ) -> Result<Value> {
-        let url = "https://api.convertkit.com/v3/broadcasts";
-        self.create_or_update_broadcast(Method::POST, url, send_time, subject, content)
-            .await
-    }
-
-    /// - https://developers.kit.com/v3#update-a-broadcast
-    async fn update_broadcast(
-        &self,
-        broadcast_id: &str,
-        send_time: &DateTime<Tz>,
-        subject: &str,
-        content: &str,
-    ) -> Result<Value> {
-        let url = &format!("https://api.convertkit.com/v3/broadcasts/{}", broadcast_id);
-        self.create_or_update_broadcast(Method::PUT, url, send_time, subject, content)
-            .await
-    }
-
-    /// Handles the common logic & parameters for creating or updating a broadcast
-    async fn create_or_update_broadcast(
-        &self,
-        method: Method,
-        url: &str,
         send_time: &DateTime<Tz>,
         subject: &str,
         content: &str,
@@ -213,15 +200,15 @@ impl MailingListService {
         }
 
         // Send API request
-        let req = self.client.request(method, url).json(&json!({
+        let url = "https://api.convertkit.com/v3/broadcasts";
+        let res = self.client.post(url).json(&json!({
             "api_secret": &self.api_secret,
             "email_layout_template": Value::Null, // use default template
             "content": &content,
             "subject": &subject,
             "send_at": &send_time_iso8601,
             "public": true, // false == draft
-        }));
-        let res = req.send().await?;
+        })).send().await?;
         let status = res.status();
         let json = res.json::<Value>().await?;
         if status.is_success() {

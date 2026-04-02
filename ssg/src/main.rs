@@ -68,13 +68,24 @@ async fn main() {
     let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
     let mut all_images: HashSet<String> = HashSet::new();
 
-    let mut mailing_list = mailing_list::MailingListService::new()
+    let mailing_list = mailing_list::MailingListService::new()
         .inspect_err(|e| {
             log_warn("email", "Mailing list service init failed");
             log_warn("email", "Mailing list service init failed");
             log_warn("email", &format!("{:?}", e));
         })
         .ok();
+
+    if let Some(ref service) = mailing_list {
+        service
+            .delete_scheduled_broadcasts()
+            .await
+            .inspect_err(|e| {
+                log_error("email", "Failed to delete scheduled broadcasts");
+                log_red(&e.to_string());
+            })
+            .ok();
+    }
 
     match json_tournaments {
         Value::Array(vec) => {
@@ -105,7 +116,7 @@ async fn main() {
                 calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
                 log_success("calendar", "generated ICS event");
 
-                if let Some(ref mut service) = mailing_list {
+                if let Some(ref service) = mailing_list {
                     service
                         .schedule_reminder_broadcast(&tournament_data)
                         .await
