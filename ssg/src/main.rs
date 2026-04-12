@@ -433,14 +433,54 @@ fn make_calendar(calendar_ics: Calendar) {
 }
 
 fn make_api(tournaments: &[Value]) {
+    let api_tournaments: Vec<Value> = tournaments.iter().map(tournament_to_api).collect();
     let payload = json!({
         "lastUpdated": Utc::now().to_rfc3339(),
-        "tournaments": tournaments,
+        "tournaments": api_tournaments,
     });
     let out_path = absolute_path("../../site/api/v1/tournaments.json");
     fs::create_dir_all(std::path::Path::new(&out_path).parent().unwrap()).unwrap();
     fs::write(&out_path, serde_json::to_string_pretty(&payload).unwrap()).unwrap();
     log_success("api", "wrote /api/v1/tournaments.json");
+}
+
+fn tournament_to_api(t: &Value) -> Value {
+    let players: Vec<&str> = (0..8)
+        .map(|i| {
+            t[format!("player{}", i)]
+                .as_str()
+                .unwrap_or("TBD")
+        })
+        .collect();
+
+    let start_timestamp = t["start-unix-timestamp"]
+        .as_i64()
+        .and_then(|ts| DateTime::from_timestamp(ts, 0))
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_default();
+
+    let image_url = format!(
+        "https://meleemajors.gg{}",
+        t["image-url"].as_str().unwrap_or("")
+    );
+
+    json!({
+        "name": t["name"],
+        "start.gg-tournament-name": t["start.gg-tournament-name"],
+        "date-string": t["date"],
+        "start-timestamp": start_timestamp,
+        "timezone": t["timezone"],
+        "players": players,
+        "entrants": t["entrants"],
+        "city-and-state": t["city-and-state"],
+        "maps-link": t["maps-link"],
+        "full-address": t["full-address"],
+        "start.gg-url": t["start.gg-url"],
+        "stream-url": t["stream-url"],
+        "schedule-url": t["schedule-url"],
+        "image-url": image_url,
+        "top8-start-time": t["top8-start-time"],
+    })
 }
 
 fn cleanup_images(data: HashSet<String>) {
