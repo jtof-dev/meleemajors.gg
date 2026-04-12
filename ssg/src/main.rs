@@ -1,7 +1,7 @@
 extern crate dotenv;
 
 use case_converter::kebab_to_camel;
-use chrono::DateTime;
+use chrono::{DateTime, Utc};
 use chrono_tz::Tz;
 use dotenv::dotenv;
 use ffmpeg_sidecar::command::FfmpegCommand;
@@ -67,6 +67,7 @@ async fn main() {
     let tournaments = read_file("tournaments.json");
     let json_tournaments: Value = serde_json::from_str(&tournaments).unwrap();
     let mut all_images: HashSet<String> = HashSet::new();
+    let mut api_tournaments: Vec<Value> = Vec::new();
 
     let mailing_list = mailing_list::MailingListService::new()
         .inspect_err(|e| {
@@ -116,6 +117,8 @@ async fn main() {
                 calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
                 log_success("calendar", "generated ICS event");
 
+                api_tournaments.push(tournament_data.clone());
+
                 if let Some(ref service) = mailing_list {
                     service
                         .schedule_reminder_broadcast(&tournament_data)
@@ -149,6 +152,7 @@ async fn main() {
     index_html.push_str(&format!("\n{}", index_footer_html));
     make_site(&index_html);
     make_calendar(calendar_ics);
+    make_api(&api_tournaments);
     cleanup_images(all_images);
     open_in_browser();
 }
@@ -264,8 +268,11 @@ async fn scrape_data(
     let stream_url = tournament["stream-url"].as_str().unwrap();
     let schedule_url = tournament["schedule-url"].as_str().unwrap();
 
+    let image_url = format!("/assets/cards/{}.webp", name_camel);
+
     json!({
         "start.gg-tournament-name": name_camel,
+        "image-url": image_url,
         "name": check_override(tournament, name.to_string(), "name"),
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
@@ -423,6 +430,57 @@ fn make_calendar(calendar_ics: Calendar) {
         calendar_ics.to_string(),
     )
     .unwrap();
+}
+
+fn make_api(tournaments: &[Value]) {
+    let api_tournaments: Vec<Value> = tournaments.iter().map(tournament_to_api).collect();
+    let payload = json!({
+        "lastUpdated": Utc::now().to_rfc3339(),
+        "tournaments": api_tournaments,
+    });
+    let out_path = absolute_path("../../site/api/v1/tournaments.json");
+    fs::create_dir_all(std::path::Path::new(&out_path).parent().unwrap()).unwrap();
+    fs::write(&out_path, serde_json::to_string_pretty(&payload).unwrap()).unwrap();
+    log_success("api", "wrote /api/v1/tournaments.json");
+}
+
+fn tournament_to_api(t: &Value) -> Value {
+    let players: Vec<&str> = (0..8)
+        .map(|i| {
+            t[format!("player{}", i)]
+                .as_str()
+                .unwrap_or("TBD")
+        })
+        .collect();
+
+    let start_timestamp = t["start-unix-timestamp"]
+        .as_i64()
+        .and_then(|ts| DateTime::from_timestamp(ts, 0))
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_default();
+
+    let image_url = format!(
+        "https://meleemajors.gg{}",
+        t["image-url"].as_str().unwrap_or("")
+    );
+
+    json!({
+        "name": t["name"],
+        "start.gg-tournament-name": t["start.gg-tournament-name"],
+        "date-string": t["date"],
+        "start-timestamp": start_timestamp,
+        "timezone": t["timezone"],
+        "players": players,
+        "entrants": t["entrants"],
+        "city-and-state": t["city-and-state"],
+        "maps-link": t["maps-link"],
+        "full-address": t["full-address"],
+        "start.gg-url": t["start.gg-url"],
+        "stream-url": t["stream-url"],
+        "schedule-url": t["schedule-url"],
+        "image-url": image_url,
+        "top8-start-time": t["top8-start-time"],
+    })
 }
 
 fn cleanup_images(data: HashSet<String>) {
