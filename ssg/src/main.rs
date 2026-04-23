@@ -438,10 +438,36 @@ fn make_api(tournaments: &[Value]) {
         "lastUpdated": Utc::now().to_rfc3339(),
         "tournaments": api_tournaments,
     });
+
+    validate_api_payload(&payload);
+
     let out_path = absolute_path("../../site/api/v1/tournaments.json");
     fs::create_dir_all(std::path::Path::new(&out_path).parent().unwrap()).unwrap();
     fs::write(&out_path, serde_json::to_string_pretty(&payload).unwrap()).unwrap();
     log_success("api", "wrote /api/v1/tournaments.json");
+}
+
+fn validate_api_payload(payload: &Value) {
+    let schema_path = absolute_path("../../site/api/v1/tournaments.schema.json");
+    let schema: Value = serde_json::from_str(&fs::read_to_string(&schema_path).unwrap())
+        .expect("tournaments.schema.json is not valid JSON");
+    let validator = jsonschema::validator_for(&schema)
+        .expect("tournaments.schema.json is not a valid JSON Schema");
+
+    let errors: Vec<String> = validator
+        .iter_errors(payload)
+        .map(|e| format!("  at {}: {}", e.instance_path, e))
+        .collect();
+
+    if errors.is_empty() {
+        log_success("api", "validated against tournaments.schema.json");
+    } else {
+        log_error("api", "payload failed schema validation:");
+        for err in &errors {
+            log_red(err);
+        }
+        panic!("tournaments.json does not match tournaments.schema.json");
+    }
 }
 
 fn tournament_to_api(t: &Value) -> Value {
