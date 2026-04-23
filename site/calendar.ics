@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/sapf-2/event/melee-singles\n\na
  ttendees: 245\n\nnotable entrants:\n\nNicki\nFree Palestine\nTBD\nTBD\nTBD\
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20260412
 DTSTART;VALUE=DATE:20260410
 LOCATION:Lindener Marktpl. 1, 30449 Hannover, Deutschland
 SUMMARY:SAPF 2
-UID:cbeb264f-e287-47e8-9e63-1ddca8daa7e5
+UID:a5c12bfc-6ad7-4b54-95c5-2b385885eeff
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-house-siege/event/main-bra
  cket\n\nattendees: 16\n\nnotable entrants:\n\nZain\nCody Schwab\nHungrybox\
@@ -26,34 +26,34 @@ DTEND;VALUE=DATE:20260427
 DTSTART;VALUE=DATE:20260424
 LOCATION:Pennsylvania, USA
 SUMMARY:Full House: Siege
-UID:436ff260-673e-47b8-9902-8a5f12131fe4
+UID:63828a0e-9967-405a-ab48-35f886958fd1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pat-s-house-5/event/melee-singl
- es\n\nattendees: 277\n\nnotable entrants:\n\nZain\nHungrybox\nJoshman\nmoky
+ es\n\nattendees: 335\n\nnotable entrants:\n\nZain\nHungrybox\nJoshman\nmoky
  \nAxe\nJmook\nKrudo\nAura\n
 DTEND;VALUE=DATE:20260504
 DTSTART;VALUE=DATE:20260502
 LOCATION:Price Center, La Jolla, CA 92093, USA
 SUMMARY:Pat's House 5
-UID:7dd35fa8-59fd-48af-a6f9-76bed41ed2ee
+UID:5190ba9a-ff1c-4306-91d9-61f48ed169e1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/smash-camp-heartlands/event/mel
- ee-singles\n\nattendees: 132\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
+ ee-singles\n\nattendees: 133\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
  nBen\nPreeminent\nSlowking\nKacey\nLowercase hero\n
 DTEND;VALUE=DATE:20260601
 DTSTART;VALUE=DATE:20260529
 LOCATION:N1875 21st Ave, Wautoma, WI 54982, USA
 SUMMARY:Smash Camp: Heartlands
-UID:1602b9e8-64a8-4ca0-8b4f-f15898b78f2c
+UID:a5c04f24-eb3b-45fc-9b82-38aaa8f07e34
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-8-7/event/super-sm
  ash-bros-melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -62,10 +62,10 @@ DTEND;VALUE=DATE:20260608
 DTSTART;VALUE=DATE:20260605
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 8
-UID:fbfe9e60-7e36-48d3-b7be-ce337d5b4e14
+UID:6704ad6b-fd2f-4152-a660-9245af6a82b7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
  ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
@@ -74,10 +74,10 @@ DTEND;VALUE=DATE:20260803
 DTSTART;VALUE=DATE:20260731
 LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
 SUMMARY:Get On My Level 2026
-UID:cec2bc58-0439-4c6a-811f-74cbfcabd50c
+UID:bf51832b-1d9f-4f3d-80ff-18890ee7fb56
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2026/event/super-smash-bros
  -melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nT
@@ -86,30 +86,30 @@ DTEND;VALUE=DATE:20260817
 DTSTART;VALUE=DATE:20260814
 LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
 SUMMARY:CEO 2026
-UID:23e7ac3b-1308-469c-aa33-7f235f237a55
+UID:a8810a28-f5a6-4ee4-8fa9-7ce35d8fb190
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2026-4/event/melee-sing
- les\n\nattendees: 101\n\nnotable entrants:\n\nDawson\nTBD\nTBD\nTBD\nTBD\nT
+ les\n\nattendees: 109\n\nnotable entrants:\n\nDawson\nTBD\nTBD\nTBD\nTBD\nT
  BD\nTBD\nTBD\n
 DTEND;VALUE=DATE:20260914
 DTSTART;VALUE=DATE:20260911
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2026
-UID:545434b4-b302-446d-8175-039ba1f0bdbe
+UID:ed4e46d0-fa35-4f56-b2b5-8fcd7c6721ab
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260412T191025Z
+DTSTAMP:20260423T123039Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tipped-off-17-haunted/event/mel
- ee-singles\n\nattendees: 81\n\nnotable entrants:\n\nZain\nCody Schwab\nHung
+ ee-singles\n\nattendees: 83\n\nnotable entrants:\n\nZain\nCody Schwab\nHung
  rybox\nJoshman\nmoky\nAxe\nJmook\nSDJ\n
 DTEND;VALUE=DATE:20261102
 DTSTART;VALUE=DATE:20261031
 LOCATION:800 Spring St NW, Atlanta, GA 30332, USA
 SUMMARY:Tipped Off 17: Haunted
-UID:ab3628f5-e119-49e2-9d0a-5f1573d87902
+UID:a22f80d3-3905-4fab-b7dc-255fdc051712
 END:VEVENT
 END:VCALENDAR

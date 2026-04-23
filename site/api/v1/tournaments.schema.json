@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meleemajors.gg/api/v1/tournaments.schema.json",
+  "title": "meleemajors.gg tournaments API",
+  "description": "Public listing of upcoming Super Smash Bros. Melee majors, as served from https://meleemajors.gg/api/v1/tournaments.json. Regenerated on every site build.",
+  "type": "object",
+  "required": ["lastUpdated", "tournaments"],
+  "additionalProperties": false,
+  "properties": {
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp of when this payload was generated. Updates on every site build, not only when tournament data changes."
+    },
+    "tournaments": {
+      "type": "array",
+      "description": "All tracked tournaments, ordered chronologically by start date (soonest first).",
+      "items": { "$ref": "#/$defs/tournament" }
+    }
+  },
+  "$defs": {
+    "tournament": {
+      "type": "object",
+      "required": [
+        "name",
+        "startggTournamentName",
+        "startTimestamp",
+        "endTimestamp",
+        "dateString",
+        "timezone",
+        "top8StartTime",
+        "entrants",
+        "players",
+        "cityAndState",
+        "fullAddress",
+        "mapsLink",
+        "startggUrl",
+        "startggDetailsUrl",
+        "streamUrl",
+        "scheduleUrl",
+        "imageUrl",
+        "thumbnailUrl"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable tournament name as displayed on the site (e.g. \"Riptide 2026\", \"Pat's House 5\").",
+          "examples": ["SAPF 2", "Full House: Siege"]
+        },
+        "startggTournamentName": {
+          "type": "string",
+          "description": "Internal slug-like identifier derived from the tournament's start.gg URL. Stable across builds and safe to use as a key.",
+          "examples": ["sapf2", "fullHouseSiege"]
+        },
+        "startTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp for when the tournament begins (typically the first day's check-in or first match). UTC-offset is the event's local offset.",
+          "examples": ["2026-04-10T13:00:00+00:00"]
+        },
+        "endTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp for when the tournament ends, as reported by start.gg. Reflected verbatim without any end-of-day rounding.",
+          "examples": ["2026-04-12T23:00:00+00:00"]
+        },
+        "dateString": {
+          "type": "string",
+          "description": "Pre-formatted human-readable date range intended for display (e.g. \"April 10 - April 12\"). Format is not machine-parseable; use startTimestamp for programmatic date handling.",
+          "examples": ["April 10 - April 12", "May 02 - May 03"]
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA timezone name for the tournament venue. Pair with startTimestamp to render local times.",
+          "examples": ["America/Los_Angeles", "Europe/Berlin"]
+        },
+        "top8StartTime": {
+          "type": ["string", "null"],
+          "description": "Announced start time of Top 8, in the organizer's preferred format. Free-form; null if not yet scheduled."
+        },
+        "entrants": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Total registered entrants in the main singles bracket. null if registration has not opened or the count is otherwise unknown.",
+          "examples": [245, 16, null]
+        },
+        "players": {
+          "type": "array",
+          "description": "Fixed-length list of the top 8 seeded/notable entrants, ordered by seed. Slots that have not yet been announced are null.",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "type": ["string", "null"],
+            "description": "Player tag, or null if the slot is unannounced."
+          }
+        },
+        "cityAndState": {
+          "type": "string",
+          "description": "Short locality string for display (city + state/region). Free-form; format varies by country.",
+          "examples": ["San Diego, CA", "Hannover, NDS"]
+        },
+        "fullAddress": {
+          "type": "string",
+          "description": "Full postal address of the venue, as provided by the organizer. Free-form.",
+          "examples": ["Price Center, La Jolla, CA 92093, USA"]
+        },
+        "mapsLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "Google Maps search URL for the venue address. Derived from fullAddress.",
+          "examples": ["https://www.google.com/maps/search/?api=1&query=..."]
+        },
+        "startggUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Canonical start.gg URL for the main Melee singles event page."
+        },
+        "startggDetailsUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over startggUrl for general-purpose linking. null if the details URL cannot be derived from startggUrl.",
+          "examples": ["https://www.start.gg/tournament/sapf-2/details", null]
+        },
+        "streamUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Primary livestream URL (typically Twitch or YouTube). null if no stream has been announced.",
+          "examples": [null, "https://www.twitch.tv/..."]
+        },
+        "scheduleUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "URL to the published event schedule. null if unavailable."
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Absolute URL to the tournament's promotional banner image (wide aspect), self-hosted on meleemajors.gg.",
+          "examples": ["https://meleemajors.gg/assets/cards/sapf2.webp"]
+        },
+        "thumbnailUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Absolute URL to the tournament's square thumbnail/profile image (typically used as an icon), self-hosted on meleemajors.gg. null if start.gg does not expose a distinct profile image for this tournament.",
+          "examples": ["https://meleemajors.gg/assets/cards/sapf2.thumbnail.webp", null]
+        }
+      }
+    }
+  }
+}

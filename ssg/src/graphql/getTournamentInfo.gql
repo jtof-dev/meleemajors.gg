@@ -10,6 +10,8 @@ query TournamentQuery($slug: String, $slug_event: String) {
     images {
       url
       width
+      height
+      type
     }
   }
   event(slug: $slug_event) {

@@ -213,7 +213,7 @@ async fn scrape_data(
             .to_string();
     log_success("start.gg", "scraped top 8 players");
 
-    let featured_players_top_eight = featured_players_json
+    let featured_players_top_eight: Vec<Option<String>> = featured_players_json
         .as_array()
         .unwrap()
         .iter()
@@ -221,9 +221,9 @@ async fn scrape_data(
             result_featured_players.contains(&(player.as_str().unwrap().to_owned() + "\""))
         })
         .take(8)
-        .map(|player| player.as_str().unwrap())
-        .pad_using(8, |_| "TBD")
-        .collect::<Vec<&str>>();
+        .map(|player| Some(player.as_str().unwrap().to_string()))
+        .pad_using(8, |_| None)
+        .collect();
 
     let entrant_count = result_entrant_count["event"]["numEntrants"].as_number();
     let entrant_count_string = match entrant_count {
@@ -252,18 +252,45 @@ async fn scrape_data(
     let address = tournament_info["venueAddress"].as_str().unwrap();
 
     let banner_images = tournament_info["images"].as_array().unwrap();
-    let banner_image_largest = banner_images
+    let strip_query = Regex::new(r"\?.*").unwrap();
+
+    // start.gg's Image.type is a free-form String with no documented enum. Empirically we see
+    // "banner" (wide) and "profile" (square icon). Prefer matching the explicit type, and fall
+    // back to max/min width so a tournament with unexpected type values still gets an image.
+    let banner_image = banner_images
         .iter()
-        .max_by_key(|img| img["width"].as_u64().unwrap())
+        .find(|img| img["type"].as_str() == Some("banner"))
+        .or_else(|| {
+            banner_images
+                .iter()
+                .max_by_key(|img| img["width"].as_u64().unwrap_or(0))
+        })
         .unwrap();
-    let banner_image_largest_url = banner_image_largest["url"].as_str().unwrap();
-    let banner_url = Regex::new(r"\?.*")
-        .unwrap()
-        .replace(banner_image_largest_url, "");
+    let banner_url = strip_query.replace(banner_image["url"].as_str().unwrap(), "");
+
+    let profile_image = banner_images
+        .iter()
+        .find(|img| img["type"].as_str() == Some("profile"))
+        .or_else(|| {
+            // Only fall back to a second distinct image — if there's just one, it's the banner.
+            if banner_images.len() > 1 {
+                banner_images
+                    .iter()
+                    .min_by_key(|img| img["width"].as_u64().unwrap_or(u64::MAX))
+            } else {
+                None
+            }
+        });
 
     let name_camel = kebab_to_camel(&tournament_slug);
 
     download_tournament_image(&banner_url, &name_camel, all_images);
+    let thumbnail_url = profile_image.map(|img| {
+        let url = strip_query.replace(img["url"].as_str().unwrap(), "");
+        let thumb_name = format!("{name_camel}.thumbnail");
+        download_tournament_image(&url, &thumb_name, all_images);
+        format!("/assets/cards/{thumb_name}.webp")
+    });
 
     let stream_url = tournament["stream-url"].as_str().unwrap();
     let schedule_url = tournament["schedule-url"].as_str().unwrap();
@@ -273,19 +300,20 @@ async fn scrape_data(
     json!({
         "start.gg-tournament-name": name_camel,
         "image-url": image_url,
+        "image-url-thumbnail": thumbnail_url,
         "name": check_override(tournament, name.to_string(), "name"),
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
         "end-unix-timestamp": tournament_info["endAt"],
         "timezone": tournament_info["timezone"],
-        "player0": check_override(tournament, featured_players_top_eight[0].to_string(), "player0"),
-        "player1": check_override(tournament, featured_players_top_eight[1].to_string(), "player1"),
-        "player2": check_override(tournament, featured_players_top_eight[2].to_string(), "player2"),
-        "player3": check_override(tournament, featured_players_top_eight[3].to_string(), "player3"),
-        "player4": check_override(tournament, featured_players_top_eight[4].to_string(), "player4"),
-        "player5": check_override(tournament, featured_players_top_eight[5].to_string(), "player5"),
-        "player6": check_override(tournament, featured_players_top_eight[6].to_string(), "player6"),
-        "player7": check_override(tournament, featured_players_top_eight[7].to_string(), "player7"),
+        "player0": check_override_nullable(tournament, featured_players_top_eight[0].clone(), "player0"),
+        "player1": check_override_nullable(tournament, featured_players_top_eight[1].clone(), "player1"),
+        "player2": check_override_nullable(tournament, featured_players_top_eight[2].clone(), "player2"),
+        "player3": check_override_nullable(tournament, featured_players_top_eight[3].clone(), "player3"),
+        "player4": check_override_nullable(tournament, featured_players_top_eight[4].clone(), "player4"),
+        "player5": check_override_nullable(tournament, featured_players_top_eight[5].clone(), "player5"),
+        "player6": check_override_nullable(tournament, featured_players_top_eight[6].clone(), "player6"),
+        "player7": check_override_nullable(tournament, featured_players_top_eight[7].clone(), "player7"),
         "entrants": entrant_count_string,
         "city-and-state": check_override(tournament, city_and_state.to_string(), "city-and-state"),
         "maps-link": check_override(
@@ -309,6 +337,19 @@ fn check_override(tournament: &Value, default_value: String, default_key: &str) 
         return format!("{}", obj_tournament[default_key].as_str().unwrap());
     }
     return format!("{}", default_value);
+}
+
+fn check_override_nullable(
+    tournament: &Value,
+    default_value: Option<String>,
+    default_key: &str,
+) -> Option<String> {
+    tournament
+        .as_object()
+        .and_then(|obj| obj.get(default_key))
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+        .or(default_value)
 }
 
 async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
@@ -433,27 +474,57 @@ fn make_calendar(calendar_ics: Calendar) {
 }
 
 fn make_api(tournaments: &[Value]) {
-    let api_tournaments: Vec<Value> = tournaments.iter().map(tournament_to_api).collect();
+    let mut sorted = tournaments.to_vec();
+    sorted.sort_by_key(|t| t["start-unix-timestamp"].as_i64().unwrap_or(i64::MAX));
+    let api_tournaments: Vec<Value> = sorted.iter().map(tournament_to_api).collect();
     let payload = json!({
         "lastUpdated": Utc::now().to_rfc3339(),
         "tournaments": api_tournaments,
     });
+
+    validate_api_payload(&payload);
+
     let out_path = absolute_path("../../site/api/v1/tournaments.json");
     fs::create_dir_all(std::path::Path::new(&out_path).parent().unwrap()).unwrap();
     fs::write(&out_path, serde_json::to_string_pretty(&payload).unwrap()).unwrap();
     log_success("api", "wrote /api/v1/tournaments.json");
 }
 
+fn validate_api_payload(payload: &Value) {
+    let schema_path = absolute_path("../../site/api/v1/tournaments.schema.json");
+    let schema: Value = serde_json::from_str(&fs::read_to_string(&schema_path).unwrap())
+        .expect("tournaments.schema.json is not valid JSON");
+    let validator = jsonschema::validator_for(&schema)
+        .expect("tournaments.schema.json is not a valid JSON Schema");
+
+    let errors: Vec<String> = validator
+        .iter_errors(payload)
+        .map(|e| format!("  at {}: {}", e.instance_path, e))
+        .collect();
+
+    if errors.is_empty() {
+        log_success("api", "validated against tournaments.schema.json");
+    } else {
+        log_error("api", "payload failed schema validation:");
+        for err in &errors {
+            log_red(err);
+        }
+        panic!("tournaments.json does not match tournaments.schema.json");
+    }
+}
+
 fn tournament_to_api(t: &Value) -> Value {
-    let players: Vec<&str> = (0..8)
-        .map(|i| {
-            t[format!("player{}", i)]
-                .as_str()
-                .unwrap_or("TBD")
-        })
+    let players: Vec<Value> = (0..8)
+        .map(|i| t[format!("player{}", i)].clone())
         .collect();
 
     let start_timestamp = t["start-unix-timestamp"]
+        .as_i64()
+        .and_then(|ts| DateTime::from_timestamp(ts, 0))
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_default();
+
+    let end_timestamp = t["end-unix-timestamp"]
         .as_i64()
         .and_then(|ts| DateTime::from_timestamp(ts, 0))
         .map(|dt| dt.to_rfc3339())
@@ -464,22 +535,46 @@ fn tournament_to_api(t: &Value) -> Value {
         t["image-url"].as_str().unwrap_or("")
     );
 
+    let thumbnail_url = t["image-url-thumbnail"]
+        .as_str()
+        .map(|path| Value::String(format!("https://meleemajors.gg{path}")))
+        .unwrap_or(Value::Null);
+
+    let entrants = t["entrants"]
+        .as_str()
+        .and_then(|s| s.parse::<u64>().ok());
+
+    let non_empty = |key: &str| -> Value {
+        match t[key].as_str() {
+            Some(s) if !s.is_empty() => Value::String(s.to_string()),
+            _ => Value::Null,
+        }
+    };
+
+    let startgg_url = t["start.gg-url"].as_str().unwrap_or("");
+    let startgg_details_url = startgg_url
+        .split_once("/event/")
+        .map(|(base, _)| format!("{base}/details"));
+
     json!({
         "name": t["name"],
-        "start.gg-tournament-name": t["start.gg-tournament-name"],
-        "date-string": t["date"],
-        "start-timestamp": start_timestamp,
+        "startggTournamentName": t["start.gg-tournament-name"],
+        "startTimestamp": start_timestamp,
+        "endTimestamp": end_timestamp,
+        "dateString": t["date"],
         "timezone": t["timezone"],
+        "top8StartTime": non_empty("top8-start-time"),
+        "entrants": entrants,
         "players": players,
-        "entrants": t["entrants"],
-        "city-and-state": t["city-and-state"],
-        "maps-link": t["maps-link"],
-        "full-address": t["full-address"],
-        "start.gg-url": t["start.gg-url"],
-        "stream-url": t["stream-url"],
-        "schedule-url": t["schedule-url"],
-        "image-url": image_url,
-        "top8-start-time": t["top8-start-time"],
+        "cityAndState": t["city-and-state"],
+        "fullAddress": t["full-address"],
+        "mapsLink": t["maps-link"],
+        "startggUrl": t["start.gg-url"],
+        "startggDetailsUrl": startgg_details_url,
+        "streamUrl": non_empty("stream-url"),
+        "scheduleUrl": non_empty("schedule-url"),
+        "imageUrl": image_url,
+        "thumbnailUrl": thumbnail_url,
     })
 }
 
