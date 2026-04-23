@@ -61,7 +61,7 @@
         "endTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "RFC 3339 timestamp for when the tournament ends, as reported by start.gg. Reflected verbatim without any end-of-day rounding; consumers that want to filter past events should compare against this value directly.",
+          "description": "RFC 3339 timestamp for when the tournament ends, as reported by start.gg. Reflected verbatim without any end-of-day rounding.",
           "examples": ["2026-04-12T23:00:00+00:00"]
         },
         "dateString": {
