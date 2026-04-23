@@ -35,6 +35,7 @@
         "fullAddress",
         "mapsLink",
         "startggUrl",
+        "startggDetailsUrl",
         "streamUrl",
         "scheduleUrl",
         "imageUrl"
@@ -112,7 +113,13 @@
         "startggUrl": {
           "type": "string",
           "format": "uri",
-          "description": "Canonical start.gg URL for the main Melee singles event."
+          "description": "Canonical start.gg URL for the main Melee singles event page."
+        },
+        "startggDetailsUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over startggUrl for general-purpose linking.",
+          "examples": ["https://www.start.gg/tournament/sapf-2/details"]
         },
         "streamUrl": {
           "type": ["string", "null"],

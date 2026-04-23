@@ -518,6 +518,11 @@ fn tournament_to_api(t: &Value) -> Value {
         }
     };
 
+    let startgg_url = t["start.gg-url"].as_str().unwrap_or("");
+    let startgg_details_url = startgg_url
+        .split_once("/event/")
+        .map(|(base, _)| format!("{base}/details"));
+
     json!({
         "name": t["name"],
         "startggTournamentName": t["start.gg-tournament-name"],
@@ -532,6 +537,7 @@ fn tournament_to_api(t: &Value) -> Value {
         "fullAddress": t["full-address"],
         "mapsLink": t["maps-link"],
         "startggUrl": t["start.gg-url"],
+        "startggDetailsUrl": startgg_details_url,
         "streamUrl": non_empty("stream-url"),
         "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
