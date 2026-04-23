@@ -252,18 +252,45 @@ async fn scrape_data(
     let address = tournament_info["venueAddress"].as_str().unwrap();
 
     let banner_images = tournament_info["images"].as_array().unwrap();
-    let banner_image_largest = banner_images
+    let strip_query = Regex::new(r"\?.*").unwrap();
+
+    // start.gg's Image.type is a free-form String with no documented enum. Empirically we see
+    // "banner" (wide) and "profile" (square icon). Prefer matching the explicit type, and fall
+    // back to max/min width so a tournament with unexpected type values still gets an image.
+    let banner_image = banner_images
         .iter()
-        .max_by_key(|img| img["width"].as_u64().unwrap())
+        .find(|img| img["type"].as_str() == Some("banner"))
+        .or_else(|| {
+            banner_images
+                .iter()
+                .max_by_key(|img| img["width"].as_u64().unwrap_or(0))
+        })
         .unwrap();
-    let banner_image_largest_url = banner_image_largest["url"].as_str().unwrap();
-    let banner_url = Regex::new(r"\?.*")
-        .unwrap()
-        .replace(banner_image_largest_url, "");
+    let banner_url = strip_query.replace(banner_image["url"].as_str().unwrap(), "");
+
+    let profile_image = banner_images
+        .iter()
+        .find(|img| img["type"].as_str() == Some("profile"))
+        .or_else(|| {
+            // Only fall back to a second distinct image — if there's just one, it's the banner.
+            if banner_images.len() > 1 {
+                banner_images
+                    .iter()
+                    .min_by_key(|img| img["width"].as_u64().unwrap_or(u64::MAX))
+            } else {
+                None
+            }
+        });
 
     let name_camel = kebab_to_camel(&tournament_slug);
 
     download_tournament_image(&banner_url, &name_camel, all_images);
+    let thumbnail_url = profile_image.map(|img| {
+        let url = strip_query.replace(img["url"].as_str().unwrap(), "");
+        let thumb_name = format!("{name_camel}.thumbnail");
+        download_tournament_image(&url, &thumb_name, all_images);
+        format!("/assets/cards/{thumb_name}.webp")
+    });
 
     let stream_url = tournament["stream-url"].as_str().unwrap();
     let schedule_url = tournament["schedule-url"].as_str().unwrap();
@@ -273,6 +300,7 @@ async fn scrape_data(
     json!({
         "start.gg-tournament-name": name_camel,
         "image-url": image_url,
+        "image-url-thumbnail": thumbnail_url,
         "name": check_override(tournament, name.to_string(), "name"),
         "date": date,
         "start-unix-timestamp": tournament_info["startAt"],
@@ -507,6 +535,11 @@ fn tournament_to_api(t: &Value) -> Value {
         t["image-url"].as_str().unwrap_or("")
     );
 
+    let thumbnail_url = t["image-url-thumbnail"]
+        .as_str()
+        .map(|path| Value::String(format!("https://meleemajors.gg{path}")))
+        .unwrap_or(Value::Null);
+
     let entrants = t["entrants"]
         .as_str()
         .and_then(|s| s.parse::<u64>().ok());
@@ -541,6 +574,7 @@ fn tournament_to_api(t: &Value) -> Value {
         "streamUrl": non_empty("stream-url"),
         "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
+        "thumbnailUrl": thumbnail_url,
     })
 }
 

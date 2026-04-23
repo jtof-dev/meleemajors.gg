@@ -38,7 +38,8 @@
         "startggDetailsUrl",
         "streamUrl",
         "scheduleUrl",
-        "imageUrl"
+        "imageUrl",
+        "thumbnailUrl"
       ],
       "additionalProperties": false,
       "properties": {
@@ -135,8 +136,14 @@
         "imageUrl": {
           "type": "string",
           "format": "uri",
-          "description": "Absolute URL to the tournament's promotional card image hosted on meleemajors.gg.",
+          "description": "Absolute URL to the tournament's promotional banner image (wide aspect), self-hosted on meleemajors.gg.",
           "examples": ["https://meleemajors.gg/assets/cards/sapf2.webp"]
+        },
+        "thumbnailUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Absolute URL to the tournament's square thumbnail/profile image (typically used as an icon), self-hosted on meleemajors.gg. null if start.gg does not expose a distinct profile image for this tournament.",
+          "examples": ["https://meleemajors.gg/assets/cards/sapf2.thumbnail.webp", null]
         }
       }
     }

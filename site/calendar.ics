@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/sapf-2/event/melee-singles\n\na
  ttendees: 245\n\nnotable entrants:\n\nNicki\nFree Palestine\nTBD\nTBD\nTBD\
@@ -14,10 +14,10 @@ DTEND;VALUE=DATE:20260412
 DTSTART;VALUE=DATE:20260410
 LOCATION:Lindener Marktpl. 1, 30449 Hannover, Deutschland
 SUMMARY:SAPF 2
-UID:43982892-0f87-4ae8-90a3-210e72b4f545
+UID:55cec1b2-4b7f-474e-83d9-51c9a58d3ef2
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/full-house-siege/event/main-bra
  cket\n\nattendees: 16\n\nnotable entrants:\n\nZain\nCody Schwab\nHungrybox\
@@ -26,10 +26,10 @@ DTEND;VALUE=DATE:20260427
 DTSTART;VALUE=DATE:20260424
 LOCATION:Pennsylvania, USA
 SUMMARY:Full House: Siege
-UID:f02e4026-3e1e-4248-b455-614b3a0d2324
+UID:8ba29faa-648a-41c1-ac15-ba332c0d0a36
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/pat-s-house-5/event/melee-singl
  es\n\nattendees: 335\n\nnotable entrants:\n\nZain\nHungrybox\nJoshman\nmoky
@@ -38,10 +38,10 @@ DTEND;VALUE=DATE:20260504
 DTSTART;VALUE=DATE:20260502
 LOCATION:Price Center, La Jolla, CA 92093, USA
 SUMMARY:Pat's House 5
-UID:cf49d56c-ae59-438f-a6b1-8ec3daafab2a
+UID:39f1dabd-a29a-447b-8a40-13ad3ae133b7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/smash-camp-heartlands/event/mel
  ee-singles\n\nattendees: 133\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
@@ -50,10 +50,10 @@ DTEND;VALUE=DATE:20260601
 DTSTART;VALUE=DATE:20260529
 LOCATION:N1875 21st Ave, Wautoma, WI 54982, USA
 SUMMARY:Smash Camp: Heartlands
-UID:35c02ce3-5267-4702-b15a-13568c2e5c4a
+UID:b368ec12-cc09-4d70-a532-7f563bb892bf
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-8-7/event/super-sm
  ash-bros-melee-singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\n
@@ -62,10 +62,10 @@ DTEND;VALUE=DATE:20260608
 DTSTART;VALUE=DATE:20260605
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 8
-UID:d0bb2c5c-b75c-4ee3-b75d-f3dbe854863c
+UID:a1a14216-14d3-4748-a9f1-0e2310395d29
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
  ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
@@ -74,10 +74,10 @@ DTEND;VALUE=DATE:20260803
 DTSTART;VALUE=DATE:20260731
 LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
 SUMMARY:Get On My Level 2026
-UID:95a806b7-878c-450c-9b41-0f352e280ebe
+UID:159c73ec-54b1-44d0-bec8-3d605f3f5f37
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2026/event/super-smash-bros
  -melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nT
@@ -86,10 +86,10 @@ DTEND;VALUE=DATE:20260817
 DTSTART;VALUE=DATE:20260814
 LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
 SUMMARY:CEO 2026
-UID:73bc87f3-10c3-43bf-9172-c3efd1fdf53d
+UID:5dcc107e-77ec-4712-9bf0-d80715592f28
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2026-4/event/melee-sing
  les\n\nattendees: 109\n\nnotable entrants:\n\nDawson\nTBD\nTBD\nTBD\nTBD\nT
@@ -98,10 +98,10 @@ DTEND;VALUE=DATE:20260914
 DTSTART;VALUE=DATE:20260911
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2026
-UID:ca72dbdc-b28e-4611-aaaf-ff20cca192b3
+UID:00afe4dd-2b67-4c6b-aa8f-d0f66c047ad3
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260423T113826Z
+DTSTAMP:20260423T121119Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tipped-off-17-haunted/event/mel
  ee-singles\n\nattendees: 83\n\nnotable entrants:\n\nZain\nCody Schwab\nHung
@@ -110,6 +110,6 @@ DTEND;VALUE=DATE:20261102
 DTSTART;VALUE=DATE:20261031
 LOCATION:800 Spring St NW, Atlanta, GA 30332, USA
 SUMMARY:Tipped Off 17: Haunted
-UID:cd4d48a8-e5e1-43b0-b223-b3aa1af7d8d0
+UID:9df32591-f2d3-4a7c-8a7d-ad375d590d42
 END:VEVENT
 END:VCALENDAR

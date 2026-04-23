@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T11:38:26.268323900+00:00",
+  "lastUpdated": "2026-04-23T12:11:19.947355900+00:00",
   "tournaments": [
     {
       "name": "SAPF 2",
@@ -27,7 +27,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/sapf-2/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/sapf2.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/sapf2.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/sapf2.thumbnail.webp"
     },
     {
       "name": "Full House: Siege",
@@ -55,7 +56,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/full-house-siege/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/fullHouseSiege.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/fullHouseSiege.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/fullHouseSiege.thumbnail.webp"
     },
     {
       "name": "Pat's House 5",
@@ -83,7 +85,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/pat-s-house-5/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/patSHouse5.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/patSHouse5.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/patSHouse5.thumbnail.webp"
     },
     {
       "name": "Smash Camp: Heartlands",
@@ -111,7 +114,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/smash-camp-heartlands/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/smashCampHeartlands.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/smashCampHeartlands.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/smashCampHeartlands.thumbnail.webp"
     },
     {
       "name": "Battle of BC 8",
@@ -139,7 +143,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/battle-of-bc-8-7/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/battleOfBc87.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/battleOfBc87.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/battleOfBc87.thumbnail.webp"
     },
     {
       "name": "Get On My Level 2026",
@@ -167,7 +172,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.thumbnail.webp"
     },
     {
       "name": "CEO 2026",
@@ -195,7 +201,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/ceo-2026/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/ceo2026.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/ceo2026.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/ceo2026.thumbnail.webp"
     },
     {
       "name": "Riptide 2026",
@@ -223,7 +230,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/riptide-2026-4/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/riptide20264.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/riptide20264.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/riptide20264.thumbnail.webp"
     },
     {
       "name": "Tipped Off 17: Haunted",
@@ -251,7 +259,8 @@
       "startggDetailsUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/details",
       "streamUrl": null,
       "scheduleUrl": null,
-      "imageUrl": "https://meleemajors.gg/assets/cards/tippedOff17Haunted.webp"
+      "imageUrl": "https://meleemajors.gg/assets/cards/tippedOff17Haunted.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/tippedOff17Haunted.thumbnail.webp"
     }
   ]
 }
