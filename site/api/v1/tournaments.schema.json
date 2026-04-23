@@ -74,8 +74,8 @@
           "examples": ["America/Los_Angeles", "Europe/Berlin"]
         },
         "top8StartTime": {
-          "type": "string",
-          "description": "Announced start time of Top 8, in the organizer's preferred format. Free-form; empty string if not yet scheduled."
+          "type": ["string", "null"],
+          "description": "Announced start time of Top 8, in the organizer's preferred format. Free-form; null if not yet scheduled."
         },
         "entrants": {
           "type": ["integer", "null"],
@@ -115,13 +115,15 @@
           "description": "Canonical start.gg URL for the main Melee singles event."
         },
         "streamUrl": {
-          "type": "string",
-          "description": "Primary livestream URL (typically Twitch or YouTube). Empty string if no stream has been announced.",
-          "examples": ["", "https://www.twitch.tv/..."]
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Primary livestream URL (typically Twitch or YouTube). null if no stream has been announced.",
+          "examples": [null, "https://www.twitch.tv/..."]
         },
         "scheduleUrl": {
-          "type": "string",
-          "description": "URL to the published event schedule, if any. Empty string if unavailable."
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "URL to the published event schedule. null if unavailable."
         },
         "imageUrl": {
           "type": "string",

@@ -511,6 +511,13 @@ fn tournament_to_api(t: &Value) -> Value {
         .as_str()
         .and_then(|s| s.parse::<u64>().ok());
 
+    let non_empty = |key: &str| -> Value {
+        match t[key].as_str() {
+            Some(s) if !s.is_empty() => Value::String(s.to_string()),
+            _ => Value::Null,
+        }
+    };
+
     json!({
         "name": t["name"],
         "startggTournamentName": t["start.gg-tournament-name"],
@@ -518,15 +525,15 @@ fn tournament_to_api(t: &Value) -> Value {
         "endTimestamp": end_timestamp,
         "dateString": t["date"],
         "timezone": t["timezone"],
-        "top8StartTime": t["top8-start-time"],
+        "top8StartTime": non_empty("top8-start-time"),
         "entrants": entrants,
         "players": players,
         "cityAndState": t["city-and-state"],
         "fullAddress": t["full-address"],
         "mapsLink": t["maps-link"],
         "startggUrl": t["start.gg-url"],
-        "streamUrl": t["stream-url"],
-        "scheduleUrl": t["schedule-url"],
+        "streamUrl": non_empty("stream-url"),
+        "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
     })
 }
