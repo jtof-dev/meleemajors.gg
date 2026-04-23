@@ -4,7 +4,7 @@
     {
       "cityAndState": "Hannover, NDS",
       "dateString": "April 10 - April 12",
-      "entrants": "245",
+      "entrants": 245,
       "fullAddress": "Lindener Marktpl. 1, 30449 Hannover, Deutschland",
       "imageUrl": "https://meleemajors.gg/assets/cards/sapf2.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=Lindener%20Marktpl.%201%2C%2030449%20Hannover%2C%20Deutschland",
@@ -30,7 +30,7 @@
     {
       "cityAndState": "Pennsylvania",
       "dateString": "April 24 - April 26",
-      "entrants": "16",
+      "entrants": 16,
       "fullAddress": "Pennsylvania, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/fullHouseSiege.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=Pennsylvania%2C%20USA",
@@ -56,7 +56,7 @@
     {
       "cityAndState": "San Diego, CA",
       "dateString": "May 02 - May 03",
-      "entrants": "277",
+      "entrants": 277,
       "fullAddress": "Price Center, La Jolla, CA 92093, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/patSHouse5.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=Price%20Center%2C%20La%20Jolla%2C%20CA%2092093%2C%20USA",
@@ -82,7 +82,7 @@
     {
       "cityAndState": "Wautoma, WI",
       "dateString": "May 29 - June 01",
-      "entrants": "132",
+      "entrants": 132,
       "fullAddress": "N1875 21st Ave, Wautoma, WI 54982, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/smashCampHeartlands.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=N1875%2021st%20Ave%2C%20Wautoma%2C%20WI%2054982%2C%20USA",
@@ -108,7 +108,7 @@
     {
       "cityAndState": "Vancouver, BC",
       "dateString": "June 05 - June 07",
-      "entrants": "TBD",
+      "entrants": null,
       "fullAddress": "Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada",
       "imageUrl": "https://meleemajors.gg/assets/cards/battleOfBc87.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=Canada%20Place%2C%20999%20Canada%20Pl%2C%20Vancouver%2C%20BC%20V6C%203E1%2C%20Canada",
@@ -134,7 +134,7 @@
     {
       "cityAndState": "Mississauga, ON",
       "dateString": "July 31 - August 02",
-      "entrants": "TBD",
+      "entrants": null,
       "fullAddress": "5875 Airport Rd, Mississauga, ON L4V 1N1, Canada",
       "imageUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=5875%20Airport%20Rd%2C%20Mississauga%2C%20ON%20L4V%201N1%2C%20Canada",
@@ -160,7 +160,7 @@
     {
       "cityAndState": "Orlando, FL",
       "dateString": "August 14 - August 16",
-      "entrants": "TBD",
+      "entrants": null,
       "fullAddress": "9939 Universal Blvd, Orlando, FL 32819, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/ceo2026.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=9939%20Universal%20Blvd%2C%20Orlando%2C%20FL%2032819%2C%20USA",
@@ -186,7 +186,7 @@
     {
       "cityAndState": "Sandusky, OH",
       "dateString": "September 11 - September 13",
-      "entrants": "101",
+      "entrants": 101,
       "fullAddress": "7000 Kalahari Dr, Sandusky, OH 44870, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/riptide20264.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=7000%20Kalahari%20Dr%2C%20Sandusky%2C%20OH%2044870%2C%20USA",
@@ -212,7 +212,7 @@
     {
       "cityAndState": "Atlanta, GA",
       "dateString": "October 31 - November 02",
-      "entrants": "81",
+      "entrants": 81,
       "fullAddress": "800 Spring St NW, Atlanta, GA 30332, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/tippedOff17Haunted.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=800%20Spring%20St%20NW%2C%20Atlanta%2C%20GA%2030332%2C%20USA",

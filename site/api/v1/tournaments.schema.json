@@ -77,9 +77,10 @@
           }
         },
         "entrants": {
-          "type": "string",
-          "description": "Total registered entrants in the main singles bracket, as a decimal integer encoded in a string. May be the literal string \"TBD\" when registration has not opened or the count is not yet known, or an empty string in rare cases.",
-          "examples": ["245", "16", "TBD", ""]
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Total registered entrants in the main singles bracket. null if registration has not opened or the count is otherwise unknown.",
+          "examples": [245, 16, null]
         },
         "cityAndState": {
           "type": "string",

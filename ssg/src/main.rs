@@ -490,6 +490,10 @@ fn tournament_to_api(t: &Value) -> Value {
         t["image-url"].as_str().unwrap_or("")
     );
 
+    let entrants = t["entrants"]
+        .as_str()
+        .and_then(|s| s.parse::<u64>().ok());
+
     json!({
         "name": t["name"],
         "startggTournamentName": t["start.gg-tournament-name"],
@@ -497,7 +501,7 @@ fn tournament_to_api(t: &Value) -> Value {
         "startTimestamp": start_timestamp,
         "timezone": t["timezone"],
         "players": players,
-        "entrants": t["entrants"],
+        "entrants": entrants,
         "cityAndState": t["city-and-state"],
         "mapsLink": t["maps-link"],
         "fullAddress": t["full-address"],
