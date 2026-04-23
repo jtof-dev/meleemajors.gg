@@ -512,20 +512,20 @@ fn tournament_to_api(t: &Value) -> Value {
     json!({
         "name": t["name"],
         "startggTournamentName": t["start.gg-tournament-name"],
-        "dateString": t["date"],
         "startTimestamp": start_timestamp,
         "endTimestamp": end_timestamp,
+        "dateString": t["date"],
         "timezone": t["timezone"],
-        "players": players,
+        "top8StartTime": t["top8-start-time"],
         "entrants": entrants,
+        "players": players,
         "cityAndState": t["city-and-state"],
-        "mapsLink": t["maps-link"],
         "fullAddress": t["full-address"],
+        "mapsLink": t["maps-link"],
         "startggUrl": t["start.gg-url"],
         "streamUrl": t["stream-url"],
         "scheduleUrl": t["schedule-url"],
         "imageUrl": image_url,
-        "top8StartTime": t["top8-start-time"],
     })
 }
 

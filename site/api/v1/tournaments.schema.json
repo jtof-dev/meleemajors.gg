@@ -24,20 +24,20 @@
       "required": [
         "name",
         "startggTournamentName",
-        "dateString",
         "startTimestamp",
         "endTimestamp",
+        "dateString",
         "timezone",
-        "players",
+        "top8StartTime",
         "entrants",
+        "players",
         "cityAndState",
-        "mapsLink",
         "fullAddress",
+        "mapsLink",
         "startggUrl",
         "streamUrl",
         "scheduleUrl",
-        "imageUrl",
-        "top8StartTime"
+        "imageUrl"
       ],
       "additionalProperties": false,
       "properties": {
@@ -51,11 +51,6 @@
           "description": "Internal slug-like identifier derived from the tournament's start.gg URL. Stable across builds and safe to use as a key.",
           "examples": ["sapf2", "fullHouseSiege"]
         },
-        "dateString": {
-          "type": "string",
-          "description": "Pre-formatted human-readable date range intended for display (e.g. \"April 10 - April 12\"). Format is not machine-parseable; use startTimestamp for programmatic date handling.",
-          "examples": ["April 10 - April 12", "May 02 - May 03"]
-        },
         "startTimestamp": {
           "type": "string",
           "format": "date-time",
@@ -68,10 +63,25 @@
           "description": "RFC 3339 timestamp for when the tournament ends, as reported by start.gg. Reflected verbatim without any end-of-day rounding; consumers that want to filter past events should compare against this value directly.",
           "examples": ["2026-04-12T23:00:00+00:00"]
         },
+        "dateString": {
+          "type": "string",
+          "description": "Pre-formatted human-readable date range intended for display (e.g. \"April 10 - April 12\"). Format is not machine-parseable; use startTimestamp for programmatic date handling.",
+          "examples": ["April 10 - April 12", "May 02 - May 03"]
+        },
         "timezone": {
           "type": "string",
           "description": "IANA timezone name for the tournament venue. Pair with startTimestamp to render local times.",
           "examples": ["America/Los_Angeles", "Europe/Berlin"]
+        },
+        "top8StartTime": {
+          "type": "string",
+          "description": "Announced start time of Top 8, in the organizer's preferred format. Free-form; empty string if not yet scheduled."
+        },
+        "entrants": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Total registered entrants in the main singles bracket. null if registration has not opened or the count is otherwise unknown.",
+          "examples": [245, 16, null]
         },
         "players": {
           "type": "array",
@@ -83,27 +93,21 @@
             "description": "Player tag, or null if the slot is unannounced."
           }
         },
-        "entrants": {
-          "type": ["integer", "null"],
-          "minimum": 0,
-          "description": "Total registered entrants in the main singles bracket. null if registration has not opened or the count is otherwise unknown.",
-          "examples": [245, 16, null]
-        },
         "cityAndState": {
           "type": "string",
           "description": "Short locality string for display (city + state/region). Free-form; format varies by country.",
           "examples": ["San Diego, CA", "Hannover, NDS"]
+        },
+        "fullAddress": {
+          "type": "string",
+          "description": "Full postal address of the venue, as provided by the organizer. Free-form.",
+          "examples": ["Price Center, La Jolla, CA 92093, USA"]
         },
         "mapsLink": {
           "type": "string",
           "format": "uri",
           "description": "Google Maps search URL for the venue address. Derived from fullAddress.",
           "examples": ["https://www.google.com/maps/search/?api=1&query=..."]
-        },
-        "fullAddress": {
-          "type": "string",
-          "description": "Full postal address of the venue, as provided by the organizer. Free-form.",
-          "examples": ["Price Center, La Jolla, CA 92093, USA"]
         },
         "startggUrl": {
           "type": "string",
@@ -124,10 +128,6 @@
           "format": "uri",
           "description": "Absolute URL to the tournament's promotional card image hosted on meleemajors.gg.",
           "examples": ["https://meleemajors.gg/assets/cards/sapf2.webp"]
-        },
-        "top8StartTime": {
-          "type": "string",
-          "description": "Announced start time of Top 8, in the organizer's preferred format. Free-form; empty string if not yet scheduled."
         }
       }
     }
