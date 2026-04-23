@@ -117,10 +117,10 @@
           "description": "Canonical start.gg URL for the main Melee singles event page."
         },
         "startggDetailsUrl": {
-          "type": "string",
+          "type": ["string", "null"],
           "format": "uri",
-          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over startggUrl for general-purpose linking.",
-          "examples": ["https://www.start.gg/tournament/sapf-2/details"]
+          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over startggUrl for general-purpose linking. null if the details URL cannot be derived from startggUrl.",
+          "examples": ["https://www.start.gg/tournament/sapf-2/details", null]
         },
         "streamUrl": {
           "type": ["string", "null"],
