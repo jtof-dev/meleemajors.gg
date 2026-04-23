@@ -478,6 +478,7 @@ fn make_api(tournaments: &[Value]) {
     sorted.sort_by_key(|t| t["start-unix-timestamp"].as_i64().unwrap_or(i64::MAX));
     let api_tournaments: Vec<Value> = sorted.iter().map(tournament_to_api).collect();
     let payload = json!({
+        "$schema": "tournaments.schema.json",
         "lastUpdated": Utc::now().to_rfc3339(),
         "tournaments": api_tournaments,
     });

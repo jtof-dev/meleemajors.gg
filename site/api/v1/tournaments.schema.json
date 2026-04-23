@@ -7,6 +7,11 @@
   "required": ["lastUpdated", "tournaments"],
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "Reference to the JSON Schema this payload conforms to, resolved relative to the payload's own URL. Present so editors and validators can auto-discover the schema without hard-coding a host."
+    },
     "lastUpdated": {
       "type": "string",
       "format": "date-time",

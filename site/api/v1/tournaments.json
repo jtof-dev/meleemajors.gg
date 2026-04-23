@@ -1,4 +1,5 @@
 {
+  "$schema": "tournaments.schema.json",
   "lastUpdated": "2026-04-23T12:30:39.290500600+00:00",
   "tournaments": [
     {
