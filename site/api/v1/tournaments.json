@@ -1,9 +1,10 @@
 {
-  "lastUpdated": "2026-04-12T19:10:25.300027211+00:00",
+  "lastUpdated": "2026-04-23T11:38:26.268323900+00:00",
   "tournaments": [
     {
       "cityAndState": "Hannover, NDS",
       "dateString": "April 10 - April 12",
+      "endTimestamp": "2026-04-12T20:00:00+00:00",
       "entrants": 245,
       "fullAddress": "Lindener Marktpl. 1, 30449 Hannover, Deutschland",
       "imageUrl": "https://meleemajors.gg/assets/cards/sapf2.webp",
@@ -30,6 +31,7 @@
     {
       "cityAndState": "Pennsylvania",
       "dateString": "April 24 - April 26",
+      "endTimestamp": "2026-04-27T03:59:00+00:00",
       "entrants": 16,
       "fullAddress": "Pennsylvania, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/fullHouseSiege.webp",
@@ -56,7 +58,8 @@
     {
       "cityAndState": "San Diego, CA",
       "dateString": "May 02 - May 03",
-      "entrants": 277,
+      "endTimestamp": "2026-05-04T04:00:00+00:00",
+      "entrants": 335,
       "fullAddress": "Price Center, La Jolla, CA 92093, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/patSHouse5.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=Price%20Center%2C%20La%20Jolla%2C%20CA%2092093%2C%20USA",
@@ -82,7 +85,8 @@
     {
       "cityAndState": "Wautoma, WI",
       "dateString": "May 29 - June 01",
-      "entrants": 132,
+      "endTimestamp": "2026-06-01T17:00:00+00:00",
+      "entrants": 133,
       "fullAddress": "N1875 21st Ave, Wautoma, WI 54982, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/smashCampHeartlands.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=N1875%2021st%20Ave%2C%20Wautoma%2C%20WI%2054982%2C%20USA",
@@ -108,6 +112,7 @@
     {
       "cityAndState": "Vancouver, BC",
       "dateString": "June 05 - June 07",
+      "endTimestamp": "2026-06-08T05:00:00+00:00",
       "entrants": null,
       "fullAddress": "Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada",
       "imageUrl": "https://meleemajors.gg/assets/cards/battleOfBc87.webp",
@@ -134,6 +139,7 @@
     {
       "cityAndState": "Mississauga, ON",
       "dateString": "July 31 - August 02",
+      "endTimestamp": "2026-08-03T03:55:00+00:00",
       "entrants": null,
       "fullAddress": "5875 Airport Rd, Mississauga, ON L4V 1N1, Canada",
       "imageUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.webp",
@@ -160,6 +166,7 @@
     {
       "cityAndState": "Orlando, FL",
       "dateString": "August 14 - August 16",
+      "endTimestamp": "2026-08-17T02:00:00+00:00",
       "entrants": null,
       "fullAddress": "9939 Universal Blvd, Orlando, FL 32819, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/ceo2026.webp",
@@ -186,7 +193,8 @@
     {
       "cityAndState": "Sandusky, OH",
       "dateString": "September 11 - September 13",
-      "entrants": 101,
+      "endTimestamp": "2026-09-14T03:00:00+00:00",
+      "entrants": 109,
       "fullAddress": "7000 Kalahari Dr, Sandusky, OH 44870, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/riptide20264.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=7000%20Kalahari%20Dr%2C%20Sandusky%2C%20OH%2044870%2C%20USA",
@@ -212,7 +220,8 @@
     {
       "cityAndState": "Atlanta, GA",
       "dateString": "October 31 - November 02",
-      "entrants": 81,
+      "endTimestamp": "2026-11-02T06:00:00+00:00",
+      "entrants": 83,
       "fullAddress": "800 Spring St NW, Atlanta, GA 30332, USA",
       "imageUrl": "https://meleemajors.gg/assets/cards/tippedOff17Haunted.webp",
       "mapsLink": "https://www.google.com/maps/search/?api=1&query=800%20Spring%20St%20NW%2C%20Atlanta%2C%20GA%2030332%2C%20USA",

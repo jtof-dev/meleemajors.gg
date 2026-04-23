@@ -494,6 +494,12 @@ fn tournament_to_api(t: &Value) -> Value {
         .map(|dt| dt.to_rfc3339())
         .unwrap_or_default();
 
+    let end_timestamp = t["end-unix-timestamp"]
+        .as_i64()
+        .and_then(|ts| DateTime::from_timestamp(ts, 0))
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_default();
+
     let image_url = format!(
         "https://meleemajors.gg{}",
         t["image-url"].as_str().unwrap_or("")
@@ -508,6 +514,7 @@ fn tournament_to_api(t: &Value) -> Value {
         "startggTournamentName": t["start.gg-tournament-name"],
         "dateString": t["date"],
         "startTimestamp": start_timestamp,
+        "endTimestamp": end_timestamp,
         "timezone": t["timezone"],
         "players": players,
         "entrants": entrants,

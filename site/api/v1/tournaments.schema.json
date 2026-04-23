@@ -26,6 +26,7 @@
         "startggTournamentName",
         "dateString",
         "startTimestamp",
+        "endTimestamp",
         "timezone",
         "players",
         "entrants",
@@ -60,6 +61,12 @@
           "format": "date-time",
           "description": "RFC 3339 timestamp for when the tournament begins (typically the first day's check-in or first match). UTC-offset is the event's local offset.",
           "examples": ["2026-04-10T13:00:00+00:00"]
+        },
+        "endTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp for when the tournament ends, as reported by start.gg. Reflected verbatim without any end-of-day rounding; consumers that want to filter past events should compare against this value directly.",
+          "examples": ["2026-04-12T23:00:00+00:00"]
         },
         "timezone": {
           "type": "string",
