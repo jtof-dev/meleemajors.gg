@@ -446,7 +446,9 @@ fn make_calendar(calendar_ics: Calendar) {
 }
 
 fn make_api(tournaments: &[Value]) {
-    let api_tournaments: Vec<Value> = tournaments.iter().map(tournament_to_api).collect();
+    let mut sorted = tournaments.to_vec();
+    sorted.sort_by_key(|t| t["start-unix-timestamp"].as_i64().unwrap_or(i64::MAX));
+    let api_tournaments: Vec<Value> = sorted.iter().map(tournament_to_api).collect();
     let payload = json!({
         "lastUpdated": Utc::now().to_rfc3339(),
         "tournaments": api_tournaments,
