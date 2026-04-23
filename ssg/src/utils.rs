@@ -39,6 +39,10 @@ pub fn replace_placeholder_values(data: &Value, template: &str) -> String {
                 &match value {
                     Value::String(file_type_string) => file_type_string.to_owned(),
                     Value::Number(file_type_number) => file_type_number.to_string(),
+                    // Unannounced slots (e.g. players that haven't been revealed yet) are
+                    // stored as JSON null internally, but rendered as "TBD" in human-facing
+                    // templates (tournament cards, emails, calendar descriptions).
+                    Value::Null => "TBD".to_string(),
                     _ => panic!(),
                 },
             )

@@ -213,7 +213,7 @@ async fn scrape_data(
             .to_string();
     log_success("start.gg", "scraped top 8 players");
 
-    let featured_players_top_eight = featured_players_json
+    let featured_players_top_eight: Vec<Option<String>> = featured_players_json
         .as_array()
         .unwrap()
         .iter()
@@ -221,9 +221,9 @@ async fn scrape_data(
             result_featured_players.contains(&(player.as_str().unwrap().to_owned() + "\""))
         })
         .take(8)
-        .map(|player| player.as_str().unwrap())
-        .pad_using(8, |_| "TBD")
-        .collect::<Vec<&str>>();
+        .map(|player| Some(player.as_str().unwrap().to_string()))
+        .pad_using(8, |_| None)
+        .collect();
 
     let entrant_count = result_entrant_count["event"]["numEntrants"].as_number();
     let entrant_count_string = match entrant_count {
@@ -278,14 +278,14 @@ async fn scrape_data(
         "start-unix-timestamp": tournament_info["startAt"],
         "end-unix-timestamp": tournament_info["endAt"],
         "timezone": tournament_info["timezone"],
-        "player0": check_override(tournament, featured_players_top_eight[0].to_string(), "player0"),
-        "player1": check_override(tournament, featured_players_top_eight[1].to_string(), "player1"),
-        "player2": check_override(tournament, featured_players_top_eight[2].to_string(), "player2"),
-        "player3": check_override(tournament, featured_players_top_eight[3].to_string(), "player3"),
-        "player4": check_override(tournament, featured_players_top_eight[4].to_string(), "player4"),
-        "player5": check_override(tournament, featured_players_top_eight[5].to_string(), "player5"),
-        "player6": check_override(tournament, featured_players_top_eight[6].to_string(), "player6"),
-        "player7": check_override(tournament, featured_players_top_eight[7].to_string(), "player7"),
+        "player0": check_override_nullable(tournament, featured_players_top_eight[0].clone(), "player0"),
+        "player1": check_override_nullable(tournament, featured_players_top_eight[1].clone(), "player1"),
+        "player2": check_override_nullable(tournament, featured_players_top_eight[2].clone(), "player2"),
+        "player3": check_override_nullable(tournament, featured_players_top_eight[3].clone(), "player3"),
+        "player4": check_override_nullable(tournament, featured_players_top_eight[4].clone(), "player4"),
+        "player5": check_override_nullable(tournament, featured_players_top_eight[5].clone(), "player5"),
+        "player6": check_override_nullable(tournament, featured_players_top_eight[6].clone(), "player6"),
+        "player7": check_override_nullable(tournament, featured_players_top_eight[7].clone(), "player7"),
         "entrants": entrant_count_string,
         "city-and-state": check_override(tournament, city_and_state.to_string(), "city-and-state"),
         "maps-link": check_override(
@@ -309,6 +309,19 @@ fn check_override(tournament: &Value, default_value: String, default_key: &str) 
         return format!("{}", obj_tournament[default_key].as_str().unwrap());
     }
     return format!("{}", default_value);
+}
+
+fn check_override_nullable(
+    tournament: &Value,
+    default_value: Option<String>,
+    default_key: &str,
+) -> Option<String> {
+    tournament
+        .as_object()
+        .and_then(|obj| obj.get(default_key))
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+        .or(default_value)
 }
 
 async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
@@ -471,12 +484,8 @@ fn validate_api_payload(payload: &Value) {
 }
 
 fn tournament_to_api(t: &Value) -> Value {
-    let players: Vec<&str> = (0..8)
-        .map(|i| {
-            t[format!("player{}", i)]
-                .as_str()
-                .unwrap_or("TBD")
-        })
+    let players: Vec<Value> = (0..8)
+        .map(|i| t[format!("player{}", i)].clone())
         .collect();
 
     let start_timestamp = t["start-unix-timestamp"]

@@ -68,12 +68,12 @@
         },
         "players": {
           "type": "array",
-          "description": "Fixed-length list of the top 8 seeded/notable entrants, ordered by seed. Slots that have not yet been announced contain the literal string \"TBD\" (which is currently indistinguishable from a player whose tag is literally \"TBD\").",
+          "description": "Fixed-length list of the top 8 seeded/notable entrants, ordered by seed. Slots that have not yet been announced are null.",
           "minItems": 8,
           "maxItems": 8,
           "items": {
-            "type": "string",
-            "description": "Player tag, or the literal string \"TBD\" if the slot is unannounced."
+            "type": ["string", "null"],
+            "description": "Player tag, or null if the slot is unannounced."
           }
         },
         "entrants": {
