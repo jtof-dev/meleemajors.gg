@@ -1,28 +1,6 @@
 [
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/sapf-2/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
-  },
-  {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/full-house-siege/event/main-bracket",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": "",
-    "city-and-state": "Pennsylvania"
-  },
-  {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/pat-s-house-5/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
-  },
-  {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/smash-camp-heartlands/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": "",
     "player0": "Joshman",
     "player1": "Salt",
     "player2": "Khryke",
@@ -33,34 +11,19 @@
     "player7": "Lowercase hero"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/battle-of-bc-8-7/event/super-smash-bros-melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/battle-of-bc-8-7/event/super-smash-bros-melee-singles"
   },
   {
     "start.gg-melee-singles-url": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": "",
     "name": "Get On My Level 2026"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles",
-    "top8-start-time": "",
-    "schedule-url": "",
-    "stream-url": ""
+    "start.gg-melee-singles-url": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles"
   }
 ]

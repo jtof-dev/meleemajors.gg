@@ -1,16 +1,15 @@
 [
   {
-    "start.gg-melee-singles-url": "url to melee singles",
-    "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
-    "schedule-url": "either empty quotes or url or path to image",
-    "stream-url": "either empty quotes or url to stream",
+    // The only required field. Everything else is an optional override of
+    // values otherwise pulled from the start.gg API.
+    "start.gg-melee-singles-url": "url to melee singles"
   },
   {
     "start.gg-melee-singles-url": "url to melee singles",
-    "top8-start-time": "YYYY-MM-DD hh:mmPM",
-    "schedule-url": "either empty quotes or url or path to image",
-    "stream-url": "either empty quotes or url to stream",
-    "name": "name override", // these are all the manual value overrides currently written into the ssg
+    "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
+    "schedule-url": "url or path to image",
+    "stream-url": "url to stream (defaults to first stream listed on start.gg)",
+    "name": "name override",
     "player0": "player0 override",
     "player1": "player1 override",
     "player2": "player2 override",
@@ -19,6 +18,6 @@
     "player5": "player5 override",
     "player6": "player6 override",
     "player7": "player7 override",
-    "city-and-state": "city-and-state override",
-  },
+    "city-and-state": "city-and-state override"
+  }
 ]

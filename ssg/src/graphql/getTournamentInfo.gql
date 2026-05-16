@@ -13,6 +13,10 @@ query TournamentQuery($slug: String, $slug_event: String) {
       height
       type
     }
+    streams {
+      streamName
+      streamSource
+    }
   }
   event(slug: $slug_event) {
     id
