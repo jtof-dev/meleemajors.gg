@@ -39,7 +39,9 @@ async fn main() {
     }
 
     if args.contains(&String::from("--update-rankings")) {
-        update_rankings::main().await.expect("Failed to update rankings");
+        update_rankings::main()
+            .await
+            .expect("Failed to update rankings");
         return;
     }
     // Whether to exit early for debug after a single iteration without writing
@@ -292,9 +294,10 @@ async fn scrape_data(
         format!("/assets/cards/{thumb_name}.webp")
     });
 
-    let stream_url = tournament["stream-url"].as_str().unwrap();
-    let schedule_url = tournament["schedule-url"].as_str().unwrap();
+    let stream_url = resolve_stream_url(tournament, &tournament_info["streams"]);
+    let schedule_url = tournament["schedule-url"].as_str().unwrap_or("");
 
+    let stream_link_class = if stream_url.is_empty() { " hidden" } else { "" };
     let image_url = format!("/assets/cards/{}.webp", name_camel);
 
     json!({
@@ -326,9 +329,56 @@ async fn scrape_data(
         "stream-url": stream_url,
         "schedule-url": schedule_url,
         "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
-        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""},
+        "stream-link-class": stream_link_class,
         "top8-start-time": tournament["top8-start-time"],
     })
+}
+
+// Manual `stream-url` override in tournaments.json wins when set to a non-empty
+// string; otherwise the first stream returned by start.gg is used.
+fn resolve_stream_url(tournament: &Value, streams: &Value) -> String {
+    if let Some(override_url) = tournament.get("stream-url").and_then(|v| v.as_str()) {
+        if !override_url.is_empty() {
+            return override_url.to_string();
+        }
+    }
+
+    streams
+        .as_array()
+        .and_then(|arr| arr.iter().find_map(stream_to_url))
+        .unwrap_or_default()
+}
+
+fn stream_to_url(stream: &Value) -> Option<String> {
+    let name = stream.get("streamName").and_then(|v| v.as_str())?;
+    if name.is_empty() {
+        return None;
+    }
+    match stream.get("streamSource").and_then(|v| v.as_str()) {
+        Some("TWITCH") => Some(format!("https://www.twitch.tv/{name}")),
+        Some("YOUTUBE") => Some(format!("https://www.youtube.com/{name}")),
+        Some(other @ ("HITBOX" | "STREAMME" | "MIXER")) => {
+            log_warn(
+                "start.gg",
+                &format!("deprecated streamSource {other:?} for stream {name:?}; ignoring"),
+            );
+            None
+        }
+        Some(other) => {
+            log_warn(
+                "start.gg",
+                &format!("unrecognized streamSource {other:?} for stream {name:?}; ignoring"),
+            );
+            None
+        }
+        None => {
+            log_warn(
+                "start.gg",
+                &format!("missing streamSource for stream {name:?}; ignoring"),
+            );
+            None
+        }
+    }
 }
 
 fn check_override(tournament: &Value, default_value: String, default_key: &str) -> String {
@@ -515,9 +565,7 @@ fn validate_api_payload(payload: &Value) {
 }
 
 fn tournament_to_api(t: &Value) -> Value {
-    let players: Vec<Value> = (0..8)
-        .map(|i| t[format!("player{}", i)].clone())
-        .collect();
+    let players: Vec<Value> = (0..8).map(|i| t[format!("player{}", i)].clone()).collect();
 
     let start_timestamp = t["start-unix-timestamp"]
         .as_i64()
@@ -541,9 +589,7 @@ fn tournament_to_api(t: &Value) -> Value {
         .map(|path| Value::String(format!("https://meleemajors.gg{path}")))
         .unwrap_or(Value::Null);
 
-    let entrants = t["entrants"]
-        .as_str()
-        .and_then(|s| s.parse::<u64>().ok());
+    let entrants = t["entrants"].as_str().and_then(|s| s.parse::<u64>().ok());
 
     let non_empty = |key: &str| -> Value {
         match t[key].as_str() {
