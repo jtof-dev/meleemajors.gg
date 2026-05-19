@@ -90,11 +90,13 @@ async fn main() {
             .ok();
     }
 
+    // scrape all tournament data
+    let mut all_tournament_data: Vec<Value> = Vec::new();
     match json_tournaments {
         Value::Array(vec) => {
-            for tournament in vec.iter().enumerate() {
+            for tournament in vec.iter() {
                 let tournament_data = scrape_data(
-                    tournament.1,
+                    tournament,
                     query_client.clone(),
                     &query_tournament_info,
                     &query_tournament_entrants,
@@ -104,52 +106,62 @@ async fn main() {
                 )
                 .await;
 
-                // println!("{}", tournament_data);
-
-                if tournament.0 == 0 {
-                    index_html =
-                        replace_placeholder_values(&tournament_data, &template_header_html);
-                }
-
-                index_html.push_str(&replace_placeholder_values(
-                    &tournament_data,
-                    &template_card,
-                ));
-
-                calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
-                log_success("calendar", "generated ICS event");
-
-                api_tournaments.push(tournament_data.clone());
-
-                if let Some(ref service) = mailing_list {
-                    service
-                        .schedule_reminder_broadcast(&tournament_data)
-                        .await
-                        .or_else(|e| {
-                            log_error("email", "Failed to schedule reminder broadcast");
-                            log_red(&e.to_string());
-                            Err(e)
-                        })
-                        .ok();
-                    service
-                        .schedule_top8_broadcast(&tournament_data)
-                        .await
-                        .or_else(|e| {
-                            log_error("email", "Failed to schedule top-8 broadcast");
-                            log_red(&e.to_string());
-                            Err(e)
-                        })
-                        .ok();
-                } else {
-                    log_warn("email", "Skipping email scheduling");
-                }
-
-                if bail {
-                    std::process::exit(0)
-                }
+                all_tournament_data.push(tournament_data);
             }
         }
         _ => panic!("root must be an array"),
+    }
+
+    // filter out past tournaments and sort by date (soonest first)
+    let now = Utc::now().timestamp();
+    all_tournament_data.retain(|t| match t["end-unix-timestamp"].as_i64() {
+        Some(end) => end > now,
+        None => true,
+    });
+    all_tournament_data.sort_by_key(|t| t["start-unix-timestamp"].as_i64().unwrap_or(i64::MAX));
+
+    for (i, tournament_data) in all_tournament_data.iter().enumerate() {
+        if i == 0 {
+            index_html =
+                replace_placeholder_values(tournament_data, &template_header_html);
+        }
+
+        index_html.push_str(&replace_placeholder_values(
+            tournament_data,
+            &template_card,
+        ));
+
+        calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
+        log_success("calendar", "generated ICS event");
+
+        api_tournaments.push(tournament_data.clone());
+
+        if let Some(ref service) = mailing_list {
+            service
+                .schedule_reminder_broadcast(tournament_data)
+                .await
+                .or_else(|e| {
+                    log_error("email", "Failed to schedule reminder broadcast");
+                    log_red(&e.to_string());
+                    Err(e)
+                })
+                .ok();
+            service
+                .schedule_top8_broadcast(tournament_data)
+                .await
+                .or_else(|e| {
+                    log_error("email", "Failed to schedule top-8 broadcast");
+                    log_red(&e.to_string());
+                    Err(e)
+                })
+                .ok();
+        } else {
+            log_warn("email", "Skipping email scheduling");
+        }
+
+        if bail {
+            std::process::exit(0)
+        }
     }
     index_html.push_str(&format!("\n{}", index_footer_html));
     make_site(&index_html);
