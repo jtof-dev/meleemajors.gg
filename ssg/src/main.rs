@@ -10,6 +10,7 @@ use fs_extra::{copy_items, dir};
 use gql_client::{Client, ClientConfig};
 use icalendar::{Calendar, Class, Component, Event, EventLike};
 use itertools::Itertools;
+use mailing_list::ScheduleBroadcastOutcome;
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::{HashMap, HashSet};
@@ -112,14 +113,31 @@ async fn main() {
         _ => panic!("root must be an array"),
     }
 
+    log_heading("Preparing output");
+
     // filter out past tournaments and sort by date (soonest first)
     let now = Utc::now().timestamp();
-    all_tournament_data.retain(|t| match t["end-unix-timestamp"].as_i64() {
-        Some(end) => end > now,
-        None => true,
-    });
+    let mut upcoming_tournament_data: Vec<Value> = Vec::new();
+    for tournament_data in all_tournament_data {
+        match tournament_data["end-unix-timestamp"].as_i64() {
+            Some(end) if end <= now => {
+                let url = tournament_data["start.gg-url"]
+                    .as_str()
+                    .unwrap_or("unknown URL");
+                let ended = unix_timestamp_to_log_date(end);
+                log_warn("data", &format!("omitting {url} ended {ended}"));
+            }
+            _ => upcoming_tournament_data.push(tournament_data),
+        }
+    }
+    let mut all_tournament_data = upcoming_tournament_data;
     all_tournament_data.sort_by_key(|t| t["start-unix-timestamp"].as_i64().unwrap_or(i64::MAX));
+    log_success(
+        "data",
+        &format!("{} upcoming tournaments", all_tournament_data.len()),
+    );
 
+    log_heading("Generating site");
     for (i, tournament_data) in all_tournament_data.iter().enumerate() {
         if i == 0 {
             index_html =
@@ -132,32 +150,7 @@ async fn main() {
         ));
 
         calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
-        log_success("calendar", "generated ICS event");
-
         api_tournaments.push(tournament_data.clone());
-
-        if let Some(ref service) = mailing_list {
-            service
-                .schedule_reminder_broadcast(tournament_data)
-                .await
-                .or_else(|e| {
-                    log_error("email", "Failed to schedule reminder broadcast");
-                    log_red(&e.to_string());
-                    Err(e)
-                })
-                .ok();
-            service
-                .schedule_top8_broadcast(tournament_data)
-                .await
-                .or_else(|e| {
-                    log_error("email", "Failed to schedule top-8 broadcast");
-                    log_red(&e.to_string());
-                    Err(e)
-                })
-                .ok();
-        } else {
-            log_warn("email", "Skipping email scheduling");
-        }
 
         if bail {
             std::process::exit(0)
@@ -165,10 +158,66 @@ async fn main() {
     }
     index_html.push_str(&format!("\n{}", index_footer_html));
     make_site(&index_html);
+    log_success("html", "wrote index.html");
     make_calendar(calendar_ics);
+    log_success(
+        "calendar",
+        &format!("generated {} ICS events", api_tournaments.len()),
+    );
     make_api(&api_tournaments);
+
+    log_heading("Scheduling email");
+    if let Some(ref service) = mailing_list {
+        for tournament_data in all_tournament_data.iter() {
+            schedule_tournament_email(service, tournament_data).await;
+        }
+    } else {
+        log_warn("email", "skipping email scheduling");
+    }
+
     cleanup_images(all_images);
     open_in_browser();
+}
+
+async fn schedule_tournament_email(
+    service: &mailing_list::MailingListService,
+    tournament_data: &Value,
+) {
+    let tournament_name = tournament_data["name"]
+        .as_str()
+        .unwrap_or("unknown tournament");
+
+    match service.schedule_reminder_broadcast(tournament_data).await {
+        Ok(ScheduleBroadcastOutcome::Created) => {
+            log_success("email", &format!("reminder created for {tournament_name}"));
+        }
+        Ok(ScheduleBroadcastOutcome::Skipped(reason)) => {
+            log_warn(
+                "email",
+                &format!("reminder skipped for {tournament_name}: {reason}"),
+            );
+        }
+        Err(e) => {
+            log_error("email", &format!("reminder failed for {tournament_name}"));
+            log_red(&e.to_string());
+        }
+    }
+
+    match service.schedule_top8_broadcast(tournament_data).await {
+        Ok(ScheduleBroadcastOutcome::Created) => {
+            log_success("email", &format!("top 8 created for {tournament_name}"));
+        }
+        Ok(ScheduleBroadcastOutcome::Skipped(reason)) => {
+            log_warn(
+                "email",
+                &format!("top 8 skipped for {tournament_name}: {reason}"),
+            );
+        }
+        Err(e) => {
+            log_error("email", &format!("top 8 failed for {tournament_name}"));
+            log_red(&e.to_string());
+        }
+    }
 }
 
 async fn scrape_data(
@@ -438,6 +487,12 @@ fn unix_timestamp_to_readable_date(date: &Value, timezone: Tz) -> String {
         .with_timezone(&timezone)
         .format("%B %d")
         .to_string()
+}
+
+fn unix_timestamp_to_log_date(timestamp: i64) -> String {
+    DateTime::from_timestamp(timestamp, 0)
+        .map(|date| date.format("%B %-d").to_string())
+        .unwrap_or_else(|| format!("invalid timestamp {timestamp}"))
 }
 
 fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
