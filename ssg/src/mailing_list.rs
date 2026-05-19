@@ -11,6 +11,11 @@ use reqwest::{
 };
 use serde_json::{json, to_string_pretty, Value};
 
+pub enum ScheduleBroadcastOutcome {
+    Created,
+    Skipped(&'static str),
+}
+
 /// Holds all the state and methods needed to interact with a third-party email
 /// provider API for scheduling tournament reminder emails.
 pub struct MailingListService {
@@ -45,7 +50,10 @@ impl MailingListService {
     }
 
     /// Schedule a reminder email for 5 days before the tournament starts
-    pub async fn schedule_reminder_broadcast(&self, tournament_data: &Value) -> Result<()> {
+    pub async fn schedule_reminder_broadcast(
+        &self,
+        tournament_data: &Value,
+    ) -> Result<ScheduleBroadcastOutcome> {
         // Determine send time (5 days before tournament start)
         let unix_start_time = tournament_data["start-unix-timestamp"]
             .as_i64()
@@ -72,17 +80,20 @@ impl MailingListService {
 
         self.create_broadcast(&send_time, &subject, &content)
             .await?;
-        log_success("email", "reminder broadcast created");
-        Ok(())
+        Ok(ScheduleBroadcastOutcome::Created)
     }
 
     /// Schedule a reminder email for the start of Top 8
-    pub async fn schedule_top8_broadcast(&self, tournament_data: &Value) -> Result<()> {
+    pub async fn schedule_top8_broadcast(
+        &self,
+        tournament_data: &Value,
+    ) -> Result<ScheduleBroadcastOutcome> {
         // Parse top 8 start time
         let top8_start_time_str = tournament_data["top8-start-time"].as_str().unwrap_or("");
         if top8_start_time_str.is_empty() {
-            log_warn("email", "missing top 8 start time");
-            return Ok(());
+            return Ok(ScheduleBroadcastOutcome::Skipped(
+                "missing top 8 start time",
+            ));
         }
         let top8_datetime_format = "%Y-%m-%d %I:%M%P"; // e.g. "2024-10-06 3:00PM"
         let timezone: Tz = tournament_data["timezone"]
@@ -108,8 +119,7 @@ impl MailingListService {
 
         self.create_broadcast(&top8_start_time, &subject, &content)
             .await?;
-        log_success("email", "top 8 broadcast created");
-        Ok(())
+        Ok(ScheduleBroadcastOutcome::Created)
     }
 
     /// Delete all scheduled (unsent) broadcasts, paginating through all results.
