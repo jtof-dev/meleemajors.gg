@@ -498,6 +498,12 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
                 ))
                 .class(Class::Public)
                 .location(tournament_data["full-address"].as_str().unwrap())
+                .uid(&format!(
+                    "{}@meleemajors.gg",
+                    tournament_data["start.gg-tournament-name"]
+                        .as_str()
+                        .unwrap()
+                ))
                 .done(),
         )
         .done();
