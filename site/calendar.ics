@@ -5,31 +5,31 @@ CALSCALE:GREGORIAN
 NAME:upcoming melee majors
 X-WR-CALNAME:upcoming melee majors
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/smash-camp-heartlands/event/mel
- ee-singles\n\nattendees: 135\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
+ ee-singles\n\nattendees: 136\n\nnotable entrants:\n\nJoshman\nSalt\nKhryke\
  nBen\nPreeminent\nSlowking\nKacey\nLowercase hero\n
 DTEND;VALUE=DATE:20260601
 DTSTART;VALUE=DATE:20260529
 LOCATION:N1875 21st Ave, Wautoma, WI 54982, USA
 SUMMARY:Smash Camp: Heartlands
-UID:b29f5261-c580-45b3-8b80-73db5703949e
+UID:a2a3212c-f87e-53d0-883b-44f0fe7c143d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/battle-of-bc-8-7/event/super-sm
- ash-bros-melee-singles\n\nattendees: 227\n\nnotable entrants:\n\nZain\nHung
+ ash-bros-melee-singles\n\nattendees: 229\n\nnotable entrants:\n\nZain\nHung
  rybox\nJoshman\nmoky\nAxe\nJmook\nWizzrobe\nNicki\n
 DTEND;VALUE=DATE:20260608
 DTSTART;VALUE=DATE:20260605
 LOCATION:Canada Place, 999 Canada Pl, Vancouver, BC V6C 3E1, Canada
 SUMMARY:Battle of BC 8
-UID:9a5f6e36-5830-4511-862c-8bc3b5ba5f29
+UID:ffe95a73-1f79-56f1-bd63-91b5f99ef486
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/get-on-my-level-2026-canadian-f
  ighting-game-championships/event/super-smash-bros-melee-singles\n\nattendee
@@ -38,10 +38,22 @@ DTEND;VALUE=DATE:20260803
 DTSTART;VALUE=DATE:20260731
 LOCATION:5875 Airport Rd, Mississauga, ON L4V 1N1, Canada
 SUMMARY:Get On My Level 2026
-UID:530a5284-cfed-4e5a-87d1-bce26032b244
+UID:a6cf355b-fd6b-5230-8d3e-8f225cd9328f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
+CLASS:PUBLIC
+DESCRIPTION:https://www.start.gg/tournament/supernova-2026/event/melee-1v1-
+ singles\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\n
+ TBD\nTBD\nTBD\n
+DTEND;VALUE=DATE:20260810
+DTSTART;VALUE=DATE:20260806
+LOCATION:1 W Pratt St, Baltimore, MD 21201, USA
+SUMMARY:Supernova 2026
+UID:063ee009-f6a4-55af-8644-c449d23dd86d
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/ceo-2026/event/super-smash-bros
  -melee\n\nattendees: TBD\n\nnotable entrants:\n\nTBD\nTBD\nTBD\nTBD\nTBD\nT
@@ -50,10 +62,10 @@ DTEND;VALUE=DATE:20260817
 DTSTART;VALUE=DATE:20260814
 LOCATION:9939 Universal Blvd, Orlando, FL 32819, USA
 SUMMARY:CEO 2026
-UID:da98aeca-7d4c-4cdc-a489-d90e31b735f7
+UID:f73a79e1-aca7-5d9e-b84d-a02a8394d638
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/riptide-2026-4/event/melee-sing
  les\n\nattendees: 130\n\nnotable entrants:\n\nBen\nDawson\nTBD\nTBD\nTBD\nT
@@ -62,10 +74,10 @@ DTEND;VALUE=DATE:20260914
 DTSTART;VALUE=DATE:20260911
 LOCATION:7000 Kalahari Dr, Sandusky, OH 44870, USA
 SUMMARY:Riptide 2026
-UID:d5766404-1687-46b4-a2b8-30b9f582bdac
+UID:b99e4686-73f4-5a88-b269-48e64117d118
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260516T181531Z
+DTSTAMP:20260519T135823Z
 CLASS:PUBLIC
 DESCRIPTION:https://www.start.gg/tournament/tipped-off-17-haunted/event/mel
  ee-singles\n\nattendees: 88\n\nnotable entrants:\n\nZain\nCody Schwab\nHung
@@ -74,6 +86,6 @@ DTEND;VALUE=DATE:20261102
 DTSTART;VALUE=DATE:20261031
 LOCATION:800 Spring St NW, Atlanta, GA 30332, USA
 SUMMARY:Tipped Off 17: Haunted
-UID:7f265694-ca5e-48b5-8bd4-48b5bba5fd58
+UID:2ddda26a-9942-5ced-9e21-53e28df27efc
 END:VEVENT
 END:VCALENDAR

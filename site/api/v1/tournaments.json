@@ -1,6 +1,6 @@
 {
   "$schema": "tournaments.schema.json",
-  "lastUpdated": "2026-05-16T18:15:31.109523200+00:00",
+  "lastUpdated": "2026-05-19T13:58:23.428381500+00:00",
   "tournaments": [
     {
       "name": "Smash Camp: Heartlands",
@@ -10,7 +10,7 @@
       "dateString": "May 29 - June 01",
       "timezone": "America/Chicago",
       "top8StartTime": null,
-      "entrants": 135,
+      "entrants": 136,
       "players": [
         "Joshman",
         "Salt",
@@ -39,7 +39,7 @@
       "dateString": "June 05 - June 07",
       "timezone": "America/Vancouver",
       "top8StartTime": null,
-      "entrants": 227,
+      "entrants": 229,
       "players": [
         "Zain",
         "Hungrybox",
@@ -88,6 +88,35 @@
       "scheduleUrl": null,
       "imageUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.webp",
       "thumbnailUrl": "https://meleemajors.gg/assets/cards/getOnMyLevel2026CanadianFightingGameChampionships.thumbnail.webp"
+    },
+    {
+      "name": "Supernova 2026",
+      "startggTournamentName": "supernova2026",
+      "startTimestamp": "2026-08-06T16:00:00+00:00",
+      "endTimestamp": "2026-08-10T01:00:00+00:00",
+      "dateString": "August 06 - August 09",
+      "timezone": "America/New_York",
+      "top8StartTime": null,
+      "entrants": null,
+      "players": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "cityAndState": "Baltimore, MD",
+      "fullAddress": "1 W Pratt St, Baltimore, MD 21201, USA",
+      "mapsLink": "https://www.google.com/maps/search/?api=1&query=1%20W%20Pratt%20St%2C%20Baltimore%2C%20MD%2021201%2C%20USA",
+      "startggUrl": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles",
+      "startggDetailsUrl": "https://www.start.gg/tournament/supernova-2026/details",
+      "streamUrl": "https://www.twitch.tv/vgbootcamp",
+      "scheduleUrl": null,
+      "imageUrl": "https://meleemajors.gg/assets/cards/supernova2026.webp",
+      "thumbnailUrl": "https://meleemajors.gg/assets/cards/supernova2026.thumbnail.webp"
     },
     {
       "name": "CEO 2026",
