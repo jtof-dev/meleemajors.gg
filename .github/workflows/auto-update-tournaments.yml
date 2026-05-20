@@ -1,0 +1,60 @@
+name: Auto-update tournament data
+
+on:
+  schedule:
+    # Runs once a day at 03:17 UTC.
+    # We avoid 0 * * * * and other "round number" schedules when possible
+    # to improve reliability and reduces queue delays.
+    - cron: '17 3 * * *'
+
+  workflow_dispatch:
+
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            ssg/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - working-directory: ssg
+        env:
+          STARTGGAPI: ${{ secrets.STARTGGAPI }}
+          KIT_V3_API_SECRET: ${{ secrets.KIT_V3_API_SECRET }}
+        run: cargo run
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'site/'
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

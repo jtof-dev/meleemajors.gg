@@ -157,6 +157,7 @@ async fn main() {
         }
     }
     index_html.push_str(&format!("\n{}", index_footer_html));
+    cleanup_images(&image_file_names(&all_tournament_data));
     make_site(&index_html);
     log_success("html", "wrote index.html");
     make_calendar(calendar_ics);
@@ -175,7 +176,6 @@ async fn main() {
         log_warn("email", "skipping email scheduling");
     }
 
-    cleanup_images(all_images);
     open_in_browser();
 }
 
@@ -498,6 +498,7 @@ fn unix_timestamp_to_log_date(timestamp: i64) -> String {
 fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
 
+    fs::create_dir_all(absolute_path("cards")).unwrap();
     let image_path = absolute_path(&format!("cards/{name}.webp"));
 
     image_data.insert(format!("{name}.webp"));
@@ -583,7 +584,12 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
 
 fn make_site(index_html: &str) {
     fs::write(absolute_path("../../site/index.html"), index_html).unwrap();
-    fs::remove_dir_all(absolute_path("../../site/assets/cards")).unwrap();
+    let site_cards_path = absolute_path("../../site/assets/cards");
+    match fs::remove_dir_all(&site_cards_path) {
+        Ok(_) => {}
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+        Err(e) => panic!("failed to remove {site_cards_path}: {e}"),
+    }
 
     copy_items(
         &[absolute_path("cards")],
@@ -703,19 +709,36 @@ fn tournament_to_api(t: &Value) -> Value {
     })
 }
 
-fn cleanup_images(data: HashSet<String>) {
-    let images = fs::read_dir(absolute_path("../../site/assets/cards")).unwrap();
+fn image_file_names(tournaments: &[Value]) -> HashSet<String> {
+    let mut image_names = HashSet::new();
+    for tournament in tournaments {
+        for key in ["image-url", "image-url-thumbnail"] {
+            if let Some(image_url) = tournament[key].as_str() {
+                if let Some(file_name) = image_url.split('/').next_back() {
+                    image_names.insert(file_name.to_string());
+                }
+            }
+        }
+    }
+
+    image_names
+}
+
+fn cleanup_images(data: &HashSet<String>) {
+    let cards_path = absolute_path("cards");
+    fs::create_dir_all(&cards_path).unwrap();
+
+    let images = fs::read_dir(cards_path).unwrap();
     images.for_each(|image| {
-        let image_str = image
-            .unwrap()
-            .path()
+        let image_path = image.unwrap().path();
+        let image_str = image_path
             .file_name()
             .unwrap()
             .to_str()
             .unwrap()
             .to_string();
         if !data.contains(&image_str) {
-            fs::remove_file(format!("cards/{image_str}")).ok();
+            fs::remove_file(image_path).ok();
         };
     })
 }

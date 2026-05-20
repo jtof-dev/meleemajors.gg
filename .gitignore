@@ -3,3 +3,10 @@ ssg/target
 ssg/src/run.sh
 ssg/.env
 .vscode/settings.json
+# Generated build output from SSG (regenerated daily by CI)
+site/index.html
+site/calendar.ics
+site/api/v1/tournaments.json
+site/assets/cards/
+ssg/src/cards/
+
