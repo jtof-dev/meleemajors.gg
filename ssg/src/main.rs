@@ -29,10 +29,23 @@ mod mailing_list;
 mod update_rankings;
 mod utils;
 
+fn read_startgg_api_token() -> String {
+    let token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
+    let token = token.trim();
+    if token.is_empty() {
+        panic!("STARTGGAPI is set but empty. Check the GitHub Actions secret value.");
+    }
+    if token.contains('=') || token.starts_with("STARTGGAPI") {
+        panic!("STARTGGAPI should contain only the token value, not `STARTGGAPI=...`.");
+    }
+
+    token.to_string()
+}
+
 #[tokio::main]
 async fn main() {
     dotenv().ok(); // Read vars from .env file if present
-    let api_token = env::var("STARTGGAPI").expect("STARTGGAPI environmental variable not found!");
+    let api_token = read_startgg_api_token();
 
     let args: Vec<String> = std::env::args().collect();
     if args.contains(&String::from("--generate")) {
@@ -107,7 +120,7 @@ async fn main() {
                     &mut all_images,
                 )
                 .await
-                .unwrap_or_else(|e| panic!("{e}"));
+                    .unwrap_or_else(|e| panic!("{e}"));
 
                 all_tournament_data.push(tournament_data);
             }
