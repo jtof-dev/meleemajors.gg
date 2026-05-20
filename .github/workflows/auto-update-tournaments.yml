@@ -15,6 +15,7 @@ on:
       - 'ssg/src/tournaments.json'
 
 permissions:
+  contents: read
   pages: write
   id-token: write
 
