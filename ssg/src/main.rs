@@ -498,6 +498,7 @@ fn unix_timestamp_to_log_date(timestamp: i64) -> String {
 fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
 
+    fs::create_dir_all(absolute_path("cards")).unwrap();
     let image_path = absolute_path(&format!("cards/{name}.webp"));
 
     image_data.insert(format!("{name}.webp"));
@@ -583,7 +584,12 @@ fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Cal
 
 fn make_site(index_html: &str) {
     fs::write(absolute_path("../../site/index.html"), index_html).unwrap();
-    fs::remove_dir_all(absolute_path("../../site/assets/cards")).unwrap();
+    let site_cards_path = absolute_path("../../site/assets/cards");
+    match fs::remove_dir_all(&site_cards_path) {
+        Ok(_) => {}
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+        Err(e) => panic!("failed to remove {site_cards_path}: {e}"),
+    }
 
     copy_items(
         &[absolute_path("cards")],
