@@ -14,6 +14,7 @@ use mailing_list::ScheduleBroadcastOutcome;
 use regex::Regex;
 use serde_json::{json, Value};
 use std::collections::{HashMap, HashSet};
+use std::fmt::Debug;
 use std::time::Duration;
 use std::{env, fs};
 use tokio::time::sleep;
@@ -105,7 +106,8 @@ async fn main() {
                     &json_featured_players,
                     &mut all_images,
                 )
-                .await;
+                .await
+                .unwrap_or_else(|e| panic!("{e}"));
 
                 all_tournament_data.push(tournament_data);
             }
@@ -228,7 +230,7 @@ async fn scrape_data(
     query_featured_players: &str,
     featured_players_json: &Value,
     all_images: &mut HashSet<String>,
-) -> Value {
+) -> Result<Value, String> {
     let melee_singles_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
     let event_slug = Regex::new(r"^(https?://)?(www\.)?start\.gg/")
         .unwrap()
@@ -246,7 +248,7 @@ async fn scrape_data(
         query_tournament_info,
         tournament_info_vars.clone(),
     )
-    .await;
+    .await?;
 
     let tournament_info = &result_tournament_info["tournament"];
     // println!("{tournament_info}");
@@ -264,7 +266,7 @@ async fn scrape_data(
         query_tournament_entrants,
         tournament_entrants_var,
     )
-    .await;
+    .await?;
     log_success("start.gg", "scraped entrants");
 
     let featured_players_vars = json!({
@@ -272,7 +274,7 @@ async fn scrape_data(
     });
     let result_featured_players =
         graphql_query(query_client, query_featured_players, featured_players_vars)
-            .await
+            .await?
             .to_string();
     log_success("start.gg", "scraped top 8 players");
 
@@ -361,7 +363,7 @@ async fn scrape_data(
     let stream_link_class = if stream_url.is_empty() { " hidden" } else { "" };
     let image_url = format!("/assets/cards/{}.webp", name_camel);
 
-    json!({
+    Ok(json!({
         "start.gg-tournament-name": name_camel,
         "image-url": image_url,
         "image-url-thumbnail": thumbnail_url,
@@ -392,7 +394,7 @@ async fn scrape_data(
         "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
         "stream-link-class": stream_link_class,
         "top8-start-time": tournament["top8-start-time"],
-    })
+    }))
 }
 
 // Manual `stream-url` override in tournaments.json wins when set to a non-empty
@@ -463,22 +465,47 @@ fn check_override_nullable(
         .or(default_value)
 }
 
-async fn graphql_query(client: Client, query: &str, vars: Value) -> Value {
-    loop {
+async fn graphql_query(client: Client, query: &str, vars: Value) -> Result<Value, String> {
+    const MAX_ATTEMPTS: usize = 5;
+
+    for attempt in 1..=MAX_ATTEMPTS {
         match client
             .query_with_vars_unwrap::<Value, Value>(query, vars.clone())
             .await
         {
             Ok(data) => {
-                return data;
+                return Ok(data);
             }
             Err(e) => {
-                println!("Error while querying: {:?}", e);
-                println!("Retrying in 10 seconds...");
+                let error = format_graphql_error(&e);
+                if is_unauthorized_error(&error) {
+                    return Err(format!(
+                        "start.gg GraphQL query failed with 401 Unauthorized. Check STARTGGAPI. Error details: {error}"
+                    ));
+                }
+
+                if attempt == MAX_ATTEMPTS {
+                    return Err(format!(
+                        "start.gg GraphQL query failed after {MAX_ATTEMPTS} attempts. Last error: {error}"
+                    ));
+                }
+
+                println!("Error while querying: {error}");
+                println!("Retrying in 10 seconds... ({attempt}/{MAX_ATTEMPTS})");
                 sleep(Duration::from_secs(10)).await;
             }
         }
     }
+
+    unreachable!()
+}
+
+fn format_graphql_error(error: &impl Debug) -> String {
+    format!("{error:?}")
+}
+
+fn is_unauthorized_error(error: &str) -> bool {
+    error.contains("[401]") || error.contains("401") && error.contains("Unauthorized")
 }
 
 fn unix_timestamp_to_readable_date(date: &Value, timezone: Tz) -> String {
