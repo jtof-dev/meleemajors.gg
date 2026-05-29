@@ -28,7 +28,7 @@
       "type": "object",
       "required": [
         "name",
-        "startggTournamentName",
+        "slug",
         "startTimestamp",
         "endTimestamp",
         "dateString",
@@ -44,7 +44,8 @@
         "streamUrl",
         "scheduleUrl",
         "imageUrl",
-        "thumbnailUrl"
+        "thumbnailUrl",
+        "startggTournamentName"
       ],
       "additionalProperties": false,
       "properties": {
@@ -53,9 +54,9 @@
           "description": "Human-readable tournament name as displayed on the site (e.g. \"Riptide 2026\", \"Pat's House 5\").",
           "examples": ["SAPF 2", "Full House: Siege"]
         },
-        "startggTournamentName": {
+        "slug": {
           "type": "string",
-          "description": "Internal slug-like identifier derived from the tournament's start.gg URL. Stable across builds and safe to use as a key.",
+          "description": "Internal slug-like identifier derived from the tournament's URL. Stable across builds and safe to use as a key.",
           "examples": ["sapf2", "fullHouseSiege"]
         },
         "startTimestamp": {
@@ -149,6 +150,12 @@
           "format": "uri",
           "description": "Absolute URL to the tournament's square thumbnail/profile image (typically used as an icon), self-hosted on meleemajors.gg. null if start.gg does not expose a distinct profile image for this tournament.",
           "examples": ["https://meleemajors.gg/assets/cards/sapf2.thumbnail.webp", null]
+        },
+        "startggTournamentName": {
+          "type": "string",
+          "deprecated": true,
+          "description": "DEPRECATED: use `slug` instead. Retained for backwards compatibility and emits the same value. Internal slug-like identifier derived from the tournament's start.gg URL.",
+          "examples": ["sapf2", "fullHouseSiege"]
         }
       }
     }

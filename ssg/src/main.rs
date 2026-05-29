@@ -729,7 +729,7 @@ fn tournament_to_api(t: &Value) -> Value {
 
     json!({
         "name": t["name"],
-        "startggTournamentName": t["start.gg-tournament-name"],
+        "slug": t["start.gg-tournament-name"],
         "startTimestamp": start_timestamp,
         "endTimestamp": end_timestamp,
         "dateString": t["date"],
@@ -746,6 +746,8 @@ fn tournament_to_api(t: &Value) -> Value {
         "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
         "thumbnailUrl": thumbnail_url,
+        // Deprecated: superseded by `slug`. Kept for backwards compatibility.
+        "startggTournamentName": t["start.gg-tournament-name"],
     })
 }
 
