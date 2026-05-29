@@ -244,7 +244,7 @@ async fn scrape_data(
     featured_players_json: &Value,
     all_images: &mut HashSet<String>,
 ) -> Result<Value, String> {
-    let melee_singles_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
+    let melee_singles_url = tournament["bracketUrl"].as_str().unwrap();
     let event_slug = Regex::new(r"^(https?://)?(www\.)?start\.gg/")
         .unwrap()
         .replace(melee_singles_url, "");
