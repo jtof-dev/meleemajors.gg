@@ -244,7 +244,7 @@ async fn scrape_data(
     featured_players_json: &Value,
     all_images: &mut HashSet<String>,
 ) -> Result<Value, String> {
-    let melee_singles_url = tournament["start.gg-melee-singles-url"].as_str().unwrap();
+    let melee_singles_url = tournament["bracketUrl"].as_str().unwrap();
     let event_slug = Regex::new(r"^(https?://)?(www\.)?start\.gg/")
         .unwrap()
         .replace(melee_singles_url, "");
@@ -729,7 +729,7 @@ fn tournament_to_api(t: &Value) -> Value {
 
     json!({
         "name": t["name"],
-        "startggTournamentName": t["start.gg-tournament-name"],
+        "slug": t["start.gg-tournament-name"],
         "startTimestamp": start_timestamp,
         "endTimestamp": end_timestamp,
         "dateString": t["date"],
@@ -740,12 +740,18 @@ fn tournament_to_api(t: &Value) -> Value {
         "cityAndState": t["city-and-state"],
         "fullAddress": t["full-address"],
         "mapsLink": t["maps-link"],
-        "startggUrl": t["start.gg-url"],
-        "startggDetailsUrl": startgg_details_url,
+        "bracketUrl": t["start.gg-url"],
+        "tournamentUrl": startgg_details_url.clone(),
         "streamUrl": non_empty("stream-url"),
         "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
         "thumbnailUrl": thumbnail_url,
+        // Deprecated: superseded by `slug`. Kept for backwards compatibility.
+        "startggTournamentName": t["start.gg-tournament-name"],
+        // Deprecated: superseded by `bracketUrl`. Kept for backwards compatibility.
+        "startggUrl": t["start.gg-url"],
+        // Deprecated: superseded by `tournamentUrl`. Kept for backwards compatibility.
+        "startggDetailsUrl": startgg_details_url,
     })
 }
 

@@ -2,10 +2,10 @@
   {
     // The only required field. Everything else is an optional override of
     // values otherwise pulled from the start.gg API.
-    "start.gg-melee-singles-url": "url to melee singles"
+    "bracketUrl": "url to melee singles"
   },
   {
-    "start.gg-melee-singles-url": "url to melee singles",
+    "bracketUrl": "url to melee singles",
     "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
     "schedule-url": "url or path to image",
     "stream-url": "url to stream (defaults to first stream listed on start.gg)",

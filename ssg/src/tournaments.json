@@ -1,21 +1,21 @@
 [
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/battle-of-bc-8-7/event/super-smash-bros-melee-singles"
+    "bracketUrl": "https://www.start.gg/tournament/battle-of-bc-8-7/event/super-smash-bros-melee-singles"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
+    "bracketUrl": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
     "name": "Get On My Level 2026"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee"
+    "bracketUrl": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
+    "bracketUrl": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles"
+    "bracketUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles"
   },
   {
-    "start.gg-melee-singles-url": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles"
+    "bracketUrl": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles"
   }
 ]
