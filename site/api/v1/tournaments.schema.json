@@ -39,13 +39,15 @@
         "cityAndState",
         "fullAddress",
         "mapsLink",
-        "startggUrl",
-        "startggDetailsUrl",
+        "bracketUrl",
+        "tournamentUrl",
         "streamUrl",
         "scheduleUrl",
         "imageUrl",
         "thumbnailUrl",
-        "startggTournamentName"
+        "startggTournamentName",
+        "startggUrl",
+        "startggDetailsUrl"
       ],
       "additionalProperties": false,
       "properties": {
@@ -117,15 +119,15 @@
           "description": "Google Maps search URL for the venue address. Derived from fullAddress.",
           "examples": ["https://www.google.com/maps/search/?api=1&query=..."]
         },
-        "startggUrl": {
+        "bracketUrl": {
           "type": "string",
           "format": "uri",
           "description": "Canonical start.gg URL for the main Melee singles event page."
         },
-        "startggDetailsUrl": {
+        "tournamentUrl": {
           "type": ["string", "null"],
           "format": "uri",
-          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over startggUrl for general-purpose linking. null if the details URL cannot be derived from startggUrl.",
+          "description": "start.gg URL for the tournament's overview /details page, which lists all events and general info. Prefer this over bracketUrl for general-purpose linking. null if the details URL cannot be derived from bracketUrl.",
           "examples": ["https://www.start.gg/tournament/sapf-2/details", null]
         },
         "streamUrl": {
@@ -156,6 +158,19 @@
           "deprecated": true,
           "description": "DEPRECATED: use `slug` instead. Retained for backwards compatibility and emits the same value. Internal slug-like identifier derived from the tournament's start.gg URL.",
           "examples": ["sapf2", "fullHouseSiege"]
+        },
+        "startggUrl": {
+          "type": "string",
+          "format": "uri",
+          "deprecated": true,
+          "description": "DEPRECATED: use `bracketUrl` instead. Retained for backwards compatibility and emits the same value. Canonical start.gg URL for the main Melee singles event page."
+        },
+        "startggDetailsUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "deprecated": true,
+          "description": "DEPRECATED: use `tournamentUrl` instead. Retained for backwards compatibility and emits the same value. start.gg URL for the tournament's overview /details page. null if the details URL cannot be derived from bracketUrl.",
+          "examples": ["https://www.start.gg/tournament/sapf-2/details", null]
         }
       }
     }

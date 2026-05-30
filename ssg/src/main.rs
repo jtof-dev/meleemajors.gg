@@ -740,14 +740,18 @@ fn tournament_to_api(t: &Value) -> Value {
         "cityAndState": t["city-and-state"],
         "fullAddress": t["full-address"],
         "mapsLink": t["maps-link"],
-        "startggUrl": t["start.gg-url"],
-        "startggDetailsUrl": startgg_details_url,
+        "bracketUrl": t["start.gg-url"],
+        "tournamentUrl": startgg_details_url.clone(),
         "streamUrl": non_empty("stream-url"),
         "scheduleUrl": non_empty("schedule-url"),
         "imageUrl": image_url,
         "thumbnailUrl": thumbnail_url,
         // Deprecated: superseded by `slug`. Kept for backwards compatibility.
         "startggTournamentName": t["start.gg-tournament-name"],
+        // Deprecated: superseded by `bracketUrl`. Kept for backwards compatibility.
+        "startggUrl": t["start.gg-url"],
+        // Deprecated: superseded by `tournamentUrl`. Kept for backwards compatibility.
+        "startggDetailsUrl": startgg_details_url,
     })
 }
 
