@@ -1,13 +1,8 @@
 [
   {
-    "bracketUrl": "https://www.start.gg/tournament/battle-of-bc-8-7/event/super-smash-bros-melee-singles"
-  },
-  {
-    "bracketUrl": "https://www.start.gg/tournament/get-on-my-level-2026-canadian-fighting-game-championships/event/super-smash-bros-melee-singles",
-    "name": "Get On My Level 2026"
-  },
-  {
-    "bracketUrl": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee"
+    "bracketUrl": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee",
+    "schedule-url": "https://ceogaming.org/tournament/ssbm/",
+    "top8-start-time": "2026-08-16 10:00AM"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
@@ -16,7 +11,9 @@
     "bracketUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles"
   },
   {
-    "bracketUrl": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles"
+    "bracketUrl": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles",
+    "top8-start-time": "2026-08-09 02:30PM",
+    "schedule-url": "https://supernova.gg/schedule-2026"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/port-priority-dx/event/melee-singles"

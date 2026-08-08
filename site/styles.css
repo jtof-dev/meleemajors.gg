@@ -150,10 +150,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100lvh;
   z-index: -1;
 }
 
@@ -227,15 +227,16 @@ hr {
 .card {
   --card-border-radius: 25px;
   --card-animation-delay: 0.2s;
+  --card-margin: 20px;
   color: var(--card-text-color);
   display: flex;
   flex-direction: column;
-  width: 330px;
+  width: min(330px, calc(100% - calc(var(--card-margin)*2)));
   height: fit-content;
   text-align: center;
   text-wrap: pretty;
   opacity: 95%;
-  margin: 20px;
+  margin: var(--card-margin);
   font-size: 16px;
   transition:
     all 200ms,
@@ -406,6 +407,7 @@ footer {
   );
   width: max-content;
   height: max-content;
+  box-sizing: border-box;
   max-width: 100vw;
   border-radius: 25px 25px 0px 0px;
   padding: 20px 60px;
