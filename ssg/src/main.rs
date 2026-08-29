@@ -120,7 +120,7 @@ async fn main() {
                     &mut all_images,
                 )
                 .await
-                    .unwrap_or_else(|e| panic!("{e}"));
+                .unwrap_or_else(|e| panic!("{e}"));
 
                 all_tournament_data.push(tournament_data);
             }
@@ -155,14 +155,10 @@ async fn main() {
     log_heading("Generating site");
     for (i, tournament_data) in all_tournament_data.iter().enumerate() {
         if i == 0 {
-            index_html =
-                replace_placeholder_values(tournament_data, &template_header_html);
+            index_html = replace_placeholder_values(tournament_data, &template_header_html);
         }
 
-        index_html.push_str(&replace_placeholder_values(
-            tournament_data,
-            &template_card,
-        ));
+        index_html.push_str(&replace_placeholder_values(tournament_data, &template_card));
 
         calendar_ics = generate_calendar(tournament_data.clone(), &mut calendar_ics);
         api_tournaments.push(tournament_data.clone());
@@ -412,13 +408,21 @@ async fn scrape_data(
 
 // Manual `stream-url` override in tournaments.json wins when set to a non-empty
 // string; otherwise the first stream returned by start.gg is used.
+// to manually hide the button, set `stream-url` to `null`
 fn resolve_stream_url(tournament: &Value, streams: &Value) -> String {
-    if let Some(override_url) = tournament.get("stream-url").and_then(|v| v.as_str()) {
-        if !override_url.is_empty() {
-            return override_url.to_string();
+    if let Some(val) = tournament.get("stream-url") {
+        // because empty values hide the stream button, `"stream-url": null` returns an empty string
+        if val.is_null() {
+            return String::new();
+        }
+
+        // otherwise, use the provided string
+        if let Some(override_url) = val.as_str() {
+            if !override_url.is_empty() {
+                return override_url.to_string();
+            }
         }
     }
-
     streams
         .as_array()
         .and_then(|arr| arr.iter().find_map(stream_to_url))

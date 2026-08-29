@@ -8,7 +8,7 @@
     "bracketUrl": "url to melee singles",
     "top8-start-time": "YYYY-MM-DD hh:mmPM", // in the tournament's timezone
     "schedule-url": "url or path to image",
-    "stream-url": "url to stream (defaults to first stream listed on start.gg)",
+    "stream-url": "url to stream (defaults to first stream listed on start.gg)", // return `null` to hide the stream button
     "name": "name override",
     "player0": "player0 override",
     "player1": "player1 override",

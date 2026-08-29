@@ -1,22 +1,18 @@
 [
   {
-    "bracketUrl": "https://www.start.gg/tournament/ceo-2026/event/super-smash-bros-melee",
-    "schedule-url": "https://ceogaming.org/tournament/ssbm/",
-    "top8-start-time": "2026-08-16 10:00AM"
-  },
-  {
     "bracketUrl": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles",
-    "city-and-state": "Area 51, NV"
-  },
-  {
-    "bracketUrl": "https://www.start.gg/tournament/supernova-2026/event/melee-1v1-singles",
-    "top8-start-time": "2026-08-09 02:30PM",
-    "schedule-url": "https://supernova.gg/schedule-2026"
+    "city-and-state": "Atlanta, GA",
+    "name": "Tipped Off 17: Haunted!",
+    "stream-url": null
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/port-priority-dx/event/melee-singles"
+  },
+  {
+    "bracketUrl": "https://www.start.gg/tournament/platfight-gaming-championships-2026/event/melee-singles",
+    "name": "Platfight 2026"
   }
 ]
