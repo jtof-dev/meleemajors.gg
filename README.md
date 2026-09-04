@@ -128,3 +128,11 @@ cargo run -- --update-rankings
 ## meleemajors.com
 
 - a sample copy of `meleemajors.com` scraped from the wayback machine can be found [here](https://github.com/jtof-dev/meleemajors.gg/tree/meleemajors.com), taken from [the wayback machine](https://web.archive.org/web/20221202045414/https://www.meleemajors.com/)
+
+## todo
+
+- [ ] update footer buttons text and padding as screen shrinks
+- [ ] hide 'stream' button until ~1 week before tournament start
+- [ ] experiment with adding seconds to the tournament countdown
+- [ ] (possibly) change 'LIVE NOW' badge formatting to distinguish from the tournament countdown
+- [ ] look for new backgrounds for mobile and desktop

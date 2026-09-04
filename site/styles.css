@@ -150,7 +150,7 @@ body {
 
 /* add the background image using an empty div */
 .fixed-position {
-  background-image: url("assets/backgrounds/1.webp");
+  background-image: url("assets/backgrounds/2.webp");
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;

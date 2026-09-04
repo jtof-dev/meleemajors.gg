@@ -1,6 +1,5 @@
 use crate::utils::{
-    log_heading, log_red, log_success, log_warn, log_yellow, read_file,
-    replace_placeholder_values,
+    log_heading, log_red, log_success, log_warn, log_yellow, read_file, replace_placeholder_values,
 };
 use anyhow::{anyhow, bail, Context, Result};
 use chrono::{DateTime, NaiveDateTime};
@@ -41,12 +40,15 @@ impl MailingListService {
         //     HeaderValue::from_str(&format!("Bearer {}", api_secret))?,
         // );
 
-        let client = Client::builder().default_headers(headers).build()?;
+        // at some point, Kit started flagging our API calls as bot activity, so I added a specific
+        // user agent. if email functionality breaks again at some point, it's likely because of the
+        // useragent
+        let client = Client::builder()
+            .user_agent("Meleemajors (meleemajors.gg@gmail.com)")
+            .default_headers(headers)
+            .build()?;
 
-        Ok(Self {
-            client,
-            api_secret,
-        })
+        Ok(Self { client, api_secret })
     }
 
     /// Schedule a reminder email for 5 days before the tournament starts
@@ -166,14 +168,20 @@ impl MailingListService {
                         break 'outer;
                     }
                     Err(e) => {
-                        log_warn("email", &format!("failed to delete broadcast {}: {}", id, e));
+                        log_warn(
+                            "email",
+                            &format!("failed to delete broadcast {}: {}", id, e),
+                        );
                     }
                 }
             }
             // Don't increment page — deletions shift results forward,
             // so page 1 always has the next batch
         }
-        log_success("email", &format!("deleted {} scheduled broadcasts", deleted));
+        log_success(
+            "email",
+            &format!("deleted {} scheduled broadcasts", deleted),
+        );
         Ok(())
     }
 
@@ -211,14 +219,19 @@ impl MailingListService {
 
         // Send API request
         let url = "https://api.convertkit.com/v3/broadcasts";
-        let res = self.client.post(url).json(&json!({
-            "api_secret": &self.api_secret,
-            "email_layout_template": Value::Null, // use default template
-            "content": &content,
-            "subject": &subject,
-            "send_at": &send_time_iso8601,
-            "public": true, // false == draft
-        })).send().await?;
+        let res = self
+            .client
+            .post(url)
+            .json(&json!({
+                "api_secret": &self.api_secret,
+                "email_layout_template": Value::Null, // use default template
+                "content": &content,
+                "subject": &subject,
+                "send_at": &send_time_iso8601,
+                "public": true, // false == draft
+            }))
+            .send()
+            .await?;
         let status = res.status();
         let json = res.json::<Value>().await?;
         if status.is_success() {

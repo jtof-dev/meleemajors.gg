@@ -21,21 +21,71 @@ function setTheme() {
   }
 }
 
-// check if any tournaments are currently live
+
 function setCurrentlyLive() {
-  const cards = document.querySelectorAll(".card")
-  for (const card of cards) {
-    const startTime = parseInt(card.getAttribute("data-start-time"))
-    const endTime = parseInt(card.getAttribute("data-end-time"))
-    const now = new Date().getTime() / 1000
-    if (startTime <= now && now <= endTime) {
-      const div = document.createElement("div")
-      div.className = "live-badge"
-      div.innerText = "LIVE NOW"
-      card.appendChild(div)
-    }
+  const cards = Array.from(document.querySelectorAll(".card"))
+  
+  if (cards.length === 0) return;
+
+  const earliestCard = cards.reduce((earliest, current) => {
+    const earliestTime = parseInt(earliest.getAttribute("data-start-time"), 10);
+    const currentTime= parseInt(current.getAttribute("data-start-time"), 10);
+
+    return currentTime < earliestTime ? current : earliest;
+  });
+
+  const startTime = parseInt(earliestCard.getAttribute("data-start-time"), 10);
+  const endTime = parseInt(earliestCard.getAttribute("data-end-time"), 10);
+  const now = Date.now() / 1000;
+  if (startTime <= now && now <= endTime) {
+    const div = document.createElement("div")
+    div.className = "live-badge"
+    div.innerText = "LIVE NOW"
+    card.appendChild(div)
+  } else if (now < startTime) {
+    const timeDiff = startTime - now;
+    const days = Math.floor(timeDiff / 86400);
+    const hours = Math.floor((timeDiff / 3600) % 24);
+    const minutes = Math.floor((timeDiff / 60) % 60);
+
+    const div = document.createElement("div")
+    div.className = "live-badge"
+    div.textContent = `${days}D ${hours}H ${minutes}M`;
+    earliestCard.appendChild(div);
+
+    startLiveCountdown(div, startTime);
   }
 }
+
+
+function startLiveCountdown(badgeElement, startTime) {
+  const timerId = setInterval(() => {
+    // if the badge is removed from the DOM, stop the timer
+    if (!document.body.contains(badgeElement)) {
+      clearInterval(timerId);
+      return;
+    }
+
+    const currentNow = Math.floor(Date.now() / 1000); 
+    const timeDiff = startTime - currentNow;
+
+    if (timeDiff <= 0) {
+      clearInterval(timerId);
+      badgeElement.textContent = "Started!";
+      return;
+    }
+
+    const days = Math.floor(timeDiff / 86400);
+    const hours = Math.floor((timeDiff / 3600) % 24);
+    const minutes = Math.floor((timeDiff / 60) % 60);
+
+    badgeElement.textContent = `${days}D ${hours}H ${minutes}M`;
+  }, 1000);
+
+  // return the timer ID just in case we ever need to manually stop it elsewhere
+  return timerId;
+}
+
 
 function hidePastTournaments() {
   const cards = document.querySelectorAll(".card")
