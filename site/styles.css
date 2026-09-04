@@ -467,6 +467,13 @@ footer {
   scale: 95%;
 }
 
+.footer-buttons {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap balance;
+}
+
 .calendar-button {
   width: 120px;
 }

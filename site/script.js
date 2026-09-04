@@ -2,6 +2,7 @@ function initialSetup() {
   setTheme()
   setCurrentlyLive()
   hidePastTournaments()
+  setStreambutton()
 }
 
 // calls initialSetup() as soon as possible on page load
@@ -17,7 +18,7 @@ function setTheme() {
   }
   else {
     document.body.className = "light-mode"
-    document.querySelector(".theme-toggle").innerText = "switch to dark mode"
+    document.querySelector(".theme-toggle").innerText = "dark mode"
   }
 }
 
@@ -104,12 +105,12 @@ function switchColors(event) {
   if (window.localStorage.getItem("dark") === "true") { // if true
     document.body.className = "light-mode"
     window.localStorage.setItem("dark", false)
-    event.currentTarget.innerText = "switch to dark mode"
+    event.currentTarget.innerText = "dark mode"
   }
   else {
     document.body.className = "dark-mode"
     window.localStorage.setItem("dark", true)
-    event.currentTarget.innerText = "switch to light mode"
+    event.currentTarget.innerText = "light mode"
   }
 }
 
@@ -205,4 +206,19 @@ async function emailSignup(event) {
     event.target.innerText = "Subscribe"
     event.target.disabled = false
   }, 3000)
+}
+
+
+function setStreambutton() {
+  const cards = document.querySelectorAll(".card")
+  for (const card of cards) {
+    const startTime = parseInt(card.getAttribute("data-start-time"))
+    const weekBeforeStart = startTime - 604800 // 604800 = 1 week in seconds
+    // const endTime = parseInt(card.getAttribute("data-end-time"))
+    // const weekBeforeEnd = endTime - 604800
+    const now = Date.now() / 1000;
+    if (weekBeforeStart >= now) {
+      card.querySelector(".stream-button").style.display="none"
+    }
+  }
 }

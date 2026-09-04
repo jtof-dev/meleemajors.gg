@@ -1,12 +1,13 @@
 [
   {
-    "bracketUrl": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
+    "bracketUrl": "https://www.start.gg/tournament/riptide-2026-4/event/melee-singles",
+    "schedule-url": "https://images.start.gg/images/profileWidgetPageLayout/4017531/image-ee7e160e137d139f709ce1ae2797f28a.png",
+    "top8-start-time": "2026-09-13 02:00PM"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles",
     "city-and-state": "Atlanta, GA",
-    "name": "Tipped Off 17: Haunted!",
-    "stream-url": null
+    "name": "Tipped Off 17: Haunted!"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/port-priority-dx/event/melee-singles"
