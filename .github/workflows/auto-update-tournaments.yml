@@ -25,21 +25,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 1. Setup FFmpeg using a dedicated action that leverages tool caching
-      # This is much faster than running `apt-get update && apt-get install` every time.
       - uses: FedericoCarboni/setup-ffmpeg@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: dtolnay/rust-toolchain@stable
 
-      # 2. Point rust-cache to your specific subdirectory. 
-      # Without this, it looks in the root for Cargo.toml/lock and misses `ssg/target/`.
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: "ssg"
-          # Optional: add a custom prefix to invalidate cache if needed
-          # prefix-key: "v1-rust"
 
       - working-directory: ssg
         env:
