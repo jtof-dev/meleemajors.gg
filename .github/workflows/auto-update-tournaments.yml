@@ -40,7 +40,7 @@ jobs:
           KIT_V3_API_SECRET: ${{ secrets.KIT_V3_API_SECRET }}
         run: cargo run
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
