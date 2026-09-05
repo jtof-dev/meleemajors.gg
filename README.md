@@ -134,7 +134,17 @@ cargo run -- --update-rankings
 goal: rewrite all of the backend in Python, with the intention of making it as future-proof and frictionless as possible
 
 - [ ] add [parry.gg](https://parry.gg) support
+- [ ] rewrite Kit email API calls to use their V4 API
 - [ ] migrate away from `json` in favor of `yaml` or `toml` for adding tournaments
   - [ ] while unlikely, making a dedicated webpage that could add new tournaments and possibly make pull requests could be very convenient
 - [ ] simplify logic currently in `main.rs` which involves passing `json` objects between functions
   - [ ] pull away API query logic and data parsing into dedicated files
+- [ ] look into migrating away from `ffmpeg` for image downloading and processing
+  - this may be desireable because it adds considerable overhead to running daily site rebuilds in github actions
+
+### extra goodies
+
+- [ ] streamline the actual site generation parts of the SSG
+  - currently unsure of the specifics, but stitching together multiple `fragment.html` files does not feel ideal
+- [ ] update email formatting to look prettier
+- [ ] add an API section to `README.md`
