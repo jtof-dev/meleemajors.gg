@@ -27,8 +27,29 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
+      # Install ffmpeg from apt, NOT from a static tarball (e.g. setup-ffmpeg, which
+      # pulls johnvansickle's fully-static build). Statically linking glibc loses DNS
+      # resolution -- getaddrinfo still has to dlopen the host's libnss_*.so, and the
+      # version mismatch segfaults -- so `ffmpeg -i https://...` dies silently.
+      # Upstream documents this in the tarball's own readme.txt.
+      #
+      # For the same reason, don't restore ffmpeg by untarring a cache over /: skipping
+      # dpkg means skipping postinst and ldconfig, and the binary won't link at runtime.
+      #
+      # --no-install-recommends skips the hardware-accel and audio stack (mesa-va-drivers,
+      # libsdl2, pocketsphinx, ...) that a JPEG-to-webp resize has no use for.
       - name: Install FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      # Fail loudly here rather than deploying a site with no card images. `ffmpeg
+      # -version` alone is not enough -- it passes on a static build that cannot resolve
+      # a hostname -- so actually make it fetch something over DNS + TLS. The target is
+      # our own committed favicon, so it is stable and always deployed.
+      - name: Verify FFmpeg can fetch over the network
+        run: |
+          ffmpeg -version
+          ffmpeg -loglevel error -i https://meleemajors.gg/assets/favicon/favicon.png -f null -
+          echo "ffmpeg DNS + TLS ok"
 
       - uses: Swatinem/rust-cache@v2
         with:

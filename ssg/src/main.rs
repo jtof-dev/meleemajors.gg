@@ -358,13 +358,16 @@ async fn scrape_data(
 
     let name_camel = kebab_to_camel(&tournament_slug);
 
-    download_tournament_image(&banner_url, &name_camel, all_images);
-    let thumbnail_url = profile_image.map(|img| {
-        let url = strip_query.replace(img["url"].as_str().unwrap(), "");
-        let thumb_name = format!("{name_camel}.thumbnail");
-        download_tournament_image(&url, &thumb_name, all_images);
-        format!("/assets/cards/{thumb_name}.webp")
-    });
+    download_tournament_image(&banner_url, &name_camel, all_images)?;
+    let thumbnail_url = match profile_image {
+        Some(img) => {
+            let url = strip_query.replace(img["url"].as_str().unwrap(), "");
+            let thumb_name = format!("{name_camel}.thumbnail");
+            download_tournament_image(&url, &thumb_name, all_images)?;
+            Some(format!("/assets/cards/{thumb_name}.webp"))
+        }
+        None => None,
+    };
 
     let stream_url = resolve_stream_url(tournament, &tournament_info["streams"]);
     let schedule_url = tournament["schedule-url"].as_str().unwrap_or("");
@@ -539,7 +542,11 @@ fn unix_timestamp_to_log_date(timestamp: i64) -> String {
         .unwrap_or_else(|| format!("invalid timestamp {timestamp}"))
 }
 
-fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<String>) {
+fn download_tournament_image(
+    url: &str,
+    name: &str,
+    image_data: &mut HashSet<String>,
+) -> Result<(), String> {
     // ffmpeg -i "image_url" -vf "scale=-1:340" "tournament_name".webp
 
     fs::create_dir_all(absolute_path("cards")).unwrap();
@@ -549,30 +556,77 @@ fn download_tournament_image(url: &str, name: &str, image_data: &mut HashSet<Str
 
     if fs::metadata(&image_path).is_ok() {
         log_skip("ffmpeg", &format!("{name}.webp already exists"));
-    } else {
-        println!("[ffmpeg] downloading {url}");
-        FfmpegCommand::new()
-            .input(url)
-            .args(["-vf", "scale=-1:340"])
-            .overwrite()
-            .output(image_path)
-            .spawn()
-            .unwrap()
-            .iter()
-            .unwrap()
-            .for_each(|event| match event {
-                FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) => {
-                    log_error("ffmpeg", &format!("{:?}", msg));
-                }
-                FfmpegEvent::Progress(progress) => {
-                    log_info("ffmpeg", &format!("{:?}", progress));
-                }
-                FfmpegEvent::Done => {
-                    log_success("ffmpeg", &format!("{name}.webp downloaded"));
-                }
-                _ => {}
-            });
+        return Ok(());
     }
+
+    println!("[ffmpeg] downloading {url}");
+    let mut child = FfmpegCommand::new()
+        .input(url)
+        .args(["-vf", "scale=-1:340"])
+        .overwrite()
+        .output(&image_path)
+        .spawn()
+        .map_err(|e| format!("could not start ffmpeg: {e}. Is it installed and on PATH?"))?;
+
+    // ffmpeg can fail without ever emitting a parseable `[error]` line: a segfault
+    // writes nothing at all, and a dynamic-linker failure writes an unprefixed line
+    // that the parser reports as `LogLevel::Unknown`. Keep every message so a silent
+    // death can be explained rather than swallowed.
+    let mut ffmpeg_output: Vec<String> = Vec::new();
+
+    for event in child
+        .iter()
+        .map_err(|e| format!("could not read ffmpeg output: {e}"))?
+    {
+        match event {
+            FfmpegEvent::Log(LogLevel::Error | LogLevel::Fatal, msg) | FfmpegEvent::Error(msg) => {
+                log_error("ffmpeg", &msg);
+                ffmpeg_output.push(msg);
+            }
+            FfmpegEvent::Progress(progress) => {
+                log_info("ffmpeg", &format!("{:?}", progress));
+            }
+            FfmpegEvent::Log(_, msg) => ffmpeg_output.push(msg),
+            _ => {}
+        }
+    }
+
+    let status = child
+        .wait()
+        .map_err(|e| format!("could not wait on ffmpeg: {e}"))?;
+
+    // Check the artifact, not just the exit code: a green build that deploys an empty
+    // cards/ directory is worse than a red one. Check the exit code too, so a run that
+    // died partway through writing can't pass on the strength of a truncated file.
+    let bytes_written = fs::metadata(&image_path).map(|m| m.len()).unwrap_or(0);
+    if !status.success() || bytes_written == 0 {
+        // Never leave a partial file behind, or the "already exists" check above would
+        // skip regenerating it on the next run.
+        fs::remove_file(&image_path).ok();
+
+        let details = if ffmpeg_output.is_empty() {
+            "  ffmpeg said nothing at all before dying, which usually means it never \
+             reached its own code (e.g. unresolvable shared libraries)."
+                .to_string()
+        } else {
+            // Tail only: the banner is noise, and whatever killed it is at the end.
+            ffmpeg_output
+                .iter()
+                .rev()
+                .take(20)
+                .rev()
+                .map(|line| format!("  {line}"))
+                .collect::<Vec<_>>()
+                .join("\n")
+        };
+        return Err(format!(
+            "ffmpeg did not produce a usable {name}.webp \
+             ({status}, {bytes_written} bytes written, from {url})\n{details}"
+        ));
+    }
+
+    log_success("ffmpeg", &format!("{name}.webp downloaded"));
+    Ok(())
 }
 
 fn generate_calendar(tournament_data: Value, calendar_ics: &mut Calendar) -> Calendar {
