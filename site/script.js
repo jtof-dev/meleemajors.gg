@@ -4,6 +4,7 @@ function initialSetup() {
   setCurrentlyLive()
   hidePastTournaments()
   setStreambutton()
+  initThemeColorObserver()
 }
 
 // calls initialSetup() as soon as possible on page load
@@ -237,4 +238,28 @@ function setDesktopBackground() {
   const weekNumber = Math.floor(weekCount % backgrounds + 1) // modulo starts at 0, and our backgrounds start at 1
   console.log("current week is: " + weekNumber)
   document.querySelector(".fixed-position").style.backgroundImage=`url("assets/backgrounds/${weekNumber}.webp")`
+}
+
+
+function initThemeColorObserver() {
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const footer = document.querySelector('footer');
+
+  if (!themeMeta || !footer) return;
+
+  const defaultColor = '#fbf5e2';
+  const footerColor = '#fa617b';
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      themeMeta.setAttribute(
+        'content', 
+        entry.isIntersecting ? footerColor : defaultColor
+      );
+    });
+  }, { 
+    threshold: 0.05
+  });
+
+  observer.observe(footer);
 }

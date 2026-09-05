@@ -129,11 +129,12 @@ cargo run -- --update-rankings
 
 - a sample copy of `meleemajors.com` scraped from the wayback machine can be found [here](https://github.com/jtof-dev/meleemajors.gg/tree/meleemajors.com), taken from [the wayback machine](https://web.archive.org/web/20221202045414/https://www.meleemajors.com/)
 
-## todo
+## SSG rewrite
 
-- [x] update footer buttons text and padding as screen shrinks
-- [x] hide 'stream' button until ~1 week before tournament start
-- [x] experiment with adding seconds to the tournament countdown
-- [x] (possibly) change 'LIVE NOW' badge formatting to distinguish from the tournament countdown
-- [ ] look for new backgrounds for mobile and desktop
-- [ ] automatically change backgrounds every couple days
+goal: rewrite all of the backend in Python, with the intention of making it as future-proof and frictionless as possible
+
+- [ ] add [parry.gg](https://parry.gg) support
+- [ ] migrate away from `json` in favor of `yaml` or `toml` for adding tournaments
+  - [ ] while unlikely, making a dedicated webpage that could add new tournaments and possibly make pull requests could be very convenient
+- [ ] simplify logic currently in `main.rs` which involves passing `json` objects between functions
+  - [ ] pull away API query logic and data parsing into dedicated files
