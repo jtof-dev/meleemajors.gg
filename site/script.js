@@ -4,7 +4,6 @@ function initialSetup() {
   setCurrentlyLive()
   hidePastTournaments()
   setStreambutton()
-  initThemeColorObserver()
 }
 
 // calls initialSetup() as soon as possible on page load
@@ -41,9 +40,10 @@ function setCurrentlyLive() {
   const endTime = parseInt(earliestCard.getAttribute("data-end-time"), 10);
   const now = Date.now() / 1000;
   if (startTime <= now && now <= endTime) {
+  // if (true) {
     const div = document.createElement("div")
     div.className = "live-badge"
-    div.innerHTML = "<span></span>LIVE NOW"
+    div.innerHTML = `<span title="I'm tellin' you man, every third blink is slower"></span>LIVE NOW`
     earliestCard.appendChild(div)
 
   } else if (now < startTime) {
@@ -106,14 +106,17 @@ function hidePastTournaments() {
 // change the class on <body> and write the setting to localStorage
 function switchColors(event) {
   if (window.localStorage.getItem("dark") === "true") { // if true
+    // scrollToBottom()
     document.body.className = "light-mode"
     window.localStorage.setItem("dark", false)
     event.currentTarget.innerText = "dark mode"
   }
   else {
+    // scrollToBottom()
     document.body.className = "dark-mode"
     window.localStorage.setItem("dark", true)
     event.currentTarget.innerText = "light mode"
+
   }
 }
 
@@ -238,28 +241,4 @@ function setDesktopBackground() {
   const weekNumber = Math.floor(weekCount % backgrounds + 1) // modulo starts at 0, and our backgrounds start at 1
   console.log("current week is: " + weekNumber)
   document.querySelector(".fixed-position").style.backgroundImage=`url("assets/backgrounds/${weekNumber}.webp")`
-}
-
-
-function initThemeColorObserver() {
-  const themeMeta = document.querySelector('meta[name="theme-color"]');
-  const footer = document.querySelector('footer');
-
-  if (!themeMeta || !footer) return;
-
-  const defaultColor = '#fbf5e2';
-  const footerColor = '#fa617b';
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      themeMeta.setAttribute(
-        'content', 
-        entry.isIntersecting ? footerColor : defaultColor
-      );
-    });
-  }, { 
-    threshold: 0.05
-  });
-
-  observer.observe(footer);
 }

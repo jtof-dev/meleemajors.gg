@@ -147,6 +147,8 @@ body {
   font-optical-sizing: auto;
   font-style: normal;
   background-color: #000000;
+
+  overflow-anchor: none;
 }
 
 /* add the background image using an empty div */
@@ -315,7 +317,7 @@ hr {
 
 .live-badge::selection {
   background-color: var(--link-color);
-  color: #000000;
+  color: black;
 }
 
 .live-badge span {
@@ -509,10 +511,6 @@ footer {
   }
 }
 
-.calendar-button {
-  width: 120px;
-}
-
 .calendar-note {
   display: flex;
   flex-direction: column;
@@ -599,10 +597,6 @@ footer {
   scale: 100%;
 }
 
-.email-note button {
-  width: 150px;
-}
-
 .email-note-hidden {
   max-height: 0;
   margin-bottom: 0;
@@ -614,17 +608,31 @@ input {
   font-family: inherit;
   font-size: inherit;
   padding: 5px 15px;
-  margin: 0 2.5px;
   margin-bottom: 10px;
   border: 1px solid #ffffff;
   background-color: transparent;
   color: #ffffff;
   border-radius: 5px;
+
+  min-width: 140px;
+  max-width: 304px;
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+.formkit-fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 2.5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input::placeholder {
-  color: #ffffff;
-  opacity: 50%;
+  color: white;
+  opacity: 60%;
 }
 
 input:focus {
@@ -667,12 +675,12 @@ input:focus {
   }
   input {
     font-size: 15px;
+    max-width: 230px;
   }
 }
 
-/* Styling for Kit email signup form */
-.formkit-fields {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+@media screen and (max-width: 290px) {
+  .formkit-fields {
+    flex-wrap: wrap;
+  }
 }
