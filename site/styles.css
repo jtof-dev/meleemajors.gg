@@ -110,6 +110,7 @@
   --middle-gradient: #fa617b;
   --right-gradient: #f77063;
   --link-color: #088f9c;
+  --live-badge: #ed1d24;
 }
 
 /* define variables for colors that change for light and dark mode */
@@ -150,7 +151,7 @@ body {
 
 /* add the background image using an empty div */
 .fixed-position {
-  background-image: url("assets/backgrounds/2.webp");
+  /* background-image: url("assets/backgrounds/1.webp"); */
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
@@ -298,11 +299,7 @@ hr {
 
 .live-badge {
   border-radius: var(--card-border-radius);
-  background: linear-gradient(
-    to right,
-    var(--left-gradient),
-    var(--right-gradient)
-  );
+  background: var(--live-badge);
   font-weight: bold;
   color: white;
   position: absolute;
@@ -311,11 +308,43 @@ hr {
   left: 50%;
   translate: -50% -50%;
   padding: 10px 15px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .live-badge::selection {
   background-color: var(--link-color);
   color: #000000;
+}
+
+.live-badge span {
+  
+  height: 8px;
+  width: 8px;
+    
+  border-radius: 4px;
+    
+  opacity: 0.0;
+  background-color: white;
+  display: inline-block;
+
+  animation: pulsate ease-in-out 2s infinite;
+}
+
+@keyframes pulsate {
+    0% {opacity: 0.0;}
+    40% {opacity: 1.0;}
+    60% {opacity: 1.0;}
+    100% {opacity: 0.0;}
+}
+
+.countdown {
+  background: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--right-gradient)
+  );
 }
 
 .card-content {

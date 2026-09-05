@@ -132,8 +132,8 @@ cargo run -- --update-rankings
 ## todo
 
 - [x] update footer buttons text and padding as screen shrinks
-- [ ] hide 'stream' button until ~1 week before tournament start
-- [ ] experiment with adding seconds to the tournament countdown
-- [ ] (possibly) change 'LIVE NOW' badge formatting to distinguish from the tournament countdown
+- [x] hide 'stream' button until ~1 week before tournament start
+- [x] experiment with adding seconds to the tournament countdown
+- [x] (possibly) change 'LIVE NOW' badge formatting to distinguish from the tournament countdown
 - [ ] look for new backgrounds for mobile and desktop
 - [ ] automatically change backgrounds every couple days

@@ -1,4 +1,5 @@
 function initialSetup() {
+  setDesktopBackground()
   setTheme()
   setCurrentlyLive()
   hidePastTournaments()
@@ -41,8 +42,9 @@ function setCurrentlyLive() {
   if (startTime <= now && now <= endTime) {
     const div = document.createElement("div")
     div.className = "live-badge"
-    div.innerText = "LIVE NOW"
-    card.appendChild(div)
+    div.innerHTML = "<span></span>LIVE NOW"
+    earliestCard.appendChild(div)
+
   } else if (now < startTime) {
     const timeDiff = startTime - now;
     const days = Math.floor(timeDiff / 86400);
@@ -50,7 +52,7 @@ function setCurrentlyLive() {
     const minutes = Math.floor((timeDiff / 60) % 60);
 
     const div = document.createElement("div")
-    div.className = "live-badge"
+    div.className = "live-badge countdown"
     div.textContent = `${days}D ${hours}H ${minutes}M`;
     earliestCard.appendChild(div);
 
@@ -216,9 +218,23 @@ function setStreambutton() {
     const weekBeforeStart = startTime - 604800 // 604800 = 1 week in seconds
     // const endTime = parseInt(card.getAttribute("data-end-time"))
     // const weekBeforeEnd = endTime - 604800
-    const now = Date.now() / 1000;
+    const now = Date.now() / 1000
     if (weekBeforeStart >= now) {
       card.querySelector(".stream-button").style.display="none"
     }
   }
+}
+
+
+/** changes site background once a week, cycling through the six saved backgrounds, called [1-6].webp */
+function setDesktopBackground() {
+  // 1787572800 is Aug 24, 2026 at 5am local time. chosen to generally change background the day after a tournament ends
+  const backgrounds = 6 // the number of backgrounds saved in 
+  const weekZeroUnix = 1787572800
+  const now = Date.now() / 1000
+  const weekCountSec = now - weekZeroUnix
+  const weekCount = weekCountSec / 604800 // 604800 = 1 week in seconds
+  const weekNumber = Math.floor(weekCount % backgrounds + 1) // modulo starts at 0, and our backgrounds start at 1
+  console.log("current week is: " + weekNumber)
+  document.querySelector(".fixed-position").style.backgroundImage=`url("assets/backgrounds/${weekNumber}.webp")`
 }
