@@ -179,6 +179,70 @@ body {
   color: #ffffff;
 }
 
+/* scrollbar thumb carries the same pink-to-coral gradient as the footer and
+   the countdown badge, just running top to bottom instead of left to right */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  background: transparent;
+}
+
+/* no track: chrome paints its own light one unless we blank it out, and
+   without it the thumb reads as a pill floating over the artwork */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    var(--left-gradient),
+    var(--middle-gradient),
+    var(--right-gradient)
+  );
+  /* transparent border + padding-box clip narrows the pill and keeps it off
+     the edges of the gutter */
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--left-gradient) 75%, #ffffff),
+    color-mix(in srgb, var(--right-gradient) 75%, #ffffff)
+  );
+  background-clip: padding-box;
+}
+
+/* horizontal bars (the calendar url snippet) get the gradient left to right,
+   matching the footer's direction */
+::-webkit-scrollbar-thumb:horizontal {
+  background: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--middle-gradient),
+    var(--right-gradient)
+  );
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* firefox, which has no webkit scrollbar pseudo-elements and can't paint a
+   gradient thumb, so it gets the middle of the gradient as a flat color.
+   safari older than 16.4 can't evaluate selector() at all, so this whole
+   condition is false there and it keeps the styling above */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--middle-gradient) transparent;
+  }
+}
+
 .title {
   color: #ffffff;
   font-size: 45px;
@@ -250,6 +314,7 @@ hr {
     border 500ms;
   animation-fill-mode: both;
   position: relative;
+  overflow-anchor: none;
 }
 
 .card:hover {
