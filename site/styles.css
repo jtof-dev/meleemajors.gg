@@ -500,7 +500,13 @@ footer {
   justify-content: center;
   align-items: center;
   display: flex;
-  flex-wrap: wrap balance;
+  flex-wrap: wrap;
+}
+
+@supports (flex-wrap: balance) {
+  .footer-buttons {
+    flex-wrap: wrap balance;
+  }
 }
 
 .calendar-button {
@@ -632,7 +638,7 @@ input:focus {
 /* tweaks to make mobile experience better */
 @media screen and (max-width: 1000px) {
   .fixed-position {
-    background-image: url("assets/backgrounds/mobile.webp");
+    background-image: url("assets/backgrounds/mobile.webp") !important;
   }
   body {
     /* paper color of mobile.webp, so overscroll rubber-banding and any not-yet-
