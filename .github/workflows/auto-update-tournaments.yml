@@ -2,13 +2,8 @@ name: Auto-update tournament data
 
 on:
   schedule:
-    # Runs once a day at 03:17 UTC.
-    # We avoid 0 * * * * and other "round number" schedules when possible
-    # to improve reliability and reduces queue delays.
     - cron: '17 3 * * *'
-
   workflow_dispatch:
-
   push:
     branches: ["main"]
 
@@ -30,20 +25,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 1. Setup FFmpeg using a dedicated action that leverages tool caching
+      # This is much faster than running `apt-get update && apt-get install` every time.
+      - uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: dtolnay/rust-toolchain@stable
 
-      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
+      # 2. Point rust-cache to your specific subdirectory. 
+      # Without this, it looks in the root for Cargo.toml/lock and misses `ssg/target/`.
       - uses: Swatinem/rust-cache@v2
-      # - uses: actions/cache@v4
-      #   with:
-      #     path: |
-      #       ~/.cargo/bin/
-      #       ~/.cargo/registry/index/
-      #       ~/.cargo/registry/cache/
-      #       ~/.cargo/git/db/
-      #       ssg/target/
-      #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        with:
+          workspaces: "ssg"
+          # Optional: add a custom prefix to invalidate cache if needed
+          # prefix-key: "v1-rust"
 
       - working-directory: ssg
         env:
