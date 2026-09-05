@@ -238,7 +238,7 @@ body {
    condition is false there and it keeps the styling above */
 @supports not selector(::-webkit-scrollbar) {
   html {
-    scrollbar-width: thin;
+    scrollbar-width: auto;
     scrollbar-color: var(--middle-gradient) transparent;
   }
 }
