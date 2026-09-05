@@ -25,11 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: dtolnay/rust-toolchain@stable
+
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: ffmpeg
+          version: 1.0 # Change this to bust the cache if needed in the future
 
       - uses: Swatinem/rust-cache@v2
         with:
