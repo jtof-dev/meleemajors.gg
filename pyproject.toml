@@ -1,0 +1,15 @@
+[project]
+name = "ssg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [{ name = "Andy Babcock", email = "andybabcock@jtof.dev" }]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+ssg = "ssg:main"
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"

@@ -1,0 +1,5 @@
+query EventEntrants($eventId: ID!) {
+  event(id: $eventId) {
+    numEntrants
+  }
+}
