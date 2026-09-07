@@ -10,3 +10,6 @@ site/api/v1/tournaments.json
 site/assets/cards/
 ssg.old/src/cards/
 
+.venv
+src/ssg/__pycache__
+src/ssg/**/__pycache__
