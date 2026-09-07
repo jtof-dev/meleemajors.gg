@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="darkreader-lock">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- paper color of the background artwork, so safari tints its own toolbars
+         to match the page instead of sampling the black body background -->
+    <meta name="theme-color" content="#fbf5e2" />
+    <meta
+      name="description"
+      content="The Largest Upcoming Melee Events | Next major: Riptide 2026 • September 11 - September 13 • Sandusky, OH • 565 attendees"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/favicon/favicon.png" />
+    <script src="script.js"></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="2e6188c4-56e6-49cc-bd9e-511523dc3fb7"
+    ></script>
+    <title>Melee Majors</title>
+  </head>
+
+  <body class="dark-mode">
+    <div class="fixed-position"></div>
+    <h1 class="title">Melee Majors</h1>
+    <h2 class="subtitle">The Largest Upcoming Melee Events</h2>
+    <div class="background-gradient"></div>
+    <div class="card-container">
+<div
+  class="card"
+  data-start-time="1789128000"
+  data-end-time="1789354800"
+>
+  <img
+    src="assets/cards/riptide20264.webp"
+    alt="Riptide 2026 banner image"
+    class="image"
+  />
+  <div class="card-content">
+    <h2>Riptide 2026</h2>
+    <h4>September 11 - September 13</h4>
+    <div class="featured-players">
+      <u>Featured Players</u>
+      <ul class="featured-players-columns">
+        <li>Hungrybox</li>
+        <li>Axe</li>
+        <li>Wizzrobe</li>
+        <li>Krudo</li>
+        <li>Joshman</li>
+        <li>Jmook</li>
+        <li>lloD</li>
+        <li>Ginger</li>
+      </ul>
+    </div>
+    <hr />
+    <p>
+      <a
+        class="card-location"
+        href="https://www.google.com/maps/search/?api=1&query=7000%20Kalahari%20Dr%2C%20Sandusky%2C%20OH%2044870%2C%20USA"
+        target="_blank"
+        data-umami-event="map-link-clicked"
+        data-umami-event-location="Sandusky, OH"
+      >
+        Sandusky, OH </a
+      >&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> 565
+    </p>
+    <hr />
+    <div class="buttons">
+      <a
+        href="https://www.start.gg/tournament/riptide-2026-4/event/melee-singles"
+        target="_blank"
+        class="card-button"
+        data-umami-event="start-gg-clicked"
+        data-umami-event-name="Riptide 2026"
+        >Bracket</a
+      >
+      <a
+        href="https://images.start.gg/images/profileWidgetPageLayout/4017531/image-ee7e160e137d139f709ce1ae2797f28a.png"
+        target="_blank"
+        class="card-button"
+        data-umami-event="schedule-clicked"
+        data-umami-event-name="Riptide 2026"
+        >Schedule</a
+      >
+      <a
+        href="https://www.twitch.tv/btssmash"
+        target="_blank"
+        class="card-button stream-button"
+        data-umami-event="stream-clicked"
+        data-umami-event-name="Riptide 2026"
+        >Stream</a
+      >
+    </div>
+  </div>
+</div>
+
+<div
+  class="card"
+  data-start-time="1792166400"
+  data-end-time="1792382400"
+>
+  <img
+    src="assets/cards/platfightGamingChampionships2026.webp"
+    alt="Platfight 2026 banner image"
+    class="image"
+  />
+  <div class="card-content">
+    <h2>Platfight 2026</h2>
+    <h4>October 16 - October 18</h4>
+    <div class="featured-players">
+      <u>Featured Players</u>
+      <ul class="featured-players-columns">
+        <li>Zain</li>
+        <li>Soonsay</li>
+        <li>Magi</li>
+        <li>RapMonster</li>
+        <li>Axe</li>
+        <li>Salt</li>
+        <li>MOF</li>
+        <li>Spark</li>
+      </ul>
+    </div>
+    <hr />
+    <p>
+      <a
+        class="card-location"
+        href="https://www.google.com/maps/search/?api=1&query=7555%20Falconridge%20Blvd%20NE%2C%20Calgary%2C%20AB%20T3J%200C9%2C%20Canada"
+        target="_blank"
+        data-umami-event="map-link-clicked"
+        data-umami-event-location="Calgary, AB"
+      >
+        Calgary, AB </a
+      >&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> 72
+    </p>
+    <hr />
+    <div class="buttons">
+      <a
+        href="https://www.start.gg/tournament/platfight-gaming-championships-2026/event/melee-singles"
+        target="_blank"
+        class="card-button"
+        data-umami-event="start-gg-clicked"
+        data-umami-event-name="Platfight 2026"
+        >Bracket</a
+      >
+      <a
+        href=""
+        target="_blank"
+        class="card-button hidden"
+        data-umami-event="schedule-clicked"
+        data-umami-event-name="Platfight 2026"
+        >Schedule</a
+      >
+      <a
+        href="https://www.twitch.tv/GalintGaming"
+        target="_blank"
+        class="card-button stream-button"
+        data-umami-event="stream-clicked"
+        data-umami-event-name="Platfight 2026"
+        >Stream</a
+      >
+    </div>
+  </div>
+</div>
+
+<div
+  class="card"
+  data-start-time="1793466000"
+  data-end-time="1793599200"
+>
+  <img
+    src="assets/cards/tippedOff17Haunted.webp"
+    alt="Tipped Off 17: Haunted! banner image"
+    class="image"
+  />
+  <div class="card-content">
+    <h2>Tipped Off 17: Haunted!</h2>
+    <h4>October 31 - November 02</h4>
+    <div class="featured-players">
+      <u>Featured Players</u>
+      <ul class="featured-players-columns">
+        <li>Zain</li>
+        <li>Hungrybox</li>
+        <li>moky</li>
+        <li>Jmook</li>
+        <li>Cody Schwab</li>
+        <li>Joshman</li>
+        <li>Axe</li>
+        <li>SDJ</li>
+      </ul>
+    </div>
+    <hr />
+    <p>
+      <a
+        class="card-location"
+        href="https://www.google.com/maps/search/?api=1&query=219%20Uncle%20Heinie%20Way%20NW%2C%20Atlanta%2C%20GA%2030332%2C%20USA"
+        target="_blank"
+        data-umami-event="map-link-clicked"
+        data-umami-event-location="Atlanta, GA"
+      >
+        Atlanta, GA </a
+      >&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> 132
+    </p>
+    <hr />
+    <div class="buttons">
+      <a
+        href="https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles"
+        target="_blank"
+        class="card-button"
+        data-umami-event="start-gg-clicked"
+        data-umami-event-name="Tipped Off 17: Haunted!"
+        >Bracket</a
+      >
+      <a
+        href=""
+        target="_blank"
+        class="card-button hidden"
+        data-umami-event="schedule-clicked"
+        data-umami-event-name="Tipped Off 17: Haunted!"
+        >Schedule</a
+      >
+      <a
+        href="https://www.twitch.tv/Mang0"
+        target="_blank"
+        class="card-button stream-button"
+        data-umami-event="stream-clicked"
+        data-umami-event-name="Tipped Off 17: Haunted!"
+        >Stream</a
+      >
+    </div>
+  </div>
+</div>
+
+<div
+  class="card"
+  data-start-time="1794679200"
+  data-end-time="1794808800"
+>
+  <img
+    src="assets/cards/portPriorityDx.webp"
+    alt="Port Priority: DX banner image"
+    class="image"
+  />
+  <div class="card-content">
+    <h2>Port Priority: DX</h2>
+    <h4>November 14 - November 15</h4>
+    <div class="featured-players">
+      <u>Featured Players</u>
+      <ul class="featured-players-columns">
+        <li>Zain</li>
+        <li>Hungrybox</li>
+        <li>moky</li>
+        <li>Wizzrobe</li>
+        <li>Cody Schwab</li>
+        <li>Joshman</li>
+        <li>Axe</li>
+        <li>Trif</li>
+      </ul>
+    </div>
+    <hr />
+    <p>
+      <a
+        class="card-location"
+        href="https://www.google.com/maps/search/?api=1&query=17620%20International%20Blvd%2C%20Seattle%2C%20WA%2098188%2C%20USA"
+        target="_blank"
+        data-umami-event="map-link-clicked"
+        data-umami-event-location="Seattle, WA"
+      >
+        Seattle, WA </a
+      >&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> 289
+    </p>
+    <hr />
+    <div class="buttons">
+      <a
+        href="https://www.start.gg/tournament/port-priority-dx/event/melee-singles"
+        target="_blank"
+        class="card-button"
+        data-umami-event="start-gg-clicked"
+        data-umami-event-name="Port Priority: DX"
+        >Bracket</a
+      >
+      <a
+        href=""
+        target="_blank"
+        class="card-button hidden"
+        data-umami-event="schedule-clicked"
+        data-umami-event-name="Port Priority: DX"
+        >Schedule</a
+      >
+      <a
+        href="https://www.twitch.tv/SatelliteMelee"
+        target="_blank"
+        class="card-button stream-button"
+        data-umami-event="stream-clicked"
+        data-umami-event-name="Port Priority: DX"
+        >Stream</a
+      >
+    </div>
+  </div>
+</div>
+
+
+    <!-- begin footer -->
+  </div>
+  <footer>
+    <div class="footer">
+      <!-- Email signup form -->
+      <div class="email-note email-note-hidden">
+        <p>want emails about upcoming melee majors? add your email below</p>
+        <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+        <form
+            action="https://app.kit.com/forms/7193786/subscriptions"
+            class="seva-form formkit-form"
+            method="post"
+            data-sv-form="7193786"
+            data-uid="bc1d243891"
+            data-format="inline"
+            data-version="5"
+            data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:true,&quot;url&quot;:&quot;https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}"
+            min-width="400 500 600 700 800"
+        >
+            <div data-style="clean">
+                <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">
+                    <div class="formkit-field">
+                        <input
+                            class="formkit-input"
+                            name="email_address"
+                            aria-label="email address"
+                            placeholder="email address"
+                            required=""
+                            type="email"
+                            data-1p-ignore
+                        >
+                    </div>
+                    <button data-element="submit" class="formkit-submit formkit-submit">
+                        <div class="formkit-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div><span class="">subscribe</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Old version: -->
+        <!-- <input type="email" name="EMAIL" placeholder="your@email.com" id="mce-EMAIL" spellcheck="false">
+        <button onclick="emailSignup(event)">Subscribe</button> -->
+      </div>
+
+      <!-- Calendar note -->
+      <div class="calendar-note calendar-note-hidden">
+        <p>want upcoming melee majors on your calendar? add this link as an external url on any online calendar service
+        </p>
+        <div class="calendar-url-snippet">
+          <pre>https://meleemajors.gg/calendar.ics</pre>
+          <button onclick="copyCalendar()"><img src="assets/copyButton.svg" alt="copy button"></button>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="footer-buttons">
+        <button onclick="emailButton(event)" class="email-button" data-umami-event="email-button-clicked">mailing
+          list</button>
+        <button onclick="calendarButton(event)" class="calendar-button"
+          data-umami-event="calendar-button-clicked">calendar</button>
+        <a href="api/v1/tournaments.json" target="_blank" data-umami-event="api-link-clicked"><button>api</button></a>
+        <button onclick="switchColors(event)" class="theme-toggle" data-umami-event="theme-toggle-clicked">light mode</button>
+        <a href="https://ko-fi.com/meleemajors" target="_blank" data-umami-event="ko-fi-button"><button>support us on
+            ko-fi</button></a>
+      </div>
+      <hr>
+      <p>see something wrong? open an issue or pull request on our <a href="https://github.com/jtof-dev/meleemajors.gg"
+          data-umami-event="github-link-clicked" target="_blank">github
+          repo</a></p>
+      <p>this <a href="https://github.com/jtof-dev/meleemajors.gg" target="_blank"
+          data-umami-event="second-github-link-clicked">website</a> is
+        open-source, and is licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank"
+          data-umami-event="license-link-clicked">agpl-3</a></p>
+      <p>powered by <a href="https://pages.github.com" target="_blank" data-umami-event="github-pages-clicked">github
+          pages</a> | made with love by <a href="https://github.com/jtof-dev" target="_blank"
+          data-umami-event="jtof-github-clicked">jtof</a> and <a href="https://github.com/nathanbabcock" target="_blank"
+          data-umami-event="excalo-github-clicked">excalo</a></p>
+    </div>
+  </footer>
+</body>
+
+</html>

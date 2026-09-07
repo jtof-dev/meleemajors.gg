@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="darkreader-lock">
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- paper color of the background artwork, so safari tints its own toolbars
+         to match the page instead of sampling the black body background -->
+    <meta name="theme-color" content="#fbf5e2" />
+    <meta name="description"
+          content="The Largest Upcoming Melee Events | Next major: {{ tournaments[0].name }} • {{ tournaments[0].dateString }} • {{ tournaments[0].cityAndState }} • {{ tournaments[0].entrants }} attendees" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/favicon/favicon.png" />
+    <script src="script.js"></script>
+    <script defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="2e6188c4-56e6-49cc-bd9e-511523dc3fb7"></script>
+    <title>Melee Majors</title>
+  </head>
+  <body class="dark-mode">
+    <div class="fixed-position"></div>
+    <h1 class="title">Melee SMajors</h1>
+    <h2 class="subtitle">The Largest Upcoming Melee Events</h2>
+    <div class="background-gradient"></div>
+    <div class="card-container">
+      {% for tournament in tournaments %}
+        <div class="card"
+             data-start-time="{{ tournament.startTimestamp }}"
+             data-end-time="{{ tournament.endTimestamp }}">
+          <img src="assets/cards/{{ tournament.slug }}.webp"
+               alt="{{ tournament.name }} banner image"
+               class="image" />
+          <div class="card-content">
+            <h2>{{ tournament.name }}</h2>
+            <h4>{{ tournament.dateString }}</h4>
+            <div class="featured-players">
+              <u>Featured Players</u>
+              <ul class="featured-players-columns">
+                {% for player in tournament.players %}
+                  <li>{{ player }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <hr />
+            <p>
+              <a class="card-location"
+                 href="{{ tournament.mapsLink }}"
+                 target="_blank"
+                 data-umami-event="map-link-clicked"
+                 data-umami-event-location="{{ tournament.cityAndState }}">{{ tournament.cityAndState }} </a>&nbsp;&nbsp;|&nbsp;&nbsp;<b>Attendees:</b> {{ tournament.entrants }}
+            </p>
+            <hr />
+            <div class="buttons">
+              <a href="{{ tournament.bracketUrl }}"
+                 target="_blank"
+                 class="card-button"
+                 data-umami-event="start-gg-clicked"
+                 data-umami-event-name="{{ tournament.name }}">Bracket</a>
+            {% if tournament.scheduleUrl != none %}
+              <a href="{{ tournament.scheduleUrl }}"
+                 target="_blank"
+                 class="card-button{{ tournament.scheduleLinkClass }}"
+                 data-umami-event="schedule-clicked"
+                 data-umami-event-name="{{ tournament.name }}">Schedule</a>
+            {% endif %}
+            {% if tournament.streamUrl != none %}
+              <a href="{{ tournament.streamUrl }}"
+                 target="_blank"
+                 class="card-button stream-button{{ tournament.streamLinkClass }}"
+                 data-umami-event="stream-clicked"
+                 data-umami-event-name="{{ tournament.name }}">Stream</a>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <footer>
+      <div class="footer">
+        <!-- Email signup form -->
+        <div class="email-note email-note-hidden">
+          <p>want emails about upcoming melee majors? add your email below</p>
+          <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+          <form action="https://app.kit.com/forms/7193786/subscriptions"
+                class="seva-form formkit-form"
+                method="post"
+                data-sv-form="7193786"
+                data-uid="bc1d243891"
+                data-format="inline"
+                data-version="5"
+                data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:true,&quot;url&quot;:&quot;https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}"
+                min-width="400 500 600 700 800">
+            <div data-style="clean">
+              <ul class="formkit-alert formkit-alert-error"
+                  data-element="errors"
+                  data-group="alert">
+              </ul>
+              <div data-element="fields"
+                   data-stacked="false"
+                   class="seva-fields formkit-fields">
+                <div class="formkit-field">
+                  <input class="formkit-input"
+                         name="email_address"
+                         aria-label="email address"
+                         placeholder="email address"
+                         required=""
+                         type="email"
+                         data-1p-ignore>
+                </div>
+                <button data-element="submit" class="formkit-submit formkit-submit">
+                  <div class="formkit-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <span class="">subscribe</span>
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- Old version: -->
+          <!-- <input type="email" name="EMAIL" placeholder="your@email.com" id="mce-EMAIL" spellcheck="false">
+        <button onclick="emailSignup(event)">Subscribe</button> -->
+        </div>
+        <!-- Calendar note -->
+        <div class="calendar-note calendar-note-hidden">
+          <p>want upcoming melee majors on your calendar? add this link as an external url on any online calendar service</p>
+          <div class="calendar-url-snippet">
+            <pre>https://meleemajors.gg/calendar.ics</pre>
+            <button onclick="copyCalendar()">
+              <img src="assets/copyButton.svg" alt="copy button">
+            </button>
+          </div>
+        </div>
+        <!-- Buttons -->
+        <div class="footer-buttons">
+          <button onclick="emailButton(event)"
+                  class="email-button"
+                  data-umami-event="email-button-clicked">
+            mailing
+            list
+          </button>
+          <button onclick="calendarButton(event)"
+                  class="calendar-button"
+                  data-umami-event="calendar-button-clicked">calendar</button>
+          <a href="api/v1/tournaments.json"
+             target="_blank"
+             data-umami-event="api-link-clicked">
+            <button>api</button>
+          </a>
+          <button onclick="switchColors(event)"
+                  class="theme-toggle"
+                  data-umami-event="theme-toggle-clicked">
+            light
+            mode
+          </button>
+          <a href="https://ko-fi.com/meleemajors"
+             target="_blank"
+             data-umami-event="ko-fi-button">
+            <button>
+              support us on
+              ko-fi
+            </button>
+          </a>
+        </div>
+        <hr>
+        <p>
+          see something wrong? open an issue or pull request on our <a href="https://github.com/jtof-dev/meleemajors.gg"
+    data-umami-event="github-link-clicked"
+    target="_blank">github
+          repo</a>
+        </p>
+        <p>
+          this <a href="https://github.com/jtof-dev/meleemajors.gg"
+    target="_blank"
+    data-umami-event="second-github-link-clicked">website</a> is
+          open-source, and is licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.html"
+    target="_blank"
+    data-umami-event="license-link-clicked">agpl-3</a>
+        </p>
+        <p>
+          powered by <a href="https://pages.github.com"
+    target="_blank"
+    data-umami-event="github-pages-clicked">github
+          pages</a> | made with love by <a href="https://github.com/jtof-dev"
+    target="_blank"
+    data-umami-event="jtof-github-clicked">jtof</a> and <a href="https://github.com/nathanbabcock"
+    target="_blank"
+    data-umami-event="excalo-github-clicked">excalo</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

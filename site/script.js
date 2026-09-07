@@ -24,20 +24,34 @@ function setTheme() {
 }
 
 
+function parseCardTime(card, attributeName) {
+  const rawValue = card.getAttribute(attributeName);
+  if (!rawValue) return NaN;
+
+  const numeric = Number(rawValue);
+  if (!isNaN(numeric) && numeric > 1e8) {
+    return numeric;
+  }
+
+  const parsed = Date.parse(rawValue);
+  return Math.floor(parsed / 1000);
+}
+
+
 function setCurrentlyLive() {
   const cards = Array.from(document.querySelectorAll(".card"))
   
   if (cards.length === 0) return;
 
   const earliestCard = cards.reduce((earliest, current) => {
-    const earliestTime = parseInt(earliest.getAttribute("data-start-time"), 10);
-    const currentTime= parseInt(current.getAttribute("data-start-time"), 10);
+    const earliestTime = parseCardTime(earliest, "data-start-time");
+    const currentTime = parseCardTime(current, "data-start-time");
 
     return currentTime < earliestTime ? current : earliest;
   });
 
-  const startTime = parseInt(earliestCard.getAttribute("data-start-time"), 10);
-  const endTime = parseInt(earliestCard.getAttribute("data-end-time"), 10);
+  const startTime = parseCardTime(earliestCard, "data-start-time");
+  const endTime = parseCardTime(earliestCard, "data-end-time");
   const now = Date.now() / 1000;
   if (startTime <= now && now <= endTime) {
   // if (true) {
@@ -94,8 +108,8 @@ function startLiveCountdown(badgeElement, startTime) {
 function hidePastTournaments() {
   const cards = document.querySelectorAll(".card")
   for (const card of cards) {
-    const startTime = parseInt(card.getAttribute("data-start-time"))
-    const endTime = parseInt(card.getAttribute("data-end-time"))
+    const startTime = parseCardTime(card, "data-start-time")
+    const endTime = parseCardTime(card, "data-end-time")
     const now = new Date().getTime() / 1000
     if (now > endTime) {
       card.remove()
@@ -218,13 +232,16 @@ async function emailSignup(event) {
 function setStreambutton() {
   const cards = document.querySelectorAll(".card")
   for (const card of cards) {
-    const startTime = parseInt(card.getAttribute("data-start-time"))
+    const startTime = parseCardTime(card, "data-start-time")
     const weekBeforeStart = startTime - 604800 // 604800 = 1 week in seconds
-    // const endTime = parseInt(card.getAttribute("data-end-time"))
+    // const endTime = parseCardTime(card, "data-end-time")
     // const weekBeforeEnd = endTime - 604800
     const now = Date.now() / 1000
     if (weekBeforeStart >= now) {
-      card.querySelector(".stream-button").style.display="none"
+      const streamButton = card.querySelector(".stream-button")
+      if (streamButton) {
+        streamButton.style.display = "none"
+      }
     }
   }
 }
