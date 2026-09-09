@@ -2,7 +2,7 @@ from pathlib import Path
 
 from livereload import Server
 
-from ssg import site_builder
+from ssg import generate_site
 
 THIS_DIR = Path(__file__).resolve().parent  # ./ssg/
 SITE_DIR = THIS_DIR.parents[1] / "site"  # ../../site/
@@ -19,6 +19,6 @@ def main():
     server.watch(str(SITE_DIR / "*.js"))
     server.watch(str(SITE_DIR / "*.css"))
 
-    server.watch(str(TEMPLATES_DIR / "template.html"), site_builder)
+    server.watch(str(TEMPLATES_DIR / "template.html"), generate_site)
 
     server.serve(root=str(SITE_DIR), port=8080)

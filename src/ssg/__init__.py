@@ -1,8 +1,7 @@
-from .builders.builder import site_builder
+from .generators import generate_site
+
+# def main() -> None:
+#     main()
 
 
-def main() -> None:
-    site_builder()
-
-
-__all__ = ["site_builder", "main"]
+__all__ = ["generate_site"]

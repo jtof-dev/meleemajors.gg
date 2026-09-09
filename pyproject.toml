@@ -5,14 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "Andy Babcock", email = "andybabcock@jtof.dev" }]
 requires-python = ">=3.14"
-dependencies = [
-    "djlint>=1.45.2",
-    "jinja2>=3.1.6",
-    "livereload>=2.7.1",
-]
+dependencies = ["djlint>=1.45.2", "jinja2>=3.1.6", "livereload>=2.7.1"]
 
 [project.scripts]
 ssg = "ssg:main"
+# ssg = "ssg.cli:main"
 liveserver = "ssg.live_server:main"
 
 [build-system]

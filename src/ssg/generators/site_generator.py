@@ -7,15 +7,15 @@ from pathlib import Path
 from jinja2 import Environment, PackageLoader, Template
 
 # using .resolve() forces an absolute path to where this script is located. using that, we can safely write relative paths
-BUILDERS_DIR = Path(__file__).resolve().parent  # ./builders/
+THIS_DIR = Path(__file__).resolve().parent  # ./builders/
+PROJECT_ROOT = THIS_DIR.parents[2]  # ./meleemajors.gg/
 DATA_FILE = (
-    BUILDERS_DIR.parents[1] / "data" / "tournaments.json"
-)  # ../../data/tournaments.json
-PROJECT_ROOT = BUILDERS_DIR.parents[2]  # ./meleemajors.gg/
-DESTINATION_FILE = PROJECT_ROOT / "site" / "index.html"
+    THIS_DIR.parents[0] / "data" / "tournaments.json"
+)  # ../data/tournaments.json
+DESTINATION_FILE_LOCATION = PROJECT_ROOT / "site" / "index.html"
 
 
-def site_builder():
+def main():
 
     env = Environment(loader=PackageLoader("ssg", "templates"))
     template = env.get_template("template.html")
@@ -57,7 +57,7 @@ def lint_and_deploy(generatedHtml):
             text=True,
         )
 
-        shutil.move(str(tmp_path), DESTINATION_FILE)
+        shutil.move(str(tmp_path), DESTINATION_FILE_LOCATION)
 
 
 if __name__ == "__main__":
