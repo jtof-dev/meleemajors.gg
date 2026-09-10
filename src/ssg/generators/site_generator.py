@@ -61,4 +61,4 @@ def lint_and_deploy(generatedHtml):
 
 
 if __name__ == "__main__":
-    site_builder()
+    main()
