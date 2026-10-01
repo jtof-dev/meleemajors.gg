@@ -4,9 +4,24 @@
     "name": "Platfight 2026"
   },
   {
-    "bracketUrl": "https://www.start.gg/tournament/tipped-off-17-haunted/event/melee-singles",
+    "bracketUrl": "https://parry.gg/tipped-off-17-haunted-019fc365/melee-singles",
+    "name": "Tipped Off 17: Haunted!",
+    "slug": "tippedOff17Haunted",
+    "start-unix-timestamp": 1793458800,
+    "end-unix-timestamp": 1793595300,
+    "timezone": "America/New_York",
+    "entrants": 232,
     "city-and-state": "Atlanta, GA",
-    "name": "Tipped Off 17: Haunted!"
+    "full-address": "219 Uncle Heine Way Atlanta, GA 30313",
+    "banner-image-url": "https://parrygg.b-cdn.net/01a069b1-4523-7ccf-8b2a-d9b6e37030f3.png",
+    "player0": "Zain",
+    "player1": "Cody Schwab",
+    "player2": "Hungrybox",
+    "player3": "Joshman",
+    "player4": "moky",
+    "player5": "Axe",
+    "player6": "Jmook",
+    "player7": "SDJ"
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/port-priority-dx/event/melee-singles"

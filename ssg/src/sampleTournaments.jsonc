@@ -19,5 +19,25 @@
     "player6": "player6 override",
     "player7": "player7 override",
     "city-and-state": "city-and-state override"
+  },
+  {
+    // parry.gg tournaments aren't fetched from any API yet, so every field is
+    // entered manually. Detected by a `bracketUrl` starting with parry.gg.
+    "bracketUrl": "https://parry.gg/<tournament-slug>/melee-singles",
+    "name": "tournament name", // required
+    "slug": "camelCaseName", // required; used for image file names and calendar ids
+    "start-unix-timestamp": 1793458800, // required
+    "end-unix-timestamp": 1793595300, // required
+    "timezone": "America/New_York", // required
+    "city-and-state": "Atlanta, GA", // required
+    "full-address": "street address", // required
+    "banner-image-url": "url to banner image", // required
+    "thumbnail-image-url": "url to square profile image", // optional
+    "entrants": 232, // optional, defaults to TBD
+    "maps-link": "google maps url", // optional, defaults to a search for full-address
+    "player0": "player0", // optional, through player7
+    "stream-url": "url to stream", // optional
+    "schedule-url": "url or path to image", // optional
+    "top8-start-time": "YYYY-MM-DD hh:mmPM" // optional
   }
 ]
