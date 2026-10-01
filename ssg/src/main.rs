@@ -110,16 +110,22 @@ async fn main() {
     match json_tournaments {
         Value::Array(vec) => {
             for tournament in vec.iter() {
-                let tournament_data = scrape_data(
-                    tournament,
-                    query_client.clone(),
-                    &query_tournament_info,
-                    &query_tournament_entrants,
-                    &query_featured_players,
-                    &json_featured_players,
-                    &mut all_images,
-                )
-                .await
+                let bracket_url = tournament["bracketUrl"].as_str().unwrap();
+                let tournament_data = if is_parrygg_url(bracket_url) {
+                    // no parry.gg api client yet, so every field comes from tournaments.json
+                    manual_tournament_data(tournament, &mut all_images)
+                } else {
+                    scrape_data(
+                        tournament,
+                        query_client.clone(),
+                        &query_tournament_info,
+                        &query_tournament_entrants,
+                        &query_featured_players,
+                        &json_featured_players,
+                        &mut all_images,
+                    )
+                    .await
+                }
                 .unwrap_or_else(|e| panic!("{e}"));
 
                 all_tournament_data.push(tournament_data);
@@ -405,6 +411,101 @@ async fn scrape_data(
         "schedule-url": schedule_url,
         "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
         "stream-link-class": stream_link_class,
+        "top8-start-time": tournament["top8-start-time"],
+    }))
+}
+
+fn is_parrygg_url(url: &str) -> bool {
+    Regex::new(r"^(https?://)?(www\.)?parry\.gg/")
+        .unwrap()
+        .is_match(url)
+}
+
+// Builds tournament data purely from the fields in tournaments.json, with no API calls.
+// Used for parry.gg tournaments until we have a parry.gg api client.
+fn manual_tournament_data(
+    tournament: &Value,
+    all_images: &mut HashSet<String>,
+) -> Result<Value, String> {
+    let bracket_url = tournament["bracketUrl"].as_str().unwrap();
+    let required_str = |key: &str| -> Result<String, String> {
+        tournament[key]
+            .as_str()
+            .map(|s| s.to_string())
+            .ok_or_else(|| format!("{bracket_url} is missing required manual field `{key}`"))
+    };
+    let required_i64 = |key: &str| -> Result<i64, String> {
+        tournament[key]
+            .as_i64()
+            .ok_or_else(|| format!("{bracket_url} is missing required manual field `{key}`"))
+    };
+
+    let name = required_str("name")?;
+    let slug = required_str("slug")?;
+    let start = required_i64("start-unix-timestamp")?;
+    let end = required_i64("end-unix-timestamp")?;
+    let timezone_str = required_str("timezone")?;
+    let city_and_state = required_str("city-and-state")?;
+    let address = required_str("full-address")?;
+    let banner_url = required_str("banner-image-url")?;
+
+    log_heading(&name);
+    log_warn("parry.gg", "no api client yet, using manual data");
+
+    let timezone: Tz = timezone_str.parse().expect("Invalid timezone");
+    let start_date = unix_timestamp_to_readable_date(&json!(start), timezone);
+    let end_date = unix_timestamp_to_readable_date(&json!(end), timezone);
+
+    let entrants = match &tournament["entrants"] {
+        Value::Number(n) => n.to_string(),
+        Value::String(s) if !s.is_empty() => s.clone(),
+        _ => "TBD".to_string(),
+    };
+
+    download_tournament_image(&banner_url, &slug, all_images)?;
+    let thumbnail_url = match tournament["thumbnail-image-url"].as_str() {
+        Some(url) if !url.is_empty() => {
+            let thumb_name = format!("{slug}.thumbnail");
+            download_tournament_image(url, &thumb_name, all_images)?;
+            Some(format!("/assets/cards/{thumb_name}.webp"))
+        }
+        _ => None,
+    };
+
+    let stream_url = resolve_stream_url(tournament, &Value::Null);
+    let schedule_url = tournament["schedule-url"].as_str().unwrap_or("");
+    let player = |i: usize| check_override_nullable(tournament, None, &format!("player{i}"));
+
+    Ok(json!({
+        "start.gg-tournament-name": slug,
+        "image-url": format!("/assets/cards/{slug}.webp"),
+        "image-url-thumbnail": thumbnail_url,
+        "name": name,
+        "date": format!("{start_date} - {end_date}"),
+        "start-unix-timestamp": start,
+        "end-unix-timestamp": end,
+        "timezone": timezone_str,
+        "player0": player(0),
+        "player1": player(1),
+        "player2": player(2),
+        "player3": player(3),
+        "player4": player(4),
+        "player5": player(5),
+        "player6": player(6),
+        "player7": player(7),
+        "entrants": entrants,
+        "city-and-state": city_and_state,
+        "maps-link": check_override(
+          tournament,
+          format!("https://www.google.com/maps/search/?api=1&query={}", encode(&address)),
+          "maps-link"
+        ),
+        "full-address": address,
+        "start.gg-url": bracket_url,
+        "stream-url": stream_url,
+        "schedule-url": schedule_url,
+        "schedule-link-class": if schedule_url.is_empty() {" hidden"} else {""},
+        "stream-link-class": if stream_url.is_empty() {" hidden"} else {""},
         "top8-start-time": tournament["top8-start-time"],
     }))
 }
@@ -781,9 +882,16 @@ fn tournament_to_api(t: &Value) -> Value {
     };
 
     let startgg_url = t["start.gg-url"].as_str().unwrap_or("");
-    let startgg_details_url = startgg_url
-        .split_once("/event/")
-        .map(|(base, _)| format!("{base}/details"));
+    let startgg_details_url = if is_parrygg_url(startgg_url) {
+        // parry.gg/<tournament>/<event> -> parry.gg/<tournament>
+        startgg_url
+            .rsplit_once('/')
+            .map(|(base, _)| base.to_string())
+    } else {
+        startgg_url
+            .split_once("/event/")
+            .map(|(base, _)| format!("{base}/details"))
+    };
 
     json!({
         "name": t["name"],
