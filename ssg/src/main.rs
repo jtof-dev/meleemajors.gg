@@ -663,7 +663,8 @@ fn download_tournament_image(
     println!("[ffmpeg] downloading {url}");
     let mut child = FfmpegCommand::new()
         .input(url)
-        .args(["-vf", "scale=-1:340"])
+        // -loop 0: ffmpeg's webp muxer defaults to playing animations once
+        .args(["-vf", "scale=-1:340", "-loop", "0"])
         .overwrite()
         .output(&image_path)
         .spawn()
