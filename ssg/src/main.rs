@@ -317,11 +317,11 @@ async fn scrape_data(
         .parse()
         .expect("Invalid timezone");
 
-    let start_date = unix_timestamp_to_readable_date(&tournament_info["startAt"], timezone);
-
-    let end_date = unix_timestamp_to_readable_date(&tournament_info["endAt"], timezone);
-
-    let date = format!("{start_date} - {end_date}"); // ---> result
+    let date = readable_date_range(
+        &tournament_info["startAt"],
+        &tournament_info["endAt"],
+        timezone,
+    ); // ---> result
 
     // let city = tournament_info["city"].as_str().unwrap();
     let city = tournament_info["city"].as_str().unwrap_or("Unknown");
@@ -453,8 +453,7 @@ fn manual_tournament_data(
     log_warn("parry.gg", "no api client yet, using manual data");
 
     let timezone: Tz = timezone_str.parse().expect("Invalid timezone");
-    let start_date = unix_timestamp_to_readable_date(&json!(start), timezone);
-    let end_date = unix_timestamp_to_readable_date(&json!(end), timezone);
+    let date = readable_date_range(&json!(start), &json!(end), timezone);
 
     let entrants = match &tournament["entrants"] {
         Value::Number(n) => n.to_string(),
@@ -481,7 +480,7 @@ fn manual_tournament_data(
         "image-url": format!("/assets/cards/{slug}.webp"),
         "image-url-thumbnail": thumbnail_url,
         "name": name,
-        "date": format!("{start_date} - {end_date}"),
+        "date": date,
         "start-unix-timestamp": start,
         "end-unix-timestamp": end,
         "timezone": timezone_str,
@@ -635,6 +634,17 @@ fn unix_timestamp_to_readable_date(date: &Value, timezone: Tz) -> String {
         .with_timezone(&timezone)
         .format("%B %d")
         .to_string()
+}
+
+// Single-day tournaments collapse to one date ("December 20") instead of a redundant range.
+fn readable_date_range(start: &Value, end: &Value, timezone: Tz) -> String {
+    let start_date = unix_timestamp_to_readable_date(start, timezone);
+    let end_date = unix_timestamp_to_readable_date(end, timezone);
+    if start_date == end_date {
+        start_date
+    } else {
+        format!("{start_date} - {end_date}")
+    }
 }
 
 fn unix_timestamp_to_log_date(timestamp: i64) -> String {

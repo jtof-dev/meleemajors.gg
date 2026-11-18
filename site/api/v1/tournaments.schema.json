@@ -75,8 +75,8 @@
         },
         "dateString": {
           "type": "string",
-          "description": "Pre-formatted human-readable date range intended for display (e.g. \"April 10 - April 12\"). Format is not machine-parseable; use startTimestamp for programmatic date handling.",
-          "examples": ["April 10 - April 12", "May 02 - May 03"]
+          "description": "Pre-formatted human-readable date range intended for display (e.g. \"April 10 - April 12\", or just \"April 10\" for a single-day event). Format is not machine-parseable; use startTimestamp for programmatic date handling.",
+          "examples": ["April 10 - April 12", "May 02 - May 03", "December 20"]
         },
         "timezone": {
           "type": "string",
