@@ -1,3 +1,4 @@
+/.../ssg/src $ cat tournaments.json
 [
   {
     "bracketUrl": "https://www.start.gg/tournament/port-priority-dx/event/melee-singles"
@@ -28,5 +29,21 @@
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/genesis-x4/event/melee-singles"
+  },
+  {
+    "bracketUrl": "https://www.start.gg/tournament/somnio-noctem-2/event/melee-singles-somnio-noctem-2",
+    "player0": "ludking",
+    "player1": "Zin",
+    "player2": "Skullbro",
+    "player3": "Nekokaze",
+    "player4": "Frogchip",
+    "player5": "Psylo",
+    "player6": "Styn",
+    "player7": "Madness"
+  },
+  {
+    "bracketUrl": "https://www.start.gg/tournament/zenkoku-taikai-5-ultimate-chapter/event/zenkoku-taikai-5-melee",
+    "player0": "Chape",
+    "player1": "Rocket"
   }
 ]
