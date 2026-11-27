@@ -42,7 +42,14 @@
   },
   {
     "bracketUrl": "https://www.start.gg/tournament/zenkoku-taikai-5-ultimate-chapter/event/zenkoku-taikai-5-melee",
+				"city-and-state": "Providencia, RM",
     "player0": "Chape",
-    "player1": "Rocket"
+    "player1": "Rocket",
+    "player2": "Dark",
+    "player3": "Roche",
+    "player4": "Vixito",
+    "player5": "Crono",
+    "player6": "Idle",
+    "player7": "OldNova"
   }
 ]
